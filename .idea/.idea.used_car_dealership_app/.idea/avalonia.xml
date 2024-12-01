@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="used_car_dealership_app/App.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Assets/Icons.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/CalendarView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/ClientsView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/DocumentsView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/DocumentsViewModel.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/HomePageView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/LocationsView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/MainWindow.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/UsersView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/VehiclesView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
