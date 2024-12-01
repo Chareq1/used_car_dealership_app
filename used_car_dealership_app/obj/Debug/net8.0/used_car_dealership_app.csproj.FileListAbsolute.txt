@@ -66,3 +66,12 @@
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/obj/Debug/net8.0/used_car_dealership_app.csproj.CopyComplete
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/obj/Debug/net8.0/used_car_dealership_app.genruntimeconfig.cache
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/obj/Debug/net8.0/ref/used_car_dealership_app.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/DesktopNotifications.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/DesktopNotifications.Avalonia.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/DesktopNotifications.FreeDesktop.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/DesktopNotifications.Windows.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/FluentAvalonia.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/Microsoft.Toolkit.Uwp.Notifications.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/Notification.Avalonia.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/Tmds.DBus.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/obj/Debug/net8.0/used_car_dealership_app.sourcelink.json

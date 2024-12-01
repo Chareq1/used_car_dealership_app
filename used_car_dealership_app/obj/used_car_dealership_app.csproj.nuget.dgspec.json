@@ -61,6 +61,18 @@
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.2.1, )"
+            },
+            "DesktopNotifications.Avalonia": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "FluentAvaloniaUI": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Notification.Avalonia": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [
@@ -79,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

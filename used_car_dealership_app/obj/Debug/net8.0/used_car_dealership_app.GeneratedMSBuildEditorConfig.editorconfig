@@ -22,5 +22,26 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Assets/Icons.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/CalendarView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/ClientsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/DocumentsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/LocationsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/UsersView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/VehiclesView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

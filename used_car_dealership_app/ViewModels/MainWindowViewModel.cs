@@ -1,8 +1,62 @@
-﻿namespace used_car_dealership_app.ViewModels;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+namespace used_car_dealership_app.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    [ObservableProperty]
+    private bool _isPaneOpen = true;
+    
+    [ObservableProperty]
+    private ViewModelBase _currentPage = new VehiclesViewModel();
+
+    [ObservableProperty] 
+    private ListItemTemplate? _selectedListItem;
+
+    partial void OnSelectedListItemChanged(ListItemTemplate? value)
+    {
+        if (value is null) return;
+
+        var instance = Activator.CreateInstance(value.ModelType);
+        if (instance is null) return;
+        CurrentPage = (ViewModelBase)instance;
+    }
+
+    public ObservableCollection<ListItemTemplate> Items { get; } = new()
+    {
+        new ListItemTemplate(typeof(VehiclesViewModel), "Pojazdy", "VehicleCarRegular"),
+        new ListItemTemplate(typeof(LocationsViewModel), "Lokalizacje", "LocationRegular"),
+        new ListItemTemplate(typeof(DocumentsViewModel), "Klienci", "PersonBoardRegular"),
+        new ListItemTemplate(typeof(DocumentsViewModel), "Dokumenty", "DocumentRegular"),
+        new ListItemTemplate(typeof(CalendarViewModel), "Kalendarz", "CalendarRegular"),
+        new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular"),
+    };
+
+    [RelayCommand]
+    private void TogglePane()
+    {
+        IsPaneOpen = !IsPaneOpen;
+    }
+}
+
+public class ListItemTemplate {
+    public ListItemTemplate(Type type, String name, string iconKey)
+    {
+        ModelType = type;
+        Label = name;
+        
+        Application.Current!.TryFindResource(iconKey, out var res);
+        Icon = (StreamGeometry)res;
+    }
+    
+    public string Label { get; }
+    public Type ModelType { get; }
+    public StreamGeometry Icon { get; }
 }
