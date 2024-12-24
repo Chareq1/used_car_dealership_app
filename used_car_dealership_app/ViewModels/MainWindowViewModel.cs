@@ -6,11 +6,14 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    private Database.Database database = new Database.Database();
+
     [ObservableProperty]
     private bool _isPaneOpen = true;
     
@@ -33,7 +36,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         new ListItemTemplate(typeof(VehiclesViewModel), "Pojazdy", "VehicleCarRegular"),
         new ListItemTemplate(typeof(LocationsViewModel), "Lokalizacje", "LocationRegular"),
-        new ListItemTemplate(typeof(DocumentsViewModel), "Klienci", "PersonBoardRegular"),
+        new ListItemTemplate(typeof(ClientsViewModel), "Klienci", "PersonBoardRegular"),
         new ListItemTemplate(typeof(DocumentsViewModel), "Dokumenty", "DocumentRegular"),
         new ListItemTemplate(typeof(CalendarViewModel), "Kalendarz", "CalendarRegular"),
         new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular"),
