@@ -33,15 +33,6 @@ public class ClientsViewModel : ViewModelBase
         // Fetch customers from the repository asynchronously
         var dataTable = await Task.Run(() => customerRepository.GetAllCustomers());
         
-        dataTable.Rows.Add(Guid.NewGuid(), "John Doe I", "john.doe@example.com", "1234567890");
-        dataTable.Rows.Add(Guid.NewGuid(), "Jane Smith I", "jane.smith@example.com", "0987654321");
-        dataTable.Rows.Add(Guid.NewGuid(), "Alice Johnson I", "alice.johnson@example.com", "5678901234");
-        dataTable.Rows.Add(Guid.NewGuid(), "Bob Brown I", "bob.brown@example.com", "2345678901");
-        dataTable.Rows.Add(Guid.NewGuid(), "John Doe II", "john.doe@example.com", "1234567890");
-        dataTable.Rows.Add(Guid.NewGuid(), "Jane Smith II", "jane.smith@example.com", "0987654321");
-        dataTable.Rows.Add(Guid.NewGuid(), "Alice Johnson II", "alice.johnson@example.com", "5678901234");
-        dataTable.Rows.Add(Guid.NewGuid(), "Bob Brown II", "bob.brown@example.com", "2345678901");
-
         // Convert DataTable to List<Customer>
         var customers = dataTable.AsEnumerable().Select(row => new Customer
         {
@@ -51,8 +42,6 @@ public class ClientsViewModel : ViewModelBase
             Phone = row["phone"].ToString()
         }).ToList();
         
-        
-
         // Create an ObservableCollection from the list
         Customers = new ObservableCollection<Customer>(customers);
     }

@@ -19,4 +19,9 @@ public class CustomerRepository
     {
         return database.GetAll<Customer>("customers");
     }
+    
+    public DataRow GetCustomerById(Guid id)
+    {
+        return database.GetById<Customer>("customers", "customerId", id);
+    }
 }

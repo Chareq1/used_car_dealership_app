@@ -12,8 +12,6 @@ namespace used_car_dealership_app.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private Database.Database database = new Database.Database();
-
     [ObservableProperty]
     private bool _isPaneOpen = true;
     

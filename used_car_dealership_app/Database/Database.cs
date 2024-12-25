@@ -72,4 +72,38 @@ public class Database
         
         return table;
     }
+    
+    //Pobranie rekordu z bazy danych o wskazanym UUID
+    public DataRow GetById<T>(string tableName, string idColumnName, Guid id)
+    {
+        Connect();
+        try
+        {
+            string query = $"SELECT * FROM {tableName} WHERE {idColumnName} = @Id;";
+            command = new NpgsqlCommand(query, connection);
+            
+            command.Parameters.AddWithValue("@Id", id);
+
+            var adapter = new NpgsqlDataAdapter(command);
+            var table = new DataTable();
+
+            adapter.Fill(table);
+
+            if (table.Rows.Count == 0)
+            {
+                throw new Exception("No record found with the given ID.");
+            }
+            
+            return table.Rows[0];
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ERROR] Failed to retrieve record by ID: {ex.Message}");
+            throw;
+        }
+        finally
+        {
+            Disconnect();
+        }
+    }
 }
