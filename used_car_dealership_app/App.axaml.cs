@@ -36,7 +36,7 @@ public partial class App : Application
                     await Task.Delay(1500, splashScreenVM.CancellationToken);
                     splashScreenVM.StartupMessage = "Konfigurowanie...";
                     await Task.Delay(2000, splashScreenVM.CancellationToken);
-                    splashScreenVM.StartupMessage = "Finalizacja...";
+                    splashScreenVM.StartupMessage = "Finalizacja..";
                     await Task.Delay(2500, splashScreenVM.CancellationToken);
                 }
                 catch (TaskCanceledException) {
