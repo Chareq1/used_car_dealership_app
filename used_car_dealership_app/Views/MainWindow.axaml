@@ -15,66 +15,78 @@
     </Design.DataContext>
 
     <SplitView IsPaneOpen="{Binding IsPaneOpen}" 
-               OpenPaneLength="300" 
-               CompactPaneLength="52"
+               OpenPaneLength="250" 
+               CompactPaneLength="62"
                DisplayMode="CompactInline"
-               Background="black"
-               PaneBackground="#1e1e1e">
+               PaneBackground="#031716">
         <SplitView.Pane>
             <StackPanel Spacing="10"
                         Margin="5">
-                <!-- Toggle Button -->
+                
                 <Button Command="{Binding TogglePaneCommand}" 
                         Background="Transparent" 
                         Foreground="White" 
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        Padding="10"
+                        Margin="7,0">
                     <PathIcon Data="{StaticResource LineHorizontal3Regular}" />
                 </Button>
-
-                <!-- ListBox with Rounded Corners -->
-                    <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
-                                <StackPanel Spacing="15" Orientation="Horizontal">
-                                    <PathIcon Data="{Binding Icon}" Foreground="White" />
-                                    <TextBlock Text="{Binding Label}" Foreground="White" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                <!-- Spacer to push buttons to the bottom -->
+                
+                <ListBox Padding="5,0" Background="Transparent" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
+                            <StackPanel Spacing="15" Orientation="Horizontal" Background="Transparent">
+                                <PathIcon Data="{Binding Icon}" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Label}" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                        
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Margin" Value="0,5, 0,0"></Setter>
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#6BA3BE"/>	
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+                
                 <StackPanel />
-
-                <!-- Profile Button -->
+                
                 <Button
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom" 
-                        Background="#3c3c3c" 
-                        Foreground="White"
-                        CornerRadius="10"
-                        Padding="10">
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom" 
+                    Background="#3c3c3c" 
+                    Foreground="White"
+                    CornerRadius="10"
+                    Padding="10"
+                    Margin="5,0">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource PersonRegular}" />
                         <TextBlock Text="Profile" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-
-                <!-- Logout Button -->
+                
                 <Button
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom" 
-                        Background="#FF3B3B" 
-                        Foreground="White"
-                        CornerRadius="10"
-                        Padding="10">
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom" 
+                    Background="#FF3B3B" 
+                    Foreground="White"
+                    CornerRadius="10"
+                    Padding="10"
+                    Margin="5,0">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource ShareCloseTrayRegular}" />
                         <TextBlock Text="Logout" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                
             </StackPanel>
         </SplitView.Pane>
+        
         <SplitView.Content>
             <Border CornerRadius="0 0 0 0"
                     Background="#2d2d2d">
