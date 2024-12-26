@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UUm6VXa+RYU=",
+  "dgSpecHash": "2HgXRFYG6uw=",
   "success": true,
   "projectFilePath": "/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/used_car_dealership_app.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "/home/chareq/.nuget/packages/harfbuzzsharp.nativeassets.macos/7.3.0.2/harfbuzzsharp.nativeassets.macos.7.3.0.2.nupkg.sha512",
     "/home/chareq/.nuget/packages/harfbuzzsharp.nativeassets.webassembly/7.3.0.2/harfbuzzsharp.nativeassets.webassembly.7.3.0.2.nupkg.sha512",
     "/home/chareq/.nuget/packages/harfbuzzsharp.nativeassets.win32/7.3.0.2/harfbuzzsharp.nativeassets.win32.7.3.0.2.nupkg.sha512",
+    "/home/chareq/.nuget/packages/loadingindicators.avalonia/11.0.11.1/loadingindicators.avalonia.11.0.11.1.nupkg.sha512",
     "/home/chareq/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
     "/home/chareq/.nuget/packages/microsoft.entityframeworkcore/9.0.0/microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
     "/home/chareq/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.0/microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512",

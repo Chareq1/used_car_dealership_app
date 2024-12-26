@@ -92,3 +92,4 @@
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/Avalonia.Controls.TreeDataGrid.dll
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/System.Reactive.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/LoadingIndicators.Avalonia.dll

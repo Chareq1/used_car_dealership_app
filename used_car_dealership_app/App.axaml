@@ -1,5 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:li="using:LoadingIndicators.Avalonia"
              x:Class="used_car_dealership_app.App"
              xmlns:local="using:used_car_dealership_app"
              RequestedThemeVariant="Dark">
@@ -16,6 +17,12 @@
     </Application.Styles>
              
     <Application.Resources>
-        <FontFamily x:Key="Roboto">avares://used_car_dealership_app/Assets/Fonts#Roboto</FontFamily>
+        <ResourceDictionary>
+            <FontFamily x:Key="Roboto">avares://used_car_dealership_app/Assets/Fonts/Roboto#Roboto</FontFamily>
+            <FontFamily x:Key="Ubuntu">avares://used_car_dealership_app/Assets/Fonts/Ubuntu#Ubuntu</FontFamily>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

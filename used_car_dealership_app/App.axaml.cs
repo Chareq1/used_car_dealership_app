@@ -21,7 +21,6 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-           // Create the splash screen
                 var splashScreenVM = new SplashScreenViewModel();
                 var splashScreen = new SplashScreenView {
                     DataContext = splashScreenVM
@@ -31,14 +30,14 @@ public partial class App : Application
                 splashScreen.Show();
 
                 try {
-                    // Initialize the device. We can interact with splashScreenVM.CancellationToken
-                    // to determine if the user wants to abort the connection process.
-                    splashScreenVM.StartupMessage = "Searching for devices...";
-                    await Task.Delay(1000, splashScreenVM.CancellationToken);
-                    splashScreenVM.StartupMessage = "Connecting to device #1...";
+                    splashScreenVM.StartupMessage = "Uruchamianie potrzebnych usług...";
+                    await Task.Delay(3000, splashScreenVM.CancellationToken);
+                    splashScreenVM.StartupMessage = "Ładowanie zasobów...";
+                    await Task.Delay(1500, splashScreenVM.CancellationToken);
+                    splashScreenVM.StartupMessage = "Konfigurowanie...";
                     await Task.Delay(2000, splashScreenVM.CancellationToken);
-                    splashScreenVM.StartupMessage = "Configuring device...";
-                    await Task.Delay(2000, splashScreenVM.CancellationToken);
+                    splashScreenVM.StartupMessage = "Finalizacja...";
+                    await Task.Delay(2500, splashScreenVM.CancellationToken);
                 }
                 catch (TaskCanceledException) {
                     splashScreen.Close();
@@ -51,7 +50,6 @@ public partial class App : Application
                 desktop.MainWindow = mainWin;
                 mainWin.Show();
                 
-                // Get rid of the splash screen
                 splashScreen.Close();
         }
 

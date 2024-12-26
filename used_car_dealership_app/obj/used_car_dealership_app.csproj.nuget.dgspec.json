@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "LoadingIndicators.Avalonia": {
+              "target": "Package",
+              "version": "[11.0.11.1, )"
+            },
             "Notification.Avalonia": {
               "target": "Package",
               "version": "[2.1.0, )"

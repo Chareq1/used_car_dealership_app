@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("used_car_dealership_app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac600c0299d3a762a9f99e3b33ef009f1e332bd9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65c62d7026a756459c8e84e91ecabf020bf88356")]
 [assembly: System.Reflection.AssemblyProductAttribute("used_car_dealership_app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("used_car_dealership_app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

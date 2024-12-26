@@ -535,6 +535,18 @@
           }
         }
       },
+      "LoadingIndicators.Avalonia/11.0.11.1": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.0.11"
+        },
+        "compile": {
+          "lib/net8.0/LoadingIndicators.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/LoadingIndicators.Avalonia.dll": {}
+        }
+      },
       "MicroCom.Runtime/0.11.0": {
         "type": "package",
         "compile": {
@@ -1794,6 +1806,23 @@
         "runtimes/win-x86/native/libHarfBuzzSharp.dll"
       ]
     },
+    "LoadingIndicators.Avalonia/11.0.11.1": {
+      "sha512": "A4hPrrOMRtgcGRqnc1sscaWudF99C+YKhRBaYnf1wVxfOVOwTVEM4I7qdUU4gyAL2oiBzXw/zuC4dD1XrdR9PA==",
+      "type": "package",
+      "path": "loadingindicators.avalonia/11.0.11.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "icon.png",
+        "lib/net6.0/LoadingIndicators.Avalonia.dll",
+        "lib/net7.0/LoadingIndicators.Avalonia.dll",
+        "lib/net8.0/LoadingIndicators.Avalonia.dll",
+        "loadingindicators.avalonia.11.0.11.1.nupkg.sha512",
+        "loadingindicators.avalonia.nuspec"
+      ]
+    },
     "MicroCom.Runtime/0.11.0": {
       "sha512": "MEnrZ3UIiH40hjzMDsxrTyi8dtqB5ziv3iBeeU4bXsL/7NLSal9F1lZKpK+tfBRnUoDSdtcW3KufE4yhATOMCA==",
       "type": "package",
@@ -2768,6 +2797,7 @@
       "CommunityToolkit.Mvvm >= 8.2.1",
       "DesktopNotifications.Avalonia >= 1.3.1",
       "FluentAvaloniaUI >= 2.1.0",
+      "LoadingIndicators.Avalonia >= 11.0.11.1",
       "Notification.Avalonia >= 2.1.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.2"
     ]
@@ -2844,6 +2874,10 @@
           "FluentAvaloniaUI": {
             "target": "Package",
             "version": "[2.1.0, )"
+          },
+          "LoadingIndicators.Avalonia": {
+            "target": "Package",
+            "version": "[11.0.11.1, )"
           },
           "Notification.Avalonia": {
             "target": "Package",
