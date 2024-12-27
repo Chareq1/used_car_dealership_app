@@ -33,9 +33,9 @@ public partial class ClientsViewModel : ViewModelBase
     
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ KLIENCI
     [ObservableProperty]
-    private bool _areThereCustomers = true;
+    private bool _areThereCustomers = false;
     
-    
+    //WŁAŚCIWOŚCI DO WYSZUKIWANA KLIENTÓW
     [ObservableProperty]
     private string _searchText;
 
@@ -70,6 +70,7 @@ public partial class ClientsViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
     }
 
+    
     //POLE DLA LISTY KLIENTÓW Z BAZY DANYCH
     public ObservableCollection<Customer> Customers
     {
@@ -77,16 +78,17 @@ public partial class ClientsViewModel : ViewModelBase
         set => SetProperty(ref _customers, value);
     }
 
+    
     //METODY
     //Metoda do wczytywania klientów z bazy danych
     private async Task LoadCustomers()
     {
         var dataTable = await Task.Run(() => _customerRepository.GetAllCustomers());
 
-        if (dataTable.Rows.Count == 0) { AreThereCustomers = true; }
+        if (dataTable.Rows.Count == 0) { AreThereCustomers = false; }
         else
         {
-            AreThereCustomers = false;
+            AreThereCustomers = true;
             
             var customers = dataTable.AsEnumerable().Select(row => new Customer
             {
@@ -104,6 +106,7 @@ public partial class ClientsViewModel : ViewModelBase
         
     }
     
+    //Metoda do wyszukiwania klientów w bazie danych
     [RelayCommand]
     private async Task SearchCustomersAsync()
     {
@@ -141,11 +144,11 @@ public partial class ClientsViewModel : ViewModelBase
 
         if (dataTable.Rows.Count == 0)
         {
-            AreThereCustomers = true;
+            AreThereCustomers = false;
         }
         else
         {
-            AreThereCustomers = false;
+            AreThereCustomers = true;
 
             var customers = dataTable.AsEnumerable().Select(row => new Customer
             {
@@ -175,8 +178,8 @@ public partial class ClientsViewModel : ViewModelBase
     [RelayCommand]
     private void GoToAddScreen()
     {
-        var detailsViewModel = new ClientAddViewModel(_customerRepository, _mainWindowViewModel);
-        _mainWindowViewModel.CurrentPage = detailsViewModel;
+        var addViewModel = new ClientAddViewModel(_customerRepository, _mainWindowViewModel);
+        _mainWindowViewModel.CurrentPage = addViewModel;
         _logger.LogInformation("Przejście do widoków dodawania klientów! ");
     }
     

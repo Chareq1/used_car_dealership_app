@@ -19,7 +19,7 @@ public partial class ClientAddViewModel : ViewModelBase
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-    private ILogger _logger = _loggerFactory.CreateLogger<ClientsViewModel>();
+    private ILogger _logger = _loggerFactory.CreateLogger<ClientAddViewModel>();
     
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly CustomerRepository _customerRepository;
@@ -44,6 +44,7 @@ public partial class ClientAddViewModel : ViewModelBase
         
         _mainWindowViewModel = mainWindowViewModel;
     }
+    
     
     //METODY
     //Metoda do sprawdzania poprawności numeru PESEL

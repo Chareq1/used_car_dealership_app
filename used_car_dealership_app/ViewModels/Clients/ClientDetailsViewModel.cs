@@ -17,7 +17,7 @@ public partial class ClientDetailsViewModel : ViewModelBase
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-    private ILogger _logger = _loggerFactory.CreateLogger<ClientsViewModel>();
+    private ILogger _logger = _loggerFactory.CreateLogger<ClientDetailsViewModel>();
     
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MainWindowViewModel _mainWindowViewModel;
@@ -49,6 +49,7 @@ public partial class ClientDetailsViewModel : ViewModelBase
         
         LoadSelectedCustomer(customerId);
     }
+    
     
     //METODY
     //Metoda do wczytywania wybranego klienta

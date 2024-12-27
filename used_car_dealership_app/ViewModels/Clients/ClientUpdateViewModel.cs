@@ -19,7 +19,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-    private ILogger _logger = _loggerFactory.CreateLogger<ClientsViewModel>();
+    private ILogger _logger = _loggerFactory.CreateLogger<ClientUpdateViewModel>();
     
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly CustomerRepository _customerRepository;
@@ -108,7 +108,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
             await ValidateInputAsync(Customer.Phone, "^[0-9]+$", "Niepoprawny format numeru telefonu!");
             await ValidateInputAsync(Customer.ZipCode, "^[0-9-]{2}[-][0-9]{3}$", "Niepoprawny format kodu pocztowego!");
             await ValidateInputAsync(Customer.City, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż-]+$", "Niepoprawny format miasta!");
-            await ValidateInputAsync(Customer.Street, "^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż\\-\\/]+$", "Niepoprawny format ulicy!");
+            await ValidateInputAsync(Customer.Street, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż\-\/]+$", "Niepoprawny format ulicy!");
             
             if (!IsValidPESEL(Customer.PESEL))
             {
@@ -139,8 +139,8 @@ public partial class ClientUpdateViewModel : ViewModelBase
     [RelayCommand]
     private void GoBack()
     {
-        _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
-        _logger.LogInformation("Przejście do widoku klientów!");
+        _mainWindowViewModel.CurrentPage = new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
+        _logger.LogInformation("Przejście do widoku wybranego klienta!");
     }
     
     //Komenda do aktualizacji danych klienta w bazie danych
@@ -150,8 +150,8 @@ public partial class ClientUpdateViewModel : ViewModelBase
         if (await ValidateFieldsAsync())
         {
             _customerRepository.UpdateCustomer(Customer);
-            _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
-            _logger.LogInformation("Dodano klienta do bazy danych!");
+            _mainWindowViewModel.CurrentPage = new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
+            _logger.LogInformation("Zaktualizowano klienta w bazie danych!");
         }
     }
 }

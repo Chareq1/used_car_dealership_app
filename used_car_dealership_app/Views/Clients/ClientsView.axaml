@@ -63,11 +63,11 @@
             </Button.Styles>
         </Button>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding AreThereCustomers}">
             <ItemsControl ItemsSource="{Binding Customers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border CornerRadius="5" Padding="10" Margin="5" Background="#274D60">
+                        <Border CornerRadius="5" Padding="10" Margin="0,5,5,5" Background="#274D60">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -147,7 +147,7 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <TextBlock Text="Brak klientów!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding AreThereCustomers}" Grid.Row="1" />
+        <TextBlock Text="Brak klientów!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereCustomers}" Grid.Row="2" />
         
         <Button Grid.Row="3"
                 Grid.Column="2"

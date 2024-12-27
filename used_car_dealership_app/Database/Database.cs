@@ -12,7 +12,7 @@ using Tmds.DBus.Protocol;
 
 namespace used_car_dealership_app.Database;
 
-public class Database
+public class Database : DatabaseService
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());

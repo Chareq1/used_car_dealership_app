@@ -5,7 +5,8 @@
              xmlns:clients="clr-namespace:used_car_dealership_app.ViewModels.Clients"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="used_car_dealership_app.Views.Clients.ClientUpdateView"
-             x:DataType="clients:ClientUpdateViewModel">
+             x:DataType="clients:ClientUpdateViewModel"
+             FontFamily="{StaticResource Ubuntu}">
     <Design.DataContext>
         <clients:ClientUpdateViewModel />
     </Design.DataContext>
