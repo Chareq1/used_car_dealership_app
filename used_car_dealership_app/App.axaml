@@ -1,5 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              xmlns:li="using:LoadingIndicators.Avalonia"
              x:Class="used_car_dealership_app.App"
              xmlns:local="using:used_car_dealership_app"
@@ -12,8 +13,15 @@
   
     <Application.Styles>
         <FluentTheme />
+        <dialogHostAvalonia:DialogHostStyles />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://used_car_dealership_app/Assets/Icons.axaml"></StyleInclude>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#6BA3BE"/>
+        </Style>
+        <Style Selector="ComboBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#4E9CAF" />
+        </Style>
     </Application.Styles>
              
     <Application.Resources>

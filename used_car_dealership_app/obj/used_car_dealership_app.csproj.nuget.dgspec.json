@@ -40,31 +40,39 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
             },
-            "Avalonia.Controls.TreeDataGrid": {
+            "Avalonia.Controls.DataGrid": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
             },
             "Avalonia.Fonts.Inter": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
+            },
+            "Avalonia.Native": {
+              "target": "Package",
+              "version": "[11.2.3, )"
             },
             "Avalonia.Themes.Fluent": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.3, )"
+            },
+            "Avalonia.X11": {
+              "target": "Package",
+              "version": "[11.2.3, )"
             },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
-              "version": "[8.2.1, )"
+              "version": "[8.4.0, )"
             },
             "DesktopNotifications.Avalonia": {
               "target": "Package",
@@ -72,11 +80,27 @@
             },
             "FluentAvaloniaUI": {
               "target": "Package",
-              "version": "[2.1.0, )"
+              "version": "[2.2.0, )"
             },
             "LoadingIndicators.Avalonia": {
               "target": "Package",
               "version": "[11.0.11.1, )"
+            },
+            "MessageBox.Avalonia": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "MessageBox.Avalonia.Markdown": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "Notification.Avalonia": {
               "target": "Package",
@@ -85,6 +109,18 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.1-dev-02308, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [

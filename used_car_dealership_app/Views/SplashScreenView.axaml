@@ -45,9 +45,10 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                Grid.ColumnSpan="2"
-               FontSize="42"
+               FontSize="40"
                HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Bottom">
+               VerticalContentAlignment="Bottom"
+               FontWeight="Bold">
             Used Car Dealership App
         </Label>
             

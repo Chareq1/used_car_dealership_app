@@ -7,6 +7,8 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using used_car_dealership_app.Services;
+using used_car_dealership_app.ViewModels.Locations;
+using used_car_dealership_app.ViewModels.Users;
 
 namespace used_car_dealership_app.ViewModels;
 
@@ -25,7 +27,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (value is null) return;
 
-        var instance = Activator.CreateInstance(value.ModelType);
+        var instance = Activator.CreateInstance(value.ModelType, this);
         if (instance is null) return;
         CurrentPage = (ViewModelBase)instance;
     }
@@ -34,7 +36,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         new ListItemTemplate(typeof(VehiclesViewModel), "Pojazdy", "VehicleCarRegular"),
         new ListItemTemplate(typeof(LocationsViewModel), "Lokalizacje", "LocationRegular"),
-        new ListItemTemplate(typeof(ClientsViewModel), "Klienci", "PersonBoardRegular"),
+        new ListItemTemplate(typeof(Clients.ClientsViewModel), "Klienci", "PersonBoardRegular"),
         new ListItemTemplate(typeof(DocumentsViewModel), "Dokumenty", "DocumentRegular"),
         new ListItemTemplate(typeof(CalendarViewModel), "Kalendarz", "CalendarRegular"),
         new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular"),
