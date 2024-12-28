@@ -137,9 +137,19 @@ public class Database : DatabaseService
                 }
 
                 columns.Append($"\"{kvp.Key}\"");
-                values.Append($"@{kvp.Key}");
+
+                if (kvp.Key == "type")
+                {
+                    values.Append($"@{kvp.Key}::usertype");
+                }
+                else
+                {
+                    values.Append($"@{kvp.Key}");
+                }
+
                 parameters.Add(new NpgsqlParameter($"@{kvp.Key}", kvp.Value ?? DBNull.Value));
             }
+
 
             var commandText = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
             using var command = new NpgsqlCommand(commandText, connection);
@@ -176,7 +186,15 @@ public class Database : DatabaseService
                     setClause.Append(", ");
                 }
 
-                setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}");
+                if (kvp.Key == "type")
+                {
+                    setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}::usertype");
+                }
+                else
+                {
+                    setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}");
+                }
+
                 parameters.Add(new NpgsqlParameter($"@{kvp.Key}", kvp.Value ?? DBNull.Value));
             }
 
@@ -186,7 +204,7 @@ public class Database : DatabaseService
             command.Parameters.AddWithValue("@id", id);
 
             command.ExecuteNonQuery();
-            
+
             _logger.LogInformation("Zaktualizowano rekord w tabeli {0} o ID {1}!", tableName, id.ToString());
         }
         catch (Exception ex)

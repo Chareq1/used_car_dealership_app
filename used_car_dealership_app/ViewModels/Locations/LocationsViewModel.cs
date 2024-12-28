@@ -31,11 +31,11 @@ public partial class LocationsViewModel : ViewModelBase
     private ObservableCollection<Location> _locations;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
-    //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ KLIENCI
+    //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ LOKALIZACJE
     [ObservableProperty]
     private bool _areThereLocations = false;
     
-    //WŁAŚCIWOŚCI DO WYSZUKIWANA KLIENTÓW
+    //WŁAŚCIWOŚCI DO WYSZUKIWANA LOKALIZACJI
     [ObservableProperty]
     private string _searchText;
 

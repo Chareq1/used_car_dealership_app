@@ -17,119 +17,127 @@
     <Grid Margin="20,25">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        
+
         <TextBlock FontSize="24" Text="Informacje o kliencie" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0,0,0,25"/>
-        
-        <TextBlock Text="Imię:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.Name}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding Customer.CustomerId}" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
 
-        <TextBlock Text="Nazwisko:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.Surname}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <TextBlock Text="PESEL:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.PESEL}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <TextBlock Text="Nr dowodu osobistego:   " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.IdCardNumber}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <TextBlock Text="Email:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.Email}" Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Nr telefonu:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Customer.Phone}" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <TextBlock Text="Adres:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Address}" Grid.Row="7" Grid.Column="1" VerticalAlignment="Bottom" />
-        
-        <Button 
-            Command="{Binding GoBackCommand}" 
-            Grid.Row="8" 
-            Grid.Column="0" 
-            VerticalAlignment="Bottom"
-            HorizontalAlignment="Left"
-            CornerRadius="10"
-            Width="50" Height="50">
-            <PathIcon Data="{StaticResource ArrowReplyRegular}"></PathIcon>
-            
-            <Button.Styles>
-                <Style Selector="Button">
-                    <Setter Property="Background" Value="#6BA3BE" />
-                </Style>
-                <Style Selector="Button:pointerover /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#0C969C" />
-                </Style>
-                <Style Selector="Button:pressed /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#0A7075" />
-                </Style>
-            </Button.Styles>
-        </Button>
-        
-        <Button
-            Command="{Binding DeleteCustomerCommand}" 
-            CommandParameter="{Binding Customer}"
-            Grid.Row="8"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            CornerRadius="10"
-            Width="50" Height="50">
-            <PathIcon Data="{StaticResource DeleteRegular}"/>
+                <TextBlock Text="Imię:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.Name}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" />
 
-            <Button.Styles>
-                <Style Selector="Button">
-                    <Setter Property="Background" Value="#FF3B3B" />
-                </Style>
-                <Style Selector="Button:pointerover /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#E3242B" />
-                </Style>
-                <Style Selector="Button:pressed /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#A91B0D" />
-                </Style>
-            </Button.Styles>
-        </Button>
-        
-        <Button 
-            Command="{Binding UpdateSelectedCustomerCommand}" 
-            CommandParameter="{Binding Customer}"
-            Grid.Row="8" 
-            Grid.Column="4" 
-            VerticalAlignment="Bottom"
-            HorizontalAlignment="Right"
-            CornerRadius="10"
-            Width="50" Height="50"
-            Margin="10,0,0,0">
-            <PathIcon Data="{StaticResource EditSettingsRegular}"></PathIcon>
-            
-            <Button.Styles>
-                <Style Selector="Button">
-                    <Setter Property="Background" Value="#6BA3BE" />
-                </Style>
-                <Style Selector="Button:pointerover /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#0C969C" />
-                </Style>
-                <Style Selector="Button:pressed /template/ ContentPresenter">
-                    <Setter Property="Background" Value="#0A7075" />
-                </Style>
-            </Button.Styles>
-        </Button>
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding Customer.CustomerId}" Grid.Row="0" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+
+                <TextBlock Text="Nazwisko:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.Surname}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="PESEL:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.PESEL}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Nr dowodu osobistego:   " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.IdCardNumber}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Email:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.Email}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Nr telefonu:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Customer.Phone}" Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Adres:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Address}" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" />
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
+            <Button
+                Command="{Binding GoBackCommand}"
+                Grid.Column="0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                CornerRadius="10"
+                Width="50" Height="50">
+                <PathIcon Data="{StaticResource ArrowReplyRegular}"></PathIcon>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button
+                Command="{Binding DeleteCustomerCommand}"
+                CommandParameter="{Binding Customer}"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                CornerRadius="10"
+                Width="50" Height="50">
+                <PathIcon Data="{StaticResource DeleteRegular}"/>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#FF3B3B" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#E3242B" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#A91B0D" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button
+                Command="{Binding UpdateSelectedCustomerCommand}"
+                CommandParameter="{Binding Customer}"
+                Grid.Column="3"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="10"
+                Width="50" Height="50"
+                Margin="10,0,0,0">
+                <PathIcon Data="{StaticResource EditSettingsRegular}"></PathIcon>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>
