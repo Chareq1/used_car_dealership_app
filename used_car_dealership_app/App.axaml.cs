@@ -23,7 +23,7 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
                 var splashScreenVM = new SplashScreenViewModel();
-                var splashScreen = new SplashScreenView {
+                var splashScreen = new SplashScreenWindow {
                     DataContext = splashScreenVM
                 };
                 
@@ -45,9 +45,10 @@ public partial class App : Application
                     return;
                 }
                 
-                var mainWin = new MainWindow {
-                    DataContext = new MainWindowViewModel(),
+                var mainWin = new LoginWindow() {
+                    DataContext = new LoginViewModel(),
                 };
+                
                 desktop.MainWindow = mainWin;
                 mainWin.Show();
                 

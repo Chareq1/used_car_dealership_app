@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -73,7 +74,7 @@ public partial class UserAddViewModel : ViewModelBase
         {
             await ShowPopupAsync(errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
-            throw new Exception(errorMessage);
+            throw new ValidationException(errorMessage);
         }
     }
     
@@ -83,7 +84,7 @@ public partial class UserAddViewModel : ViewModelBase
         try
         {
             await ValidateInputAsync(User.Username, @"^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż0-9.\-+/@^&*()\s]+$", "Niepoprawny format nazwy!");
-            await ValidateInputAsync(User.Password, @"^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż0-9.\-+/@^&*()\s]+$", "Niepoprawny format hasła!");
+            await ValidateInputAsync(User.Password, @"^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż0-9.\-+/@^&*()\s#]+$", "Niepoprawny format hasła!");
             await ValidateInputAsync(User.Email, @"^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$", "Niepoprawny format adresu email!");
             await ValidateInputAsync(User.Name, "^[A-ZĄĆĘŁŃÓŚŹŻ]{1}[a-ząćęłńóśźż]+$", "Niepoprawny format imienia!");
             await ValidateInputAsync(User.Surname, "^[A-ZĄĆĘŁŃÓŚŹŻ]{1}[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż-]+$", "Niepoprawny format nazwiska!");
@@ -96,14 +97,17 @@ public partial class UserAddViewModel : ViewModelBase
             {
                 await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków!");
                 _logger.LogError("Hasło musi mieć co najmniej 8 znaków!");
-                throw new Exception("Hasło musi mieć co najmniej 8 znaków!");
+
+                User.Password = null;
+                
+                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków!");
             }
             
             if (!IsValidPESEL(User.PESEL))
             {
                 await ShowPopupAsync("Niepoprawny numer PESEL!");
                 _logger.LogError("Niepoprawny numer PESEL!");
-                throw new Exception("Niepoprawny numer PESEL!");
+                throw new ValidationException("Niepoprawny numer PESEL!");
             }
             
             return true;

@@ -8,7 +8,9 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/icon.ico"
         Title="Used Car Dealership"
-        FontFamily="{StaticResource Ubuntu}">
+        FontFamily="{StaticResource Ubuntu}"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -59,29 +61,53 @@
                 <Button
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom" 
-                    Background="#3c3c3c" 
                     Foreground="White"
                     CornerRadius="10"
                     Padding="10"
-                    Margin="5,0">
+                    Margin="5,0"
+                    Command="{Binding OpenProfileCommand}">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource PersonRegular}" />
-                        <TextBlock Text="Profile" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding LoggedUserFullName}" VerticalAlignment="Center" />
                     </StackPanel>
+                    
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="#6BA3BE" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#0C969C" />
+                        </Style>
+                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#0A7075" />
+                        </Style>
+                    </Button.Styles>
                 </Button>
                 
                 <Button
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom" 
-                    Background="#FF3B3B" 
                     Foreground="White"
                     CornerRadius="10"
+                    Command="{Binding LogoutCommand}"
                     Padding="10"
                     Margin="5,0">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource ShareCloseTrayRegular}" />
-                        <TextBlock Text="Logout" VerticalAlignment="Center" />
+                        <TextBlock Text="Wyloguj się" VerticalAlignment="Center" />
                     </StackPanel>
+                    
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="#FF3B3B" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#E3242B" />
+                        </Style>
+                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#A91B0D" />
+                        </Style>
+                    </Button.Styles>
                 </Button>
                 
             </StackPanel>

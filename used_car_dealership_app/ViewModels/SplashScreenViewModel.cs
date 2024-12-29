@@ -6,7 +6,7 @@ namespace used_car_dealership_app.ViewModels;
 public partial class SplashScreenViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private string _startupMessage = "Starting application...";
+    private string _startupMessage = "Uruhcamianie aplikacji...";
 
     public void Cancel()
     {

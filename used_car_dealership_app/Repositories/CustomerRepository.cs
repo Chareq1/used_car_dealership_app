@@ -11,26 +11,26 @@ namespace used_car_dealership_app.Repositories;
 
 public class CustomerRepository
 {
-    private readonly Database.Database database;
+    private readonly Database.DatabaseService _databaseService;
 
     public CustomerRepository()
     {
-        database = new Database.Database();
+        _databaseService = new Database.DatabaseService();
     }
     
     public DataTable GetAllCustomers()
     {
-        return database.GetAll<Customer>("customers");
+        return _databaseService.GetAll<Customer>("customers");
     }
     
     public DataRow GetCustomerById(Guid id)
     {
-        return database.GetById<Customer>("customers", "customerId", id);
+        return _databaseService.GetById<Customer>("customers", "customerId", id);
     }
     
     public void DeleteCustomer(Guid id)
     {
-        database.Delete<Customer>("customers", "customerId", id);
+        _databaseService.Delete<Customer>("customers", "customerId", id);
     }
     
     public void AddCustomer(Customer customer)
@@ -50,7 +50,7 @@ public class CustomerRepository
             { "houseNumber", customer.HouseNumber }
         };
 
-        database.Insert<Customer>("customers", data);
+        _databaseService.Insert<Customer>("customers", data);
     }
     
     public void UpdateCustomer(Customer customer)
@@ -69,11 +69,11 @@ public class CustomerRepository
             { "houseNumber", customer.HouseNumber }
         };
 
-        database.Update<Customer>("customers", data, "customerId", customer.CustomerId);
+        _databaseService.Update<Customer>("customers", data, "customerId", customer.CustomerId);
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return database.ExecuteQuery(query, parameters);
+        return _databaseService.ExecuteQuery(query, parameters);
     }
 }

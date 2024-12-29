@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -92,7 +93,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
         {
             await ShowPopupAsync(errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
-            throw new Exception(errorMessage);
+            throw new ValidationException(errorMessage);
         }
     }
     
@@ -114,7 +115,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
             {
                 await ShowPopupAsync("Niepoprawny numer PESEL!");
                 _logger.LogError("Niepoprawny numer PESEL!");
-                throw new Exception("Niepoprawny numer PESEL!");
+                throw new ValidationException("Niepoprawny numer PESEL!");
             }
             
             return true;

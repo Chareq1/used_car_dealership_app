@@ -11,26 +11,26 @@ namespace used_car_dealership_app.Repositories;
 
 public class LocationRepository
 {
-    private readonly Database.Database database;
+    private readonly Database.DatabaseService _databaseService;
 
     public LocationRepository()
     {
-        database = new Database.Database();
+        _databaseService = new Database.DatabaseService();
     }
     
     public DataTable GetAllLocations()
     {
-        return database.GetAll<Location>("locations");
+        return _databaseService.GetAll<Location>("locations");
     }
     
     public DataRow GetLocationById(Guid id)
     {
-        return database.GetById<Location>("locations", "locationId", id);
+        return _databaseService.GetById<Location>("locations", "locationId", id);
     }
     
     public void DeleteLocation(Guid id)
     {
-        database.Delete<Location>("locations", "locationId", id);
+        _databaseService.Delete<Location>("locations", "locationId", id);
     }
     
     public void AddLocation(Location location)
@@ -47,7 +47,7 @@ public class LocationRepository
             { "houseNumber", location.HouseNumber }
         };
 
-        database.Insert<Location>("locations", data);
+        _databaseService.Insert<Location>("locations", data);
     }
     
     public void UpdateLocation(Location location)
@@ -63,11 +63,11 @@ public class LocationRepository
             { "houseNumber", location.HouseNumber }
         };
 
-        database.Update<Location>("locations", data, "locationId", location.LocationId);
+        _databaseService.Update<Location>("locations", data, "locationId", location.LocationId);
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return database.ExecuteQuery(query, parameters);
+        return _databaseService.ExecuteQuery(query, parameters);
     }
 }

@@ -60,10 +60,16 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Locations/LocationUpdateView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/LoginWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/SplashScreenView.axaml]
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/ProfileView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/SplashScreenWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Users/UserAddView.axaml]

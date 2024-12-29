@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -76,7 +77,7 @@ public partial class LocationUpdateViewModel : ViewModelBase
         {
             await ShowPopupAsync(errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
-            throw new Exception(errorMessage);
+            throw new ValidationException(errorMessage);
         }
     }
     

@@ -1,0 +1,130 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:used_car_dealership_app.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="720" d:DesignHeight="400"
+        Width="720"
+        Height="400"
+        xmlns:li="using:LoadingIndicators.Avalonia"
+        x:Class="used_car_dealership_app.Views.LoginWindow"
+        x:DataType="vm:LoginViewModel"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        Topmost="True"
+        Title="Ekran logowania"
+        FontFamily="{StaticResource Ubuntu}"
+        CornerRadius="15"
+        Background="#031716"
+        CanResize="False">
+    
+        <Design.DataContext>
+                <vm:LoginViewModel />
+        </Design.DataContext>
+
+        <Grid>
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                        <Image Source="/Assets/loginPhoto.png" Height="400" />
+                </Grid>
+                
+                <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="0" Width="25"></StackPanel>
+                        
+                        <Button Grid.Row="0"
+                                Grid.Column="2"
+                                DockPanel.Dock="Top"
+                                Command="{Binding Cancel}"
+                                Padding="5"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="Transparent">
+                                <PathIcon Data="{StaticResource PowerRegular}" Width="20" Height="20"/>
+                        </Button>
+                        
+                        <Grid Grid.Row="1"
+                              Grid.Column="1"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                        
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"
+                                           FontWeight="Bold"
+                                           FontSize="24">
+                                        WITAJ PONOWNIE!
+                                </TextBlock>
+                        
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"
+                                           FontSize="14"
+                                           Margin="0,5,0,25">
+                                        Zaloguj się na swoje konto
+                                </TextBlock>
+                        
+                                <PathIcon Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource PersonRegular}" Margin="0,0,10,0"></PathIcon>
+                                <TextBox Text="{Binding Username, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Watermark="Nazwa użytkownika" Width="200" KeyDown="OnlyEmailKeyDown"/>
+                        
+                                <PathIcon Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource PasswordRegular}" Margin="0,10,10,0"></PathIcon>
+                                <TextBox Text="{Binding Password, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Watermark="Hasło" PasswordChar="*" Width="200" Margin="0,10,0,0" KeyDown="OnlyEmailKeyDown"/>
+
+                                <Button Content="Zaloguj się" Command="{Binding LoginCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" CornerRadius="10" Padding="10" IsEnabled="{Binding !IsLoggingIn}">
+                                        <Button.Styles>
+                                                <Style Selector="Button">
+                                                        <Setter Property="Background" Value="#6BA3BE" />
+                                                </Style>
+                                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                        <Setter Property="Background" Value="#0C969C" />
+                                                </Style>
+                                                <Style Selector="Button:pressed /template/ ContentPresenter">
+                                                        <Setter Property="Background" Value="#0A7075" />
+                                                </Style>
+                                        </Button.Styles>
+                                </Button>
+                        </Grid>
+                        
+                        <li:LoadingIndicator Grid.Row="2" Grid.Column="1" Height="15" Mode="ThreeDots" SpeedRatio="1.5" Foreground="White" IsVisible="{Binding IsLoggingIn}" Margin="0,0,0,25"></li:LoadingIndicator>
+                        
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="1"
+                                   FontSize="10"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,15">
+                                © 2024 Kacper Owczarek | WTIE PBŚ
+                        </TextBlock>
+                </Grid>
+        </Grid>  
+</Window>

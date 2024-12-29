@@ -9,26 +9,26 @@ namespace used_car_dealership_app.Repositories;
 
 public class UserRepository
 {
-    private readonly Database.Database database;
+    private readonly Database.DatabaseService _databaseService;
 
     public UserRepository()
     {
-        database = new Database.Database();
+        _databaseService = new Database.DatabaseService();
     }
     
     public DataTable GetAllUsers()
     {
-        return database.GetAll<User>("users");
+        return _databaseService.GetAll<User>("users");
     }
     
     public DataRow GetUserById(Guid id)
     {
-        return database.GetById<User>("users", "userId", id);
+        return _databaseService.GetById<User>("users", "userId", id);
     }
     
     public void DeleteUser(Guid id)
     {
-        database.Delete<User>("users", "userId", id);
+        _databaseService.Delete<User>("users", "userId", id);
     }
     
     public void AddUser(User user)
@@ -50,7 +50,7 @@ public class UserRepository
             { "houseNumber", user.HouseNumber }
         };
 
-        database.Insert<User>("users", data);
+        _databaseService.Insert<User>("users", data);
     }
     
     public void UpdateUser(User user)
@@ -71,11 +71,11 @@ public class UserRepository
             { "houseNumber", user.HouseNumber }
         };
         
-        database.Update<User>("users", data, "userId", user.UserId);
+        _databaseService.Update<User>("users", data, "userId", user.UserId);
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return database.ExecuteQuery(query, parameters);
+        return _databaseService.ExecuteQuery(query, parameters);
     }
 }
