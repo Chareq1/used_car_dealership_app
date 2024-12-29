@@ -78,6 +78,10 @@
               "target": "Package",
               "version": "[1.3.1, )"
             },
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "FluentAvaloniaUI": {
               "target": "Package",
               "version": "[2.2.0, )"

@@ -8,6 +8,7 @@ using used_car_dealership_app.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Tmds.DBus.Protocol;
+using DotNetEnv;
 
 
 namespace used_car_dealership_app.Database;
@@ -31,9 +32,19 @@ public class DatabaseService : IDatabaseService
     {
         try
         {
-            connectionString = "Server=localhost;Port=5432;Username=ucda_admin;Password=zaq1@WSX;Database=ucda";
+            Env.Load();
+            
+            var host = Env.GetString("DB_HOST");
+            var port = Env.GetString("DB_PORT");
+            var dbName = Env.GetString("DB_NAME");
+            var user = Env.GetString("DB_USER");
+            var password = Env.GetString("DB_PASSWORD");
+            
+            connectionString = $"Server={host};Port={port};Username={user};Password={password};Database={dbName}";
+            Console.WriteLine(connectionString);
             connection = new NpgsqlConnection(connectionString);
             connection.Open();
+            
             _logger.LogInformation("Utworzono połączenie z bazą danych!");
         }
         catch (Exception ex)

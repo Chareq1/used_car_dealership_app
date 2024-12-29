@@ -119,3 +119,6 @@
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/System.Text.Encodings.Web.dll
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/System.Text.Json.dll
 /home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/DotNetEnv.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/Sprache.dll
+/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/bin/Debug/net8.0/.env
