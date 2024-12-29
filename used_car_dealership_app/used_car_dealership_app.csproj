@@ -69,5 +69,17 @@
         <DependentUpon>UsersView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\Calendar\CalendarView.axaml.cs">
+        <DependentUpon>CalendarView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Documents\DocumentsView.axaml.cs">
+        <DependentUpon>DocumentsView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Vehicles\VehiclesView.axaml.cs">
+        <DependentUpon>VehiclesView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>
