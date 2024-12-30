@@ -13,8 +13,10 @@ using MsBox.Avalonia.Enums;
 using used_car_dealership_app.Models;
 using used_car_dealership_app.Repositories;
 using used_car_dealership_app.Services;
+using used_car_dealership_app.ViewModels.Documents;
 using used_car_dealership_app.ViewModels.Locations;
 using used_car_dealership_app.ViewModels.Users;
+using used_car_dealership_app.ViewModels.Vehicles;
 using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels;
@@ -61,7 +63,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Items.Add(new ListItemTemplate(typeof(LocationsViewModel), "Lokalizacje", "LocationRegular"));
         Items.Add(new ListItemTemplate(typeof(Clients.ClientsViewModel), "Klienci", "PersonBoardRegular"));
         Items.Add(new ListItemTemplate(typeof(DocumentsViewModel), "Dokumenty", "DocumentRegular"));
-        Items.Add(new ListItemTemplate(typeof(CalendarViewModel), "Kalendarz", "CalendarRegular"));
+        Items.Add(new ListItemTemplate(typeof(Calendar.CalendarViewModel), "Kalendarz", "CalendarRegular"));
 
         if (_loggedUser.Type == UserType.ADMIN) { Items.Add(new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular")); }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Npgsql;
 
-namespace used_car_dealership_app.Services;
+namespace used_car_dealership_app.Services.Interfaces;
 
 public interface IDatabaseService
 {

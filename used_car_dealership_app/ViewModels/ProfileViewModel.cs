@@ -13,6 +13,7 @@ using used_car_dealership_app.Models;
 using used_car_dealership_app.Repositories;
 using used_car_dealership_app.Services;
 using used_car_dealership_app.ViewModels.Users;
+using used_car_dealership_app.ViewModels.Vehicles;
 using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels;
@@ -149,14 +150,6 @@ public partial class ProfileViewModel : ViewModelBase
     
     
     //KOMENDY
-    //Komenda do powrotu do poprzedniego widoku
-    [RelayCommand]
-    private void GoBack()
-    {
-        _mainWindowViewModel.CurrentPage = new VehiclesViewModel(_mainWindowViewModel);
-        _logger.LogInformation("Przejście do widoku pojazdów!");
-    }
-    
     //Komenda do aktualizacji hasła użytkownika w bazie danych
     [RelayCommand]
     private async Task UpdateUserPasswordAsync()

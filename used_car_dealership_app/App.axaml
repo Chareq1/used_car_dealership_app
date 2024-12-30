@@ -13,19 +13,173 @@
   
     <Application.Styles>
         <FluentTheme />
-        <dialogHostAvalonia:DialogHostStyles />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://used_car_dealership_app/Assets/Icons.axaml"></StyleInclude>
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderBrush" Value="#6BA3BE"/>
         </Style>
+        
         <Style Selector="ComboBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Background" Value="#4E9CAF" />
+        </Style>
+        
+        <Style Selector="Calendar">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <Style Selector="CalendarButton">
+            <Style Selector="^ /template/ Border#Root">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:pointerover /template/ Border#Border">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:inactive /template/ Border#Root">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:pressed">
+                <Style Selector="^ /template/ Border#Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="BorderBrush" Value="#6BA3BE" />
+                </Style>
+            </Style>
+            
+            <Style Selector="^:selected">
+                <Style Selector="^ /template/ Border#Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="BorderBrush" Value="White" />
+                </Style>
+                
+                <Style Selector="^ /template/ Border#Root">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="Background" Value="#6BA3BE" />
+                </Style>
+            </Style>
+        </Style>
+        
+        <Style Selector="CalendarDayButton">
+            <Style Selector="^ /template/ Border#Root">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:pointerover /template/ Border#Border">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:inactive /template/ Border#Root">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+            
+            <Style Selector="^:today">
+                <Style Selector="^ /template/ Border#Root">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="Background" Value="#0A7075" />
+                </Style>
+            </Style>
+            
+            <Style Selector="^:selected">
+                <Style Selector="^ /template/ Border#Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="BorderBrush" Value="White" />
+                </Style>
+                
+                <Style Selector="^ /template/ Border#Root">
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="Background" Value="#6BA3BE" />
+                </Style>
+            </Style>
+        </Style>
+        
+        <Style Selector="DatePickerPresenter">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#031716" />
+            <Setter Property="FontFamily" Value="{DynamicResource Ubuntu}" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#031716" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_AcceptButton">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#6BA3BE" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_AcceptButton:pointerover">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0C969C" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_AcceptButton:pressed">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0A7075" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_DismissButton">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#6BA3BE" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_DismissButton:pointerover">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0C969C" />
+        </Style>
+        
+        <Style Selector="DatePickerPresenter /template/ Button#PART_DismissButton:pressed">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0A7075" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_AcceptButton">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#6BA3BE" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_AcceptButton:pointerover">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0C969C" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_AcceptButton:pressed">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0A7075" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_DismissButton">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#6BA3BE" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_DismissButton:pointerover">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0C969C" />
+        </Style>
+        
+        <Style Selector="TimePickerPresenter /template/ Button#PART_DismissButton:pressed">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0A7075" />
+        </Style>
+        
+        <Style Selector="TimePicker /template/ Button:selected">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="#0A7075" />
         </Style>
     </Application.Styles>
              
     <Application.Resources>
         <ResourceDictionary>
+            <x:Double x:Key="DatePickerThemeMinWidth">150</x:Double> 
+            <x:Double x:Key="DatePickerThemeMaxWidth">200</x:Double> 
+            <x:Double x:Key="TimePickerThemeMinWidth">150</x:Double> 
+            <x:Double x:Key="TimePickerThemeMaxWidth">200</x:Double> 
             <FontFamily x:Key="Roboto">avares://used_car_dealership_app/Assets/Fonts/Roboto#Roboto</FontFamily>
             <FontFamily x:Key="Ubuntu">avares://used_car_dealership_app/Assets/Fonts/Ubuntu#Ubuntu</FontFamily>
             <ResourceDictionary.MergedDictionaries>

@@ -1,4 +1,4 @@
-namespace used_car_dealership_app.ViewModels;
+namespace used_car_dealership_app.ViewModels.Documents;
 
 public class DocumentsViewModel : ViewModelBase
 {

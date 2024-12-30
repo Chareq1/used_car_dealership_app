@@ -15,32 +15,13 @@ sealed class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args)
-    {
-        //Utworzenie całej logiki dla loggera
-        var serviceCollection = new ServiceCollection();
-        ConfigureServices(serviceCollection);
+    public static void Main(string[] args) => BuildAvaloniaApp()
+        .StartWithClassicDesktopLifetime(args);
 
-        var serviceProvider = serviceCollection.BuildServiceProvider();
-        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-
-        logger.LogInformation("Application started.");
-
-        
-        //Uruchomienie aplikacji
-        AppBuilder.Configure<App>()
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace()
-            .StartWithClassicDesktopLifetime(args);
-    }
-    
-    private static void ConfigureServices(IServiceCollection services)
-    {
-        services.AddLogging(configure =>
-        {
-            configure.AddConsole();
-            configure.SetMinimumLevel(LogLevel.Information);
-        });
-    }
+            .LogToTrace();
 }

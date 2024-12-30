@@ -16,6 +16,8 @@ public class Customer
     public string ZipCode { get; set; }
     public string HouseNumber { get; set; }
 
+    public string CustomerFullName => $"{Name} {Surname}";
+    
     public override string ToString()
     {
         return $"('{CustomerId}', '{Name}', '{Surname}', '{PESEL}', '{Phone}', '{Email}', '{Street}', '{City}', '{ZipCode}', '{HouseNumber}')";

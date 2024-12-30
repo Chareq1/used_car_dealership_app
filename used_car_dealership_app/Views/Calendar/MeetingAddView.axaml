@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:used_car_dealership_app.ViewModels"
+             xmlns:calendar="clr-namespace:used_car_dealership_app.ViewModels.Calendar"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="used_car_dealership_app.Views.Calendar.MeetingAddView"
+             x:DataType="calendar:MeetingAddViewModel"
+             FontFamily="{StaticResource Ubuntu}">
+    
+    <Design.DataContext>
+        <calendar:MeetingAddViewModel />
+    </Design.DataContext>
+    
+        <Grid Margin="20,25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="24" Text="Dodaj spotkanie" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0,0,0,25"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Opis: " FontWeight="Bold" Margin="0,10,0,10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Meeting.Description, Mode=TwoWay}" MaxLength="255" Grid.Row="0" Grid.Column="1" Width="200" Height="50" TextWrapping="Wrap" Margin="0,10,0,10" />
+                
+                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberBinding="{Binding CustomerFullName}" PlaceholderText="---" Margin="0,10,0,10" Width="200"/>
+
+                <TextBlock Text="Lokalizacja:  " FontWeight="Bold" Margin="0,10,0,10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" DisplayMemberBinding="{Binding Name}" PlaceholderText="---" Margin="0,10,0,10" Width="200"/>
+
+                <TextBlock Text="Data:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedDate}" Margin="0,10,0,10" Width="200"/>
+                
+                <TextBlock Text="Czas:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TimePicker  Grid.Row="4" Grid.Column="1" SelectedTime="{Binding SelectedTime}" Margin="0,10,0,10" Width="200"/>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
+            <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50" Command="{Binding GoBackCommand}">
+                <PathIcon Data="{StaticResource ArrowReplyRegular}"/>
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding AddMeetingToDatabaseCommand}" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50">
+                <PathIcon Data="{StaticResource AddRegular}"/>
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
+

@@ -5,17 +5,17 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Npgsql;
 using used_car_dealership_app.Models;
-using used_car_dealership_app.Database;
+using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
 public class CustomerRepository
 {
-    private readonly Database.DatabaseService _databaseService;
+    private readonly DatabaseService _databaseService;
 
     public CustomerRepository()
     {
-        _databaseService = new Database.DatabaseService();
+        _databaseService = new DatabaseService();
     }
     
     public DataTable GetAllCustomers()

@@ -1,4 +1,4 @@
-namespace used_car_dealership_app.ViewModels;
+namespace used_car_dealership_app.ViewModels.Vehicles;
 
 public class VehiclesViewModel : ViewModelBase
 {

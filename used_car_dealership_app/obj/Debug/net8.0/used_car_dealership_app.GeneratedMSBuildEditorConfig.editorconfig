@@ -33,6 +33,12 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Calendar/CalendarView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Calendar/MeetingAddView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Calendar/MeetingUpdateView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/chareq/RiderProjects/used_car_dealership_app/used_car_dealership_app/Views/Clients/ClientAddView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

@@ -2,16 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using used_car_dealership_app.Services;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using Tmds.DBus.Protocol;
 using DotNetEnv;
+using Microsoft.Extensions.Logging;
+using Npgsql;
+using used_car_dealership_app.Services.Interfaces;
 
-
-namespace used_car_dealership_app.Database;
+namespace used_car_dealership_app.Services;
 
 public class DatabaseService : IDatabaseService
 {
@@ -41,7 +37,6 @@ public class DatabaseService : IDatabaseService
             var password = Env.GetString("DB_PASSWORD");
             
             connectionString = $"Server={host};Port={port};Username={user};Password={password};Database={dbName}";
-            Console.WriteLine(connectionString);
             connection = new NpgsqlConnection(connectionString);
             connection.Open();
             

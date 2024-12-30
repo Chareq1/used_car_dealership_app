@@ -4,16 +4,17 @@ using System.Data;
 using System.Linq;
 using Npgsql;
 using used_car_dealership_app.Models;
+using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
 public class UserRepository
 {
-    private readonly Database.DatabaseService _databaseService;
+    private readonly DatabaseService _databaseService;
 
     public UserRepository()
     {
-        _databaseService = new Database.DatabaseService();
+        _databaseService = new DatabaseService();
     }
     
     public DataTable GetAllUsers()
