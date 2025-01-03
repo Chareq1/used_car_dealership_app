@@ -124,7 +124,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
 //KLASA SZABLONU ELEMENTU LISTY
 public class ListItemTemplate {
-    public ListItemTemplate(Type type, String name, string iconKey)
+    public ListItemTemplate(Type type, String name, String iconKey)
     {
         ModelType = type;
         Label = name;
@@ -133,7 +133,7 @@ public class ListItemTemplate {
         Icon = (StreamGeometry)res;
     }
     
-    public string Label { get; }
+    public String Label { get; }
     public Type ModelType { get; }
     public StreamGeometry Icon { get; }
 }

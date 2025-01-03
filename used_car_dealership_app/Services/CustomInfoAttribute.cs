@@ -7,12 +7,12 @@ namespace used_car_dealership_app.Services;
 public class CustomInfoAttribute : Attribute
 {
     //WŁAŚCIWOŚCI
-    public string Description { get; }
+    public String Description { get; }
     public float Version { get; }
 
     
     //KONSTRUKTOR
-    public CustomInfoAttribute(string description, float version)
+    public CustomInfoAttribute(String description, float version)
     {
         Description = description;
         Version = version;

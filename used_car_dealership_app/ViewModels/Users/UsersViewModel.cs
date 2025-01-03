@@ -40,13 +40,13 @@ public partial class UsersViewModel: ViewModelBase
     
     //WŁAŚCIWOŚCI DO WYSZUKIWANA UŻYTKOWNIKÓW
     [ObservableProperty]
-    private string _searchText;
+    private String _searchText;
 
     [ObservableProperty]
-    private string _selectedSearchField;
+    private String _selectedSearchField;
 
     [ObservableProperty] 
-    private List<string> _searchFields;
+    private List<String> _searchFields;
     
     
     //POLE DLA LISTY UŻYTKOWNIKÓW Z BAZY DANYCH
@@ -61,7 +61,7 @@ public partial class UsersViewModel: ViewModelBase
     public UsersViewModel()
     {
         _userRepository = new UserRepository();
-        _searchFields = new List<string> { "Imię", "Nazwisko", "Telefon", "Email", "Typ użytkownika"};
+        _searchFields = new List<String> { "Imię", "Nazwisko", "Telefon", "Email", "Typ użytkownika"};
         
         var attributes = typeof(UsersViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -114,7 +114,7 @@ public partial class UsersViewModel: ViewModelBase
     {
         var selectedColumn = "";
             
-        if (string.IsNullOrEmpty(SearchText) || string.IsNullOrEmpty(SelectedSearchField))
+        if (String.IsNullOrEmpty(SearchText) || String.IsNullOrEmpty(SelectedSearchField))
         {
             await LoadUsers();
             return;

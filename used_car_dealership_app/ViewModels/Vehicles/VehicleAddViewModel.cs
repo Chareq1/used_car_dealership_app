@@ -52,11 +52,11 @@ public partial class VehicleAddViewModel : ViewModelBase
     
     
     //WŁAŚCIWOŚCI DLA TYPÓW POJAZDÓW
-    private string _selectedEngineType;
+    private String _selectedEngineType;
 
     
     //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LISTY Z TYPAMI SILNIKÓW
-    public string SelectedEngineType
+    public String SelectedEngineType
     {
         get => _selectedEngineType;
         set
@@ -75,19 +75,19 @@ public partial class VehicleAddViewModel : ViewModelBase
     
     //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LIST
     [ObservableProperty]
-    private ObservableCollection<string> _bodyTypes;
+    private ObservableCollection<String> _bodyTypes;
     [ObservableProperty]
-    private ObservableCollection<string> _productionCountries;
+    private ObservableCollection<String> _productionCountries;
     [ObservableProperty]
-    private ObservableCollection<string> _originCountries;
+    private ObservableCollection<String> _originCountries;
     [ObservableProperty]
-    private ObservableCollection<string> _transmissions;
+    private ObservableCollection<String> _transmissions;
     [ObservableProperty]
-    private ObservableCollection<string> _drives;
+    private ObservableCollection<String> _drives;
     [ObservableProperty]
-    private ObservableCollection<string> _engineTypes;
+    private ObservableCollection<String> _engineTypes;
     [ObservableProperty]
-    private ObservableCollection<string> _fuelTypes;
+    private ObservableCollection<String> _fuelTypes;
     [ObservableProperty]
     private ObservableCollection<Location> _locations;
     [ObservableProperty]
@@ -184,8 +184,8 @@ public partial class VehicleAddViewModel : ViewModelBase
     //Metoda do wczytania danych do list rozwijanych
     private void LoadComboBoxData()
     {
-        BodyTypes = new ObservableCollection<string> {"SUV", "Sedan", "Coupe", "Dual cowl", "Fastback", "Hatchback", "Kabriolet", "Kombi", "Kombivan", "Liftback", "Limuzyna", "Mikrovan", "Minivan", "Pickup", "Roadster", "Targa", "Van", "Trambus", "Piętrobus", "Autobus przegubowy", "Mikrobus", "Autokar", "Furgonowe", "Skrzyniowe", "Inny"};
-        ProductionCountries = new ObservableCollection<string> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
+        BodyTypes = new ObservableCollection<String> {"SUV", "Sedan", "Coupe", "Dual cowl", "Fastback", "Hatchback", "Kabriolet", "Kombi", "Kombivan", "Liftback", "Limuzyna", "Mikrovan", "Minivan", "Pickup", "Roadster", "Targa", "Van", "Trambus", "Piętrobus", "Autobus przegubowy", "Mikrobus", "Autokar", "Furgonowe", "Skrzyniowe", "Inny"};
+        ProductionCountries = new ObservableCollection<String> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
             "Armenia", "Australia", "Austria", "Azerbejdżan", "Bahamy", "Bahrajn", "Bangladesz",
             "Barbados", "Belgia", "Belize", "Benin", "Bhutan", "Białoruś", "Boliwia", "Bośnia i Hercegowina",
             "Botswana", "Brazylia", "Brunei", "Bułgaria", "Burkina Faso", "Burundi", "Chile", "Chiny",
@@ -211,7 +211,7 @@ public partial class VehicleAddViewModel : ViewModelBase
             "Turcja", "Turkmenistan", "Tuvalu", "Uganda", "Ukraina", "Urugwaj", "USA", "Uzbekistan",
             "Vanuatu", "Watykan", "Wenezuela", "Węgry", "Wielka Brytania", "Wietnam", "Włochy",
             "Wyspy Marshalla", "Wyspy Salomona", "Zambia", "Zimbabwe", "Zjednoczone Emiraty Arabskie" };
-        OriginCountries = new ObservableCollection<string> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
+        OriginCountries = new ObservableCollection<String> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
             "Armenia", "Australia", "Austria", "Azerbejdżan", "Bahamy", "Bahrajn", "Bangladesz",
             "Barbados", "Belgia", "Belize", "Benin", "Bhutan", "Białoruś", "Boliwia", "Bośnia i Hercegowina",
             "Botswana", "Brazylia", "Brunei", "Bułgaria", "Burkina Faso", "Burundi", "Chile", "Chiny",
@@ -237,15 +237,15 @@ public partial class VehicleAddViewModel : ViewModelBase
             "Turcja", "Turkmenistan", "Tuvalu", "Uganda", "Ukraina", "Urugwaj", "USA", "Uzbekistan",
             "Vanuatu", "Watykan", "Wenezuela", "Węgry", "Wielka Brytania", "Wietnam", "Włochy",
             "Wyspy Marshalla", "Wyspy Salomona", "Zambia", "Zimbabwe", "Zjednoczone Emiraty Arabskie" };
-        Transmissions = new ObservableCollection<string> { "Manualna", "Automatyczna" };
-        Drives = new ObservableCollection<string> { "FWD", "RWD", "AWD", "4WD" };
-        EngineTypes = new ObservableCollection<string> { "Spalinowy", "Elektryczny", "Hybrydowy" };
-        FuelTypes = new ObservableCollection<string> { "Benzyna", "Benzyna+CNG", "Benzyna+LPG", "Diesel", "Etanol" };
+        Transmissions = new ObservableCollection<String> { "Manualna", "Automatyczna" };
+        Drives = new ObservableCollection<String> { "FWD", "RWD", "AWD", "4WD" };
+        EngineTypes = new ObservableCollection<String> { "Spalinowy", "Elektryczny", "Hybrydowy" };
+        FuelTypes = new ObservableCollection<String> { "Benzyna", "Benzyna+CNG", "Benzyna+LPG", "Diesel", "Etanol" };
         EmissionStandards = new ObservableCollection<String> { "EURO1", "EURO2", "EURO3", "EURO4", "EURO5", "EURO6" };
     }
     
     //Metoda do walidacji pola
-    private async Task ValidateInputAsync(string input, string pattern, string errorMessage)
+    private async Task ValidateInputAsync(String input, String pattern, String errorMessage)
     {
         if (!Regex.IsMatch(input, pattern))
         {
@@ -277,7 +277,7 @@ public partial class VehicleAddViewModel : ViewModelBase
     }
     
     //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(string message)
+    private async Task ShowPopupAsync(String message)
     {
         var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
@@ -324,7 +324,7 @@ public partial class VehicleAddViewModel : ViewModelBase
             AllowMultiple = false,
             Filters = new List<FileDialogFilter>
             {
-                new FileDialogFilter { Name = "Images", Extensions = new List<string> { "jpg", "jpeg", "png", "bmp" } }
+                new FileDialogFilter { Name = "Images", Extensions = new List<String> { "jpg", "jpeg", "png", "bmp" } }
             }
         };
         var mainWin = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;

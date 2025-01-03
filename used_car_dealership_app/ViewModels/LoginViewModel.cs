@@ -32,10 +32,10 @@ public partial class LoginViewModel : ViewModelBase
     
     //WŁAŚCIWOŚCI DLA NAZWY UŻYTKOWNIKA, HASŁA I CZY UŻYTKOWNIK SIĘ LOGUJE
     [ObservableProperty]
-    private string _username;
+    private String _username;
     
     [ObservableProperty]
-    private string _password;
+    private String _password;
     
     [ObservableProperty]
     private bool _isLoggingIn;

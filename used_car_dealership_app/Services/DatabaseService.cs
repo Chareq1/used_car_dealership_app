@@ -72,11 +72,11 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoda do pobrania wszystkich rekordów z tabeli
-    public DataTable GetAll<T>(string tableName)
+    public DataTable GetAll<T>(String tableName)
     {
         Connect();
         
-        string query = $"SELECT * FROM \"{tableName}\";";
+        String query = $"SELECT * FROM \"{tableName}\";";
         command = new NpgsqlCommand(query, connection);
         
         var adapter = new NpgsqlDataAdapter(command);
@@ -92,13 +92,13 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoda do pobrania rekordu z tabeli po ID
-    public DataRow GetById<T>(string tableName, string idColumnName, Guid id)
+    public DataRow GetById<T>(String tableName, String idColumnName, Guid id)
     {
         Connect();
         
         try
         {
-            string query = $"SELECT * FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
+            String query = $"SELECT * FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
             command = new NpgsqlCommand(query, connection);
             
             command.Parameters.AddWithValue("id", id);
@@ -129,7 +129,7 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoda do dodania rekordu do bazy danych
-    public void Insert<T>(string tableName, Dictionary<string, object> data)
+    public void Insert<T>(String tableName, Dictionary<String, object> data)
     {
         Connect();
         try
@@ -188,7 +188,7 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoda do aktualizacji rekordu w bazie danych
-    public void Update<T>(string tableName, Dictionary<string, object> data, string idColumnName, Guid id)
+    public void Update<T>(String tableName, Dictionary<String, object> data, String idColumnName, Guid id)
     {
         Connect();
         try
@@ -243,12 +243,12 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoda do usunięcia rekordu z bazy danych
-    public void Delete<T>(string tableName, string idColumnName, Guid id)
+    public void Delete<T>(String tableName, String idColumnName, Guid id)
     {
         Connect();
         try
         {
-            string query = $"DELETE FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
+            String query = $"DELETE FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
             command = new NpgsqlCommand(query, connection);
             
             command.Parameters.AddWithValue("id", id);
@@ -268,7 +268,7 @@ public class DatabaseService : IDatabaseService
     }
     
     //Metoa do wykonania zapytania do bazy danych
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         Connect();
         try

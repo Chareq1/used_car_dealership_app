@@ -8,17 +8,17 @@ public class Location
 {
     //POLA
     public Guid LocationId { get; set; }
-    public string Name { get; set; }
-    public string Phone { get; set; }
-    public string Email { get; set; }
-    public string Street { get; set; }
-    public string City { get; set; }
-    public string ZipCode { get; set; }
-    public string HouseNumber { get; set; }
+    public String Name { get; set; }
+    public String Phone { get; set; }
+    public String Email { get; set; }
+    public String Street { get; set; }
+    public String City { get; set; }
+    public String ZipCode { get; set; }
+    public String HouseNumber { get; set; }
 
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{LocationId}', '{Name}', '{Phone}', '{Email}', '{Street}', '{City}', '{ZipCode}', '{HouseNumber}')";
     }

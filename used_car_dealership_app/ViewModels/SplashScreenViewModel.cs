@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -8,7 +9,7 @@ public partial class SplashScreenViewModel : ViewModelBase
 {
     //WŁAŚCIWOŚĆ DLA WIADOMOŚCI STARTOWEJ
     [ObservableProperty]
-    private string _startupMessage = "Uruhcamianie aplikacji...";
+    private String _startupMessage = "Uruhcamianie aplikacji...";
     
     //WŁAŚCIWOŚĆ DLA TOKENA ANULOWANIA
     public CancellationToken CancellationToken => _cts.Token;

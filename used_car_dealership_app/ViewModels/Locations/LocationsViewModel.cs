@@ -41,13 +41,13 @@ public partial class LocationsViewModel : ViewModelBase
     
     //WŁAŚCIWOŚCI DO WYSZUKIWANA LOKALIZACJI
     [ObservableProperty]
-    private string _searchText;
+    private String _searchText;
 
     [ObservableProperty]
-    private string _selectedSearchField;
+    private String _selectedSearchField;
 
     [ObservableProperty] 
-    private List<string> _searchFields;
+    private List<String> _searchFields;
     
     
     //POLE DLA LISTY LOKALIZACJI Z BAZY DANYCH
@@ -62,7 +62,7 @@ public partial class LocationsViewModel : ViewModelBase
     public LocationsViewModel()
     {
         _locationRepository = new LocationRepository();
-        _searchFields = new List<string> { "Nazwa", "Email", "Telefon", "Miejscowość"};
+        _searchFields = new List<String> { "Nazwa", "Email", "Telefon", "Miejscowość"};
         
         var attributes = typeof(ClientsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -114,7 +114,7 @@ public partial class LocationsViewModel : ViewModelBase
     {
         var selectedColumn = "";
             
-        if (string.IsNullOrEmpty(SearchText) || string.IsNullOrEmpty(SelectedSearchField))
+        if (String.IsNullOrEmpty(SearchText) || String.IsNullOrEmpty(SelectedSearchField))
         {
             await LoadLocations();
             return;

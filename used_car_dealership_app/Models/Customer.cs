@@ -8,24 +8,24 @@ public class Customer
 {
     //POLA
     public Guid CustomerId { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string PESEL { get; set; }
-    public string IdCardNumber { get; set; }
-    public string Phone { get; set; }
-    public string Email { get; set; }
-    public string Street { get; set; }
-    public string City { get; set; }
-    public string ZipCode { get; set; }
-    public string HouseNumber { get; set; }
+    public String Name { get; set; }
+    public String Surname { get; set; }
+    public String PESEL { get; set; }
+    public String IdCardNumber { get; set; }
+    public String Phone { get; set; }
+    public String Email { get; set; }
+    public String Street { get; set; }
+    public String City { get; set; }
+    public String ZipCode { get; set; }
+    public String HouseNumber { get; set; }
 
     
     //POLE POMOCNICZE DO WYŚWIETLANIA PEŁNEGO IMIENIA KLIENTA
-    public string CustomerFullName => $"{Name} {Surname}";
+    public String CustomerFullName => $"{Name} {Surname}";
     
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{CustomerId}', '{Name}', '{Surname}', '{PESEL}', '{IdCardNumber}', '{Phone}', '{Email}', '{Street}', '{City}', '{ZipCode}', '{HouseNumber}')";
     }

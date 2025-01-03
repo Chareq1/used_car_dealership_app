@@ -60,7 +60,7 @@ public class UserRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "userId", user.UserId },
                 { "username", user.Username },
@@ -90,7 +90,7 @@ public class UserRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 {"userId", user.UserId},
                 { "username", user.Username },
@@ -116,7 +116,7 @@ public class UserRepository
     }
     
     //Metoda wykonująca zapytanie
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         try
         {

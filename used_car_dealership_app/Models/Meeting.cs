@@ -16,13 +16,13 @@ public class Meeting
     
     
     //POLA POMOCNICZE DO WYŚWIETLANIA PEŁNEGO IMIENIA KLIENTA I PEŁNEGO ADRESU SPOTKANIA
-    public string CustomerFullName => $"{Customer.Name} {Customer.Surname}";
-    public string CustomerFullAddress => $"ul. {Customer.Street} {Customer.HouseNumber}, {Customer.ZipCode} {Customer.City}";
-    public string LocationFullNameAddress => $"{Location.Name}, ul. {Location.Street} {Location.HouseNumber}, {Location.ZipCode} {Location.City}";
+    public String CustomerFullName => $"{Customer.Name} {Customer.Surname}";
+    public String CustomerFullAddress => $"ul. {Customer.Street} {Customer.HouseNumber}, {Customer.ZipCode} {Customer.City}";
+    public String LocationFullNameAddress => $"{Location.Name}, ul. {Location.Street} {Location.HouseNumber}, {Location.ZipCode} {Location.City}";
     
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{MeetingId}', '{Description}', '{Date}', '{UserId}', '{Customer.CustomerId}', '{Location.LocationId}')";;
     }

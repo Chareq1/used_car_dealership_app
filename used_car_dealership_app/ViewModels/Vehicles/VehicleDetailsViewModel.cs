@@ -150,23 +150,23 @@ public partial class VehicleDetailsViewModel : ViewModelBase
         vehicle.Drive = row["drive"].ToString();
         vehicle.Price = decimal.Parse(row["price"].ToString());
         vehicle.EngineType = row["engineType"].ToString();
-        vehicle.BatterySize = string.IsNullOrEmpty(row["batterySize"].ToString())
+        vehicle.BatterySize = String.IsNullOrEmpty(row["batterySize"].ToString())
             ? null
             : decimal.Parse(row["batterySize"].ToString());
-        vehicle.ElectricEnginePower = string.IsNullOrEmpty(row["electricEnginePower"].ToString())
+        vehicle.ElectricEnginePower = String.IsNullOrEmpty(row["electricEnginePower"].ToString())
             ? null
             : decimal.Parse(row["electricEnginePower"].ToString());
-        vehicle.Consumption = string.IsNullOrEmpty(row["consumption"].ToString())
+        vehicle.Consumption = String.IsNullOrEmpty(row["consumption"].ToString())
             ? null
             : decimal.Parse(row["consumption"].ToString());
-        vehicle.FuelType = string.IsNullOrEmpty(row["fuelType"].ToString())
+        vehicle.FuelType = String.IsNullOrEmpty(row["fuelType"].ToString())
             ? null
             : row["fuelType"].ToString();
-        vehicle.EngineSize = string.IsNullOrEmpty(row["engineSize"].ToString())
+        vehicle.EngineSize = String.IsNullOrEmpty(row["engineSize"].ToString())
             ? null
             : int.Parse(row["engineSize"].ToString());
-        vehicle.Power = string.IsNullOrEmpty(row["power"].ToString()) ? 0 : int.Parse(row["power"].ToString());
-        vehicle.Co2Emission = string.IsNullOrEmpty(row["co2Emission"].ToString())
+        vehicle.Power = String.IsNullOrEmpty(row["power"].ToString()) ? 0 : int.Parse(row["power"].ToString());
+        vehicle.Co2Emission = String.IsNullOrEmpty(row["co2Emission"].ToString())
             ? null
             : row["co2Emission"].ToString();
         vehicle.Location = LoadSelectedLocation(Guid.Parse(row["locationId"].ToString()));;

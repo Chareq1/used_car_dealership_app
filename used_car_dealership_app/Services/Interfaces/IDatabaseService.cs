@@ -12,9 +12,9 @@ public interface IDatabaseService
     public void Connect();
     public void Disconnect();
     public DataTable GetAll<T>(String tableName);
-    public DataRow GetById<T>(string tableName, string idColumnName, Guid id);
-    public void Insert<T>(string tableName, Dictionary<string, object> data);
-    public void Update<T>(string tableName, Dictionary<string, object> data, string idColumnName, Guid id);
-    public void Delete<T>(string tableName, string idColumnName, Guid id);
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters);
+    public DataRow GetById<T>(String tableName, String idColumnName, Guid id);
+    public void Insert<T>(String tableName, Dictionary<String, object> data);
+    public void Update<T>(String tableName, Dictionary<String, object> data, String idColumnName, Guid id);
+    public void Delete<T>(String tableName, String idColumnName, Guid id);
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters);
 }

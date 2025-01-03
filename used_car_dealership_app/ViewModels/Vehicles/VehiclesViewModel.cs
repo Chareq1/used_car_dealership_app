@@ -66,7 +66,7 @@ public partial class VehiclesViewModel : ViewModelBase
     {
         _vehicleRepository = new VehicleRepository();
         _imageRepository = new ImageRepository();
-        _searchFields = new List<string> { "Marka", "Model", "VIN", "Typ pojazdu" };
+        _searchFields = new List<String> { "Marka", "Model", "VIN", "Typ pojazdu" };
         
         var attributes = typeof(VehiclesViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -135,7 +135,7 @@ public partial class VehiclesViewModel : ViewModelBase
     {
         var selectedColumn = "";
 
-        if (string.IsNullOrEmpty(SearchText) || string.IsNullOrEmpty(SelectedSearchField))
+        if (String.IsNullOrEmpty(SearchText) || String.IsNullOrEmpty(SelectedSearchField))
         {
             await LoadVehicles();
             return;

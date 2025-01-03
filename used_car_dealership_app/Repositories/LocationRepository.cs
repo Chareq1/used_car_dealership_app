@@ -61,7 +61,7 @@ public class LocationRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "locationId", location.LocationId },
                 { "name", location.Name },
@@ -86,7 +86,7 @@ public class LocationRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "name", location.Name },
                 { "phone", location.Phone },
@@ -106,7 +106,7 @@ public class LocationRepository
     }
     
     //Metoda wykonująca zapytanie
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         try {
             return _databaseService.ExecuteQuery(query, parameters);

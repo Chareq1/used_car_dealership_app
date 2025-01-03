@@ -95,7 +95,7 @@ public partial class ProfileViewModel : ViewModelBase
     }
     
     //Metoda do walidacji pola
-    private async Task ValidateInputAsync(string input, string pattern, string errorMessage)
+    private async Task ValidateInputAsync(String input, String pattern, String errorMessage)
     {
         if (!Regex.IsMatch(input, pattern))
         {
@@ -148,7 +148,7 @@ public partial class ProfileViewModel : ViewModelBase
     }
     
     //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(string message)
+    private async Task ShowPopupAsync(String message)
     {
         var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;

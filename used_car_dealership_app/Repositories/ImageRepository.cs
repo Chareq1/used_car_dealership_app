@@ -90,7 +90,7 @@ public class ImageRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "imageId", image.ImageId },
                 { "fileName", image.FileName },
@@ -111,7 +111,7 @@ public class ImageRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "fileName", image.FileName },
                 { "filePath", image.FilePath },
@@ -127,7 +127,7 @@ public class ImageRepository
     }
     
     //Metoda wykonująca zapytanie
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         try
         {

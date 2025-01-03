@@ -8,7 +8,7 @@ public class Equipment
 {
     //POLA
     public Guid EquipmentId { get; set; }
-    public string Name { get; set; }
+    public String Name { get; set; }
 
     
     //POLE POMOCNICZE DO ZAZNACZANIA WYPOSAŻENIA W FORMULARZU
@@ -16,7 +16,7 @@ public class Equipment
     
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{EquipmentId}', '{Name}')";
     }

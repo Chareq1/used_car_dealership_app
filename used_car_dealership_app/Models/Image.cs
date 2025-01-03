@@ -27,7 +27,7 @@ public class Image
     
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{ImageId}', '{FileName}', '{FilePath}', '{VehicleId}')";
     }

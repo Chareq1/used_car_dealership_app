@@ -63,7 +63,7 @@ public class VehicleRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "vehicleId", vehicle.VehicleId },
                 { "brand", vehicle.Brand },
@@ -106,7 +106,7 @@ public class VehicleRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "brand", vehicle.Brand },
                 { "model", vehicle.Model },
@@ -163,7 +163,7 @@ public class VehicleRepository
     public void AddEquipment(Guid vehicleId, Guid equipmentId)
     {
         try {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "vehicleId", vehicleId },
                 { "equipmentId", equipmentId }
@@ -176,7 +176,7 @@ public class VehicleRepository
     }
     
     //Metoda usuwająca wyposażenie
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         try {
             return _databaseService.ExecuteQuery(query, parameters);

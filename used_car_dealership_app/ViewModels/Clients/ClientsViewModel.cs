@@ -41,13 +41,13 @@ public partial class ClientsViewModel : ViewModelBase
     
     //WŁAŚCIWOŚCI DO WYSZUKIWANA KLIENTÓW
     [ObservableProperty]
-    private string _searchText;
+    private String _searchText;
 
     [ObservableProperty]
-    private string _selectedSearchField;
+    private String _selectedSearchField;
 
     [ObservableProperty] 
-    private List<string> _searchFields;
+    private List<String> _searchFields;
     
     
     //POLE DLA LISTY KLIENTÓW Z BAZY DANYCH
@@ -62,7 +62,7 @@ public partial class ClientsViewModel : ViewModelBase
     public ClientsViewModel()
     {
         _customerRepository = new CustomerRepository();
-        _searchFields = new List<string> { "Imię", "Nazwisko", "Email", "Telefon" };
+        _searchFields = new List<String> { "Imię", "Nazwisko", "Email", "Telefon" };
         
         var attributes = typeof(ClientsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -115,7 +115,7 @@ public partial class ClientsViewModel : ViewModelBase
     {
         var selectedColumn = "";
             
-        if (string.IsNullOrEmpty(SearchText) || string.IsNullOrEmpty(SelectedSearchField))
+        if (String.IsNullOrEmpty(SearchText) || String.IsNullOrEmpty(SelectedSearchField))
         {
             await LoadCustomers();
             return;

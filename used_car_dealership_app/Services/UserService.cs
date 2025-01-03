@@ -16,7 +16,7 @@ public class UserService
 {
     //METODY
     //Metoda do autoryzacji użytkownika
-    public async Task<User> AuthenticateUser(string username, string password)
+    public async Task<User> AuthenticateUser(String username, String password)
     {
         password = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
         

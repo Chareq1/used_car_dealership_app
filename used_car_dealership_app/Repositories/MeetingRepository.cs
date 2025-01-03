@@ -59,7 +59,7 @@ public class MeetingRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "meetingId", meeting.MeetingId },
                 { "description", meeting.Description },
@@ -82,7 +82,7 @@ public class MeetingRepository
     {
         try
         {
-            var data = new Dictionary<string, object>
+            var data = new Dictionary<String, object>
             {
                 { "description", meeting.Description },
                 { "date", meeting.Date },
@@ -100,7 +100,7 @@ public class MeetingRepository
     }
 
     //Metoda wykonująca zapytanie
-    public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
+    public DataTable ExecuteQuery(String query, List<NpgsqlParameter> parameters)
     {
         try
         {

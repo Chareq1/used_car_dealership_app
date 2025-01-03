@@ -53,11 +53,11 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     
     
     //WŁAŚCIWOŚCI DLA TYPÓW POJAZDÓW
-    private string _selectedEngineType;
+    private String _selectedEngineType;
 
     
     //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LIST TYPÓW SILNIKÓW
-    public string SelectedEngineType
+    public String SelectedEngineType
     {
         get => _selectedEngineType;
         set
@@ -76,19 +76,19 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     
     //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LIST
     [ObservableProperty]
-    private ObservableCollection<string> _bodyTypes;
+    private ObservableCollection<String> _bodyTypes;
     [ObservableProperty]
-    private ObservableCollection<string> _productionCountries;
+    private ObservableCollection<String> _productionCountries;
     [ObservableProperty]
-    private ObservableCollection<string> _originCountries;
+    private ObservableCollection<String> _originCountries;
     [ObservableProperty]
-    private ObservableCollection<string> _transmissions;
+    private ObservableCollection<String> _transmissions;
     [ObservableProperty]
-    private ObservableCollection<string> _drives;
+    private ObservableCollection<String> _drives;
     [ObservableProperty]
-    private ObservableCollection<string> _engineTypes;
+    private ObservableCollection<String> _engineTypes;
     [ObservableProperty]
-    private ObservableCollection<string> _fuelTypes;
+    private ObservableCollection<String> _fuelTypes;
     [ObservableProperty]
     private ObservableCollection<Location> _locations;
     [ObservableProperty]
@@ -268,21 +268,21 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         vehicle.Drive = row["drive"].ToString();
         vehicle.Price = decimal.Parse(row["price"].ToString());
         vehicle.EngineType = row["engineType"].ToString();
-        vehicle.BatterySize = string.IsNullOrEmpty(row["batterySize"].ToString())
+        vehicle.BatterySize = String.IsNullOrEmpty(row["batterySize"].ToString())
             ? null
             : decimal.Parse(row["batterySize"].ToString());
-        vehicle.ElectricEnginePower = string.IsNullOrEmpty(row["electricEnginePower"].ToString())
+        vehicle.ElectricEnginePower = String.IsNullOrEmpty(row["electricEnginePower"].ToString())
             ? null
             : decimal.Parse(row["electricEnginePower"].ToString());
-        vehicle.Consumption = string.IsNullOrEmpty(row["consumption"].ToString())
+        vehicle.Consumption = String.IsNullOrEmpty(row["consumption"].ToString())
             ? null
             : decimal.Parse(row["consumption"].ToString());
         vehicle.FuelType = row["fuelType"].ToString();
-        vehicle.EngineSize = string.IsNullOrEmpty(row["engineSize"].ToString())
+        vehicle.EngineSize = String.IsNullOrEmpty(row["engineSize"].ToString())
             ? null
             : int.Parse(row["engineSize"].ToString());
-        vehicle.Power = string.IsNullOrEmpty(row["power"].ToString()) ? 0 : int.Parse(row["power"].ToString());
-        vehicle.Co2Emission = string.IsNullOrEmpty(row["co2Emission"].ToString())
+        vehicle.Power = String.IsNullOrEmpty(row["power"].ToString()) ? 0 : int.Parse(row["power"].ToString());
+        vehicle.Co2Emission = String.IsNullOrEmpty(row["co2Emission"].ToString())
             ? null
             : row["co2Emission"].ToString();
         vehicle.Location = LoadSelectedLocation(Guid.Parse(row["locationId"].ToString()));
@@ -306,8 +306,8 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     //Metoda do wczytania danych do list rozwijanych
     private void LoadComboBoxData()
     {
-        BodyTypes = new ObservableCollection<string> {"SUV", "Sedan", "Coupe", "Dual cowl", "Fastback", "Hatchback", "Kabriolet", "Kombi", "Kombivan", "Liftback", "Limuzyna", "Mikrovan", "Minivan", "Pickup", "Roadster", "Targa", "Van", "Trambus", "Piętrobus", "Autobus przegubowy", "Mikrobus", "Autokar", "Furgonowe", "Skrzyniowe", "Inny"};
-        ProductionCountries = new ObservableCollection<string> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
+        BodyTypes = new ObservableCollection<String> {"SUV", "Sedan", "Coupe", "Dual cowl", "Fastback", "Hatchback", "Kabriolet", "Kombi", "Kombivan", "Liftback", "Limuzyna", "Mikrovan", "Minivan", "Pickup", "Roadster", "Targa", "Van", "Trambus", "Piętrobus", "Autobus przegubowy", "Mikrobus", "Autokar", "Furgonowe", "Skrzyniowe", "Inny"};
+        ProductionCountries = new ObservableCollection<String> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
             "Armenia", "Australia", "Austria", "Azerbejdżan", "Bahamy", "Bahrajn", "Bangladesz",
             "Barbados", "Białoruś", "Belgia", "Belize", "Benin", "Bhutan", "Boliwia", "Bośnia i Hercegowina",
             "Botswana", "Brazylia", "Brunei", "Bułgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Kambodża",
@@ -332,7 +332,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
             "Tanzania", "Tajlandia", "Timor Wschodni", "Togo", "Tonga", "Trynidad i Tobago", "Tunezja", "Turcja",
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraina", "Zjednoczone Emiraty Arabskie", "Wielka Brytania",
             "USA", "Urugwaj", "Uzbekistan", "Vanuatu", "Watykan", "Wenezuela", "Wietnam", "Jemen", "Zambia", "Zimbabwe" };
-        OriginCountries = new ObservableCollection<string> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
+        OriginCountries = new ObservableCollection<String> { "Afganistan", "Albania", "Algieria", "Andora", "Angola", "Antigua i Barbuda", "Argentyna",
             "Armenia", "Australia", "Austria", "Azerbejdżan", "Bahamy", "Bahrajn", "Bangladesz",
             "Barbados", "Białoruś", "Belgia", "Belize", "Benin", "Bhutan", "Boliwia", "Bośnia i Hercegowina",
             "Botswana", "Brazylia", "Brunei", "Bułgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Kambodża",
@@ -357,15 +357,15 @@ public partial class VehicleUpdateViewModel : ViewModelBase
             "Tanzania", "Tajlandia", "Timor Wschodni", "Togo", "Tonga", "Trynidad i Tobago", "Tunezja", "Turcja",
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraina", "Zjednoczone Emiraty Arabskie", "Wielka Brytania",
             "USA", "Urugwaj", "Uzbekistan", "Vanuatu", "Watykan", "Wenezuela", "Wietnam", "Jemen", "Zambia", "Zimbabwe" };
-        Transmissions = new ObservableCollection<string> { "Manualna", "Automatyczna" };
-        Drives = new ObservableCollection<string> { "FWD", "RWD", "AWD", "4WD" };
-        EngineTypes = new ObservableCollection<string> { "Spalinowy", "Elektryczny", "Hybrydowy" };
-        FuelTypes = new ObservableCollection<string> { "Benzyna", "Benzyna+CNG", "Benzyna+LPG", "Diesel", "Etanol" };
+        Transmissions = new ObservableCollection<String> { "Manualna", "Automatyczna" };
+        Drives = new ObservableCollection<String> { "FWD", "RWD", "AWD", "4WD" };
+        EngineTypes = new ObservableCollection<String> { "Spalinowy", "Elektryczny", "Hybrydowy" };
+        FuelTypes = new ObservableCollection<String> { "Benzyna", "Benzyna+CNG", "Benzyna+LPG", "Diesel", "Etanol" };
         EmissionStandards = new ObservableCollection<String> { "EURO1", "EURO2", "EURO3", "EURO4", "EURO5", "EURO6" };
     }
     
     //Metoda do walidacji pola
-    private async Task ValidateInputAsync(string input, string pattern, string errorMessage)
+    private async Task ValidateInputAsync(String input, String pattern, String errorMessage)
     {
         if (!Regex.IsMatch(input, pattern))
         {
@@ -397,7 +397,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     }
     
     //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(string message)
+    private async Task ShowPopupAsync(String message)
     {
         var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd walidacji", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
@@ -448,7 +448,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
             AllowMultiple = false,
             Filters = new List<FileDialogFilter>
             {
-                new FileDialogFilter { Name = "Images", Extensions = new List<string> { "jpg", "jpeg", "png", "bmp" } }
+                new FileDialogFilter { Name = "Images", Extensions = new List<String> { "jpg", "jpeg", "png", "bmp" } }
             }
         };
         var mainWin = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;

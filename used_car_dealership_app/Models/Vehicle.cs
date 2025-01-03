@@ -77,7 +77,7 @@ public class Vehicle : SpecificVehicleValues
     
     
     //NADPISANIE METODY ToString
-    public override string ToString()
+    public override String ToString()
     {
         return $"('{VehicleId}', '{Brand}', '{Model}', '{Type}', '{BodyType}', '{ProductionYear}', '{ProductionCountry}', '{FirstRegistrationDate}', '{OriginCountry}', '{Mileage}', '{Doors}', '{Color}', '{Transmission}', '{VIN}', '{Description}', '{Drive}', '{Price}', '{EngineType}', '{Consumption}', '{Location.LocationId}')";
     }

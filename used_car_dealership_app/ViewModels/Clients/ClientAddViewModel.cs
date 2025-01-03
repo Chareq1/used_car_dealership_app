@@ -53,7 +53,7 @@ public partial class ClientAddViewModel : ViewModelBase
     
     //METODY
     //Metoda do sprawdzania poprawności numeru PESEL
-    private bool IsValidPESEL(string pesel)
+    private bool IsValidPESEL(String pesel)
     {
         if (pesel.Length != 11 || !long.TryParse(pesel, out _)) { return false; }
         
@@ -68,7 +68,7 @@ public partial class ClientAddViewModel : ViewModelBase
     }
     
     //Metoda do walidacji pola
-    private async Task ValidateInputAsync(string input, string pattern, string errorMessage)
+    private async Task ValidateInputAsync(String input, String pattern, String errorMessage)
     {
         if (!Regex.IsMatch(input, pattern))
         {
@@ -108,7 +108,7 @@ public partial class ClientAddViewModel : ViewModelBase
     }
     
     //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(string message)
+    private async Task ShowPopupAsync(String message)
     {
         var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
