@@ -28,9 +28,8 @@
         
         <TextBlock FontSize="24" Text="Lokalizacje" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontWeight="Bold"/>
         
-        <TextBox Margin="0,25,0,0" Grid.Row="1" Grid.Column="0" Text="{Binding SearchText}" Watermark="Szukaj lokalizacji...">
-            
-        </TextBox>
+        <TextBox Margin="0,25,0,0" Grid.Row="1" Grid.Column="0" Text="{Binding SearchText}" Watermark="Szukaj lokalizacji..." />
+        
         <ComboBox Margin="10,25,0,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding SearchFields}" SelectedItem="{Binding SelectedSearchField}" PlaceholderText="---">
             <ComboBox.Styles>
                 <Style Selector="ComboBox /template/ ListBoxItem:selected">
@@ -39,6 +38,7 @@
                 </Style>
             </ComboBox.Styles>
         </ComboBox>
+        
         <Button 
             Margin="10,25,0,0" 
             Grid.Row="1" 
@@ -48,6 +48,7 @@
             Height="32"
             CornerRadius="5">
             <PathIcon Data="{StaticResource MyLocationRegular}" />
+            
             <Button.Styles>
                 <Style Selector="Button">
                     <Setter Property="Background" Value="#6BA3BE" />
@@ -74,6 +75,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />

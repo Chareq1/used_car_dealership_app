@@ -6,6 +6,7 @@ using Avalonia.Media.Imaging;
 
 namespace used_car_dealership_app.Models;
 
+//TYP WYLICZENIOWY DLA TYPÓW POJAZDU
 public enum VehicleType
 {
     Samochód,
@@ -17,8 +18,10 @@ public enum VehicleType
     Naczepa
 }
 
+//KLASA REPREZENTUJĄCA POJAZD
 public class Vehicle : SpecificVehicleValues
 {
+    //POLA
     public Guid VehicleId { get; set; }
     public String Brand { get; set; }
     public String Model { get; set; }
@@ -41,14 +44,17 @@ public class Vehicle : SpecificVehicleValues
     public Location Location { get; set; }
     
     
+    //LISTY ZE ZDJĘCIAMI I WYPOSAŻENIEM
     public List<Image> Images { get; set; }
     public List<Equipment> Equipment { get; set; }
     
     
+    //POLA WSPOMAGAJĄCE WYŚWIETLANIE INFORMACJI
     public String VehicleFullName => $"{Brand} {Model}";
     public String LocationNameAddress => $"{Location.Name}, ul. {Location.Street} {Location.HouseNumber}, {Location.ZipCode} {Location.City}";
     
     
+    //POLE POMOCNICZE DO WYŚWIETLANIA PIERWSZEGO OBRAZU POJAZDU W FORMULARZU
     public Image FirstImage
     {
         get => Images.Count > 0 ? Images[0] : null;
@@ -66,11 +72,13 @@ public class Vehicle : SpecificVehicleValues
     }
     
     
+    //POLE POMOCNICZE DO SPRAWDZANIA CZY POJAZD MA ZDJĘCIE
     public bool IsFirstImage => FirstImage != null;
-
-
+    
+    
+    //NADPISANIE METODY ToString
     public override string ToString()
     {
-        return $"('{VehicleId}', '{Brand}', '{Model}', '{Type}', '{BodyType}', '{ProductionYear}', '{ProductionCountry}', '{FirstRegistrationDate}', '{OriginCountry}', '{Mileage}', '{Doors}', '{Color}', '{Transmission}', '{VIN}', '{Description}', '{Drive}', '{Price}', '{EngineType}', '{BatterySize}', '{ElectricEnginePower}', '{Consumption}', '{FuelType}', '{EngineSize}', '{Power}', '{Co2Emission}', '{Location.LocationId}')";
+        return $"('{VehicleId}', '{Brand}', '{Model}', '{Type}', '{BodyType}', '{ProductionYear}', '{ProductionCountry}', '{FirstRegistrationDate}', '{OriginCountry}', '{Mileage}', '{Doors}', '{Color}', '{Transmission}', '{VIN}', '{Description}', '{Drive}', '{Price}', '{EngineType}', '{Consumption}', '{Location.LocationId}')";
     }
 }

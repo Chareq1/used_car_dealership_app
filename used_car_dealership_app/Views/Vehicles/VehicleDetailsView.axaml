@@ -53,6 +53,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -177,6 +178,7 @@
                      
                     <Button Grid.Column="0" Click="Previous" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" Width="35" Height="35" CornerRadius="5">
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">&lt;</TextBlock>
+                        
                         <Button.Styles>
                             <Style Selector="Button">
                                 <Setter Property="Background" Value="#6BA3BE" />
@@ -196,10 +198,11 @@
                                 <PageSlide Duration="0:00:00.500" Orientation="Horizontal" />
                             </CompositePageTransition>
                         </Carousel.PageTransition>
+                        
                         <Carousel.ItemTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="15" ClipToBounds="True">
-                                <Image ClipToBounds="True" Source="{Binding Bitmap}" Stretch="UniformToFill"/>
+                                    <Image ClipToBounds="True" Source="{Binding Bitmap}" Stretch="UniformToFill"/>
                                 </Border>
                             </DataTemplate>
                         </Carousel.ItemTemplate>
@@ -207,6 +210,7 @@
                      
                     <Button Grid.Column="2" Click="Next" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Width="35" Height="35" CornerRadius="5">
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">&gt;</TextBlock>
+                        
                         <Button.Styles>
                             <Style Selector="Button">
                                 <Setter Property="Background" Value="#6BA3BE" />

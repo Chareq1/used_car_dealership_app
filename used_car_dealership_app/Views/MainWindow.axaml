@@ -39,6 +39,7 @@
                         <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
                             <StackPanel Spacing="15" Orientation="Horizontal" Background="Transparent">
                                 <PathIcon Data="{Binding Icon}" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                
                                 <TextBlock Text="{Binding Label}" Foreground="White" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
@@ -50,6 +51,7 @@
                             <Setter Property="CornerRadius" Value="10"/>
                             <Setter Property="Margin" Value="0,5, 0,0"></Setter>
                         </Style>
+                        
                         <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
                             <Setter Property="Background" Value="#6BA3BE"/>	
                         </Style>
@@ -68,6 +70,7 @@
                     Command="{Binding OpenProfileCommand}">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource PersonRegular}" />
+                        
                         <TextBlock Text="{Binding LoggedUserFullName}" VerticalAlignment="Center" />
                     </StackPanel>
                     
@@ -94,6 +97,7 @@
                     Margin="5,0">
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <PathIcon Data="{StaticResource ShareCloseTrayRegular}" />
+                        
                         <TextBlock Text="Wyloguj się" VerticalAlignment="Center" />
                     </StackPanel>
                     
@@ -101,9 +105,11 @@
                         <Style Selector="Button">
                             <Setter Property="Background" Value="#FF3B3B" />
                         </Style>
+                        
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="#E3242B" />
                         </Style>
+                        
                         <Style Selector="Button:pressed /template/ ContentPresenter">
                             <Setter Property="Background" Value="#A91B0D" />
                         </Style>
@@ -114,8 +120,7 @@
         </SplitView.Pane>
         
         <SplitView.Content>
-            <Border CornerRadius="0 0 0 0"
-                    Background="#032F30">
+            <Border CornerRadius="0 0 0 0" Background="#032F30">
                 <TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
             </Border>
         </SplitView.Content>

@@ -183,8 +183,11 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
+                                        
                                         <PathIcon Grid.Column="0" Data="{StaticResource ImageAddRegular}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        
                                         <TextBlock MaxWidth="115" Grid.Column="1" FontSize="12" Text="{Binding FileName}" VerticalAlignment="Center"/>
+                                        
                                         <Button Grid.Column="2" Margin="15,0,0,0" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding ((vehicles:VehicleAddViewModel)DataContext).DeleteImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
                                             <PathIcon Data="{StaticResource DeleteRegular}" Width="20" Height="20"/>
                                             <Button.Styles>
@@ -209,6 +212,7 @@
                 
                 <Button Grid.Row="26" Grid.Column="1" Command="{Binding UploadImageCommand}" Padding="5" Width="200" Margin="0,5,0,0">
                     <PathIcon Data="{StaticResource ImageEditRegular}"/>
+                    
                     <Button.Styles>
                         <Style Selector="Button">
                             <Setter Property="Background" Value="#6BA3BE" />
@@ -253,6 +257,7 @@
 
             <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding AddVehicleToDatabaseCommand}" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50">
                 <PathIcon Data="{StaticResource EditSettingsRegular}"/>
+                
                 <Button.Styles>
                     <Style Selector="Button">
                         <Setter Property="Background" Value="#6BA3BE" />

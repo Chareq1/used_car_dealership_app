@@ -17,6 +17,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Users;
 
+//KLASA WIDOKU DO DODAWANIA UŻYTKOWNIKA
 [CustomInfo("Widok do dodawania użytkownika", 1.0f)]
 public partial class UserAddViewModel : ViewModelBase
 {
@@ -24,21 +25,25 @@ public partial class UserAddViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<UserUpdateViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly UserRepository _userRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA UŻTYKOWNIKA
     [ObservableProperty]
     private User _user = new User();
     
+    //WŁAŚCIWOŚĆ DLA LISTY TYPÓW UŻYTKOWNIKÓW
     public ObservableCollection<UserType> UserTypes { get; } = new ObservableCollection<UserType>(Enum.GetValues(typeof(UserType)).Cast<UserType>());
     
     
     //KONSTRUKTOR
-    public UserAddViewModel(UserRepository repository, MainWindowViewModel mainWindowViewModel)
+    public UserAddViewModel(UserRepository userRepository, MainWindowViewModel mainWindowViewModel)
     {
-        _userRepository = repository;
+        _userRepository = userRepository;
+        _mainWindowViewModel = mainWindowViewModel;
         
         User.UserId = Guid.NewGuid();
         
@@ -48,13 +53,11 @@ public partial class UserAddViewModel : ViewModelBase
             var customInfo = (CustomInfoAttribute)attributes[0];
             _logger.LogWarning($"Opis: {customInfo.Description}, Wersja: v{customInfo.Version}");
         }
-        
-        _mainWindowViewModel = mainWindowViewModel;
     }
     
     
     //METODY
-        //Metoda do sprawdzania poprawności numeru PESEL
+    //Metoda do sprawdzania poprawności numeru PESEL
     private bool IsValidPESEL(string pesel)
     {
         if (pesel.Length != 11 || !long.TryParse(pesel, out _)) { return false; }
@@ -127,7 +130,7 @@ public partial class UserAddViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }

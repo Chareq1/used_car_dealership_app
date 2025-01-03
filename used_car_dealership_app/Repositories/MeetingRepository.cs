@@ -7,20 +7,28 @@ using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
+//KLASA REPOZYTORIUM DLA SPOTKAŃ
 public class MeetingRepository
 {
+    //POLE DLA USŁUGI BAZY DANYCH
     private readonly DatabaseService _databaseService;
 
+    
+    //KONSTRUKTOR
     public MeetingRepository()
     {
         _databaseService = new DatabaseService();
     }
 
+    
+    //METODY
+    //Metoda zwracająca wszystkie spotkania
     public DataTable GetAllMeetings()
     {
         return _databaseService.GetAll<Meeting>("meetings");
     }
 
+    //Metoda zwracająca spotkanie po identyfikatorze
     public DataRow GetMeetingById(Guid id)
     {
         try
@@ -33,6 +41,7 @@ public class MeetingRepository
         }
     }
 
+    //Metoda usuwająca spotkanie
     public void DeleteMeeting(Guid id)
     {
         try
@@ -45,6 +54,7 @@ public class MeetingRepository
         }
     }
 
+    //Metoda dodająca spotkanie
     public void AddMeeting(Meeting meeting)
     {
         try
@@ -67,6 +77,7 @@ public class MeetingRepository
         }
     }
 
+    //Metoda aktualizująca spotkanie
     public void UpdateMeeting(Meeting meeting)
     {
         try
@@ -88,6 +99,7 @@ public class MeetingRepository
         }
     }
 
+    //Metoda wykonująca zapytanie
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         try
@@ -100,6 +112,7 @@ public class MeetingRepository
         }
     }
     
+    //Metoda zwracająca spotkania po dacie i identyfikatorze użytkownika
     public DataTable GetMeetingsByDateAndUser(DateTime date, Guid userId)
     {
         try

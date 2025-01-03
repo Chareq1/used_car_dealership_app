@@ -9,20 +9,28 @@ using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
+//KLASA REPOZYTORIUM DLA LOKALIZACJI
 public class LocationRepository
 {
+    //POLE DLA USŁUGI BAZY DANYCH
     private readonly DatabaseService _databaseService;
 
+    
+    //KONSTRUKTOR
     public LocationRepository()
     {
         _databaseService = new DatabaseService();
     }
     
+    
+    //METODY
+    //Metoda zwracająca wszystkie lokalizacje
     public DataTable GetAllLocations()
     {
         return _databaseService.GetAll<Location>("locations");
     }
     
+    //Metoda zwracająca lokalizację po identyfikatorze
     public DataRow GetLocationById(Guid id)
     {
         try
@@ -35,6 +43,7 @@ public class LocationRepository
         }
     }
     
+    //Metoda usuwająca lokalizację
     public void DeleteLocation(Guid id)
     {
         try
@@ -47,6 +56,7 @@ public class LocationRepository
         }
     }
     
+    //Metoda dodająca lokalizację
     public void AddLocation(Location location)
     {
         try
@@ -71,6 +81,7 @@ public class LocationRepository
         }
     }
     
+    //Metoda aktualizująca lokalizację
     public void UpdateLocation(Location location)
     {
         try
@@ -94,6 +105,7 @@ public class LocationRepository
         }
     }
     
+    //Metoda wykonująca zapytanie
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         try {

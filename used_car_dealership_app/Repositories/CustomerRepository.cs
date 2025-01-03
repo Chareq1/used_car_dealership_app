@@ -9,20 +9,28 @@ using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
+//KLASA REPOZYTORIUM DLA KLIENTÓW
 public class CustomerRepository
 {
+    //POLE DLA USŁUGI BAZY DANYCH
     private readonly DatabaseService _databaseService;
 
+    
+    //KONSTRUKTOR
     public CustomerRepository()
     {
         _databaseService = new DatabaseService();
     }
     
+    
+    //METODY
+    //Metoda zwracająca wszystkich klientów
     public DataTable GetAllCustomers()
     {
         return _databaseService.GetAll<Customer>("customers");
     }
     
+    //Metoda zwracająca klienta po identyfikatorze
     public DataRow GetCustomerById(Guid id)
     {
         try
@@ -35,6 +43,7 @@ public class CustomerRepository
         }
     }
     
+    //Metoda usuwająca klienta
     public void DeleteCustomer(Guid id)
     {
         try
@@ -47,6 +56,7 @@ public class CustomerRepository
         }
     }
     
+    //Metoda dodająca klienta
     public void AddCustomer(Customer customer)
     {
         try
@@ -74,6 +84,7 @@ public class CustomerRepository
         }
     }
     
+    //Metoda aktualizująca klienta
     public void UpdateCustomer(Customer customer)
     {
         try
@@ -100,6 +111,7 @@ public class CustomerRepository
         }
     }
     
+    //Metoda wykonująca zapytanie
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         try

@@ -7,6 +7,7 @@
              x:Class="used_car_dealership_app.Views.Clients.ClientUpdateView"
              x:DataType="clients:ClientUpdateViewModel"
              FontFamily="{StaticResource Ubuntu}">
+    
     <Design.DataContext>
         <clients:ClientUpdateViewModel />
     </Design.DataContext>
@@ -81,6 +82,7 @@
         <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
             <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50" Command="{Binding GoBackCommand}">
                 <PathIcon Data="{StaticResource ArrowReplyRegular}"/>
+                
                 <Button.Styles>
                     <Style Selector="Button">
                         <Setter Property="Background" Value="#6BA3BE" />
@@ -96,6 +98,7 @@
 
             <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding UpdateClientDataInDatabaseCommand}" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50">
                 <PathIcon Data="{StaticResource EditSettingsRegular}"/>
+                
                 <Button.Styles>
                     <Style Selector="Button">
                         <Setter Property="Background" Value="#6BA3BE" />

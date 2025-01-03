@@ -18,6 +18,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Users;
 
+//KLASA WIDOKU DO WYŚWIETLANIA LISTY UŻYTKOWNIKÓW
 [CustomInfo("Widok listy użytkowników", 1.0f)]
 public partial class UsersViewModel: ViewModelBase
 {
@@ -25,14 +26,17 @@ public partial class UsersViewModel: ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<UsersViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly UserRepository _userRepository;
     private ObservableCollection<User> _users;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
+    
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ UŻYTKOWNICY
     [ObservableProperty]
     private bool _areThereUsers = false;
+    
     
     //WŁAŚCIWOŚCI DO WYSZUKIWANA UŻYTKOWNIKÓW
     [ObservableProperty]
@@ -43,6 +47,14 @@ public partial class UsersViewModel: ViewModelBase
 
     [ObservableProperty] 
     private List<string> _searchFields;
+    
+    
+    //POLE DLA LISTY UŻYTKOWNIKÓW Z BAZY DANYCH
+    public ObservableCollection<User> Users
+    {
+        get => _users;
+        set => SetProperty(ref _users, value);
+    }
     
     
     //KONSTRUKTOR DLA WIDOKU
@@ -66,14 +78,6 @@ public partial class UsersViewModel: ViewModelBase
     public UsersViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
-    }
-    
-    
-    //POLE DLA LISTY UŻYTKOWNIKÓW Z BAZY DANYCH
-    public ObservableCollection<User> Users
-    {
-        get => _users;
-        set => SetProperty(ref _users, value);
     }
     
     
@@ -184,7 +188,6 @@ public partial class UsersViewModel: ViewModelBase
         _logger.LogInformation("Wyszukano użytkowników w bazie danych!");
     }
     
-      
     //Metoda do pokazania szczegółów użytkownika (przejścia do innego widoku)
     [RelayCommand]
     private void ShowUserDetails(User user)
@@ -209,10 +212,8 @@ public partial class UsersViewModel: ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie użytkownika",
-                "Czy na pewno chcesz usunąć tego użytkownika?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie użytkownika", "Czy na pewno chcesz usunąć tego użytkownika?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

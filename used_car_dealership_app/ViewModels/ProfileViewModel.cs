@@ -18,6 +18,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels;
 
+//KLASA WIDOKU PROFILU UŻYTKOWNIKA
 [CustomInfo("Widok profilu użytkownika", 1.0f)]
 public partial class ProfileViewModel : ViewModelBase
 {
@@ -25,11 +26,13 @@ public partial class ProfileViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ProfileViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly UserRepository _userRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
-    //WŁAŚCIWOŚĆ DLA UŻTYKOWNIKA
+    
+    //WŁAŚCIWOŚCI DLA UŻTYKOWNIKA
     [ObservableProperty]
     private User _user = new User();
     

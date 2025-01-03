@@ -12,6 +12,7 @@
     <Design.DataContext>
         <clients:ClientAddViewModel />
     </Design.DataContext>
+    
      <Grid Margin="20,25">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

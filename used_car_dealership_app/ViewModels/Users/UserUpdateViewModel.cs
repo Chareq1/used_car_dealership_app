@@ -20,6 +20,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Users;
 
+//KLASA WIDOKU DO AKTUALIZOWANIA DANYCH UŻYTKOWNIKA
 [CustomInfo("Widok do aktualizowania danych użytkownika", 1.0f)]
 public partial class UserUpdateViewModel : ViewModelBase
 {
@@ -27,14 +28,18 @@ public partial class UserUpdateViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<UserUpdateViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly UserRepository _userRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA UŻTYKOWNIKA
     [ObservableProperty]
     private User _user = new User();
     
+    
+    //WŁAŚCIWOŚĆ DLA LISTY TYPÓW UŻYTKOWNIKÓW
     public ObservableCollection<UserType> UserTypes { get; } = new ObservableCollection<UserType>(Enum.GetValues(typeof(UserType)).Cast<UserType>());
     
     
@@ -154,7 +159,7 @@ public partial class UserUpdateViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }

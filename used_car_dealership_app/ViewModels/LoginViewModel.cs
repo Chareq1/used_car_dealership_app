@@ -17,6 +17,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels;
 
+//KLASA WIDOKU DO LOGOWANIA SIĘ UŻYTKOWNIKA
 [CustomInfo("Widok do logowania się użytkownika", 1.0f)]
 public partial class LoginViewModel : ViewModelBase
 {
@@ -24,8 +25,12 @@ public partial class LoginViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LoginViewModel>();
     
+    
+    //POLE DLA USŁUGI UŻYTKOWNIKA
     private readonly UserService _userService;
     
+    
+    //WŁAŚCIWOŚCI DLA NAZWY UŻYTKOWNIKA, HASŁA I CZY UŻYTKOWNIK SIĘ LOGUJE
     [ObservableProperty]
     private string _username;
     
@@ -34,7 +39,9 @@ public partial class LoginViewModel : ViewModelBase
     
     [ObservableProperty]
     private bool _isLoggingIn;
+    
 
+    //KONSTRUKTOR
     public LoginViewModel()
     {
         _userService = new UserService();
@@ -47,6 +54,9 @@ public partial class LoginViewModel : ViewModelBase
         }
     }
     
+    
+    //KOMENDY
+    //Komenda do logowania się użytkownika
     [RelayCommand]
     private async void Login()
     {
@@ -89,6 +99,7 @@ public partial class LoginViewModel : ViewModelBase
         }
     }
     
+    //Komenda do anulowania logowania
     [RelayCommand]
     public void Cancel()
     {

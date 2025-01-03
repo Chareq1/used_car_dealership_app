@@ -13,6 +13,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Locations;
 
+//KLASA WIDOKU DO WYŚWIETLANIA DANYCH LOKALIZACJI
 [CustomInfo("Widok do wyświetlania danych lokalizacji", 1.0f)]
 public partial class LocationDetailsViewModel : ViewModelBase
 {
@@ -20,17 +21,18 @@ public partial class LocationDetailsViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationDetailsViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MainWindowViewModel _mainWindowViewModel;
     private readonly LocationRepository _locationRepository;
     
     
-    //WŁAŚCIWOŚCI
-    //Właściwość dla adresu
+    //WŁAŚCIWOŚĆ DLA ADRESU
     [ObservableProperty]
     public String _address = "";
     
-    //Właściwość dla lokalizacji
+    
+    //WŁAŚCIWOŚĆ DLA LOKALIZACJI
     [ObservableProperty]
     private Location _location;
     
@@ -99,10 +101,8 @@ public partial class LocationDetailsViewModel : ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie lokalizacji",
-                "Czy na pewno chcesz usunąć tą lokalizację?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie lokalizacji", "Czy na pewno chcesz usunąć tą lokalizację?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

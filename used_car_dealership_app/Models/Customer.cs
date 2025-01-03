@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace used_car_dealership_app.Models;
 
+//KLASA REPREZENTUJĄCA KLIENTA
 public class Customer
 {
+    //POLA
     public Guid CustomerId { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
@@ -17,10 +19,14 @@ public class Customer
     public string ZipCode { get; set; }
     public string HouseNumber { get; set; }
 
+    
+    //POLE POMOCNICZE DO WYŚWIETLANIA PEŁNEGO IMIENIA KLIENTA
     public string CustomerFullName => $"{Name} {Surname}";
     
+    
+    //NADPISANIE METODY ToString
     public override string ToString()
     {
-        return $"('{CustomerId}', '{Name}', '{Surname}', '{PESEL}', '{Phone}', '{Email}', '{Street}', '{City}', '{ZipCode}', '{HouseNumber}')";
+        return $"('{CustomerId}', '{Name}', '{Surname}', '{PESEL}', '{IdCardNumber}', '{Phone}', '{Email}', '{Street}', '{City}', '{ZipCode}', '{HouseNumber}')";
     }
 }

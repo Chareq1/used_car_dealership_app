@@ -12,6 +12,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Clients;
 
+//KLASA WIDOKU DO WYŚWIETLANIA DANYCH KLIENTA
 [CustomInfo("Widok do wyświetlania danych klienta", 1.0f)]
 public partial class ClientDetailsViewModel : ViewModelBase
 {
@@ -19,17 +20,18 @@ public partial class ClientDetailsViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientDetailsViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MainWindowViewModel _mainWindowViewModel;
     private readonly CustomerRepository _customerRepository;
     
     
-    //WŁAŚCIWOŚCI
-    //Właściwość dla adresu
+    //WŁAŚCIWOŚCI DLA ADRESU
     [ObservableProperty]
     public String _address = "";
     
-    //Właściwość dla klienta
+    
+    //WŁAŚCIWOŚĆ DLA KLIENTA
     [ObservableProperty]
     private Customer _customer;
 
@@ -101,10 +103,8 @@ public partial class ClientDetailsViewModel : ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta",
-                "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta", "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

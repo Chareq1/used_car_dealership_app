@@ -7,20 +7,28 @@ using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
+//KLASA REPOZYTORIUM DLA POJAZDÓW
 public class VehicleRepository
 {
+    //POLE DLA USŁUGI BAZY DANYCH
     private readonly DatabaseService _databaseService;
 
+    
+    //KONSTRUKTOR
     public VehicleRepository()
     {
         _databaseService = new DatabaseService();
     }
 
+    
+    //METODY
+    //Metoda zwracająca wszystkie pojazdy
     public DataTable GetAllVehicles()
     {
         return _databaseService.GetAll<Vehicle>("vehicles");
     }
 
+    //Metoda zwracająca pojazd po identyfikatorze
     public DataRow GetVehicleById(Guid id)
     {
         try {
@@ -30,6 +38,7 @@ public class VehicleRepository
         }
     }
 
+    //Metoda usuwająca pojazd
     public void DeleteVehicle(Guid id)
     {
         try {
@@ -39,6 +48,7 @@ public class VehicleRepository
         }
     }
 
+    //Metoda usuwająca wyposażenie
     public void DeleteEquipment(Guid id)
     {
         try{
@@ -48,6 +58,7 @@ public class VehicleRepository
         }
     }    
     
+    //Metoda dodająca pojazd
     public void AddVehicle(Vehicle vehicle)
     {
         try
@@ -90,6 +101,7 @@ public class VehicleRepository
         }
     }
 
+    //Metoda aktualizująca pojazd
     public void UpdateVehicle(Vehicle vehicle)
     {
         try
@@ -131,6 +143,7 @@ public class VehicleRepository
         }
     }
     
+    //Metoda zwracająca wyposażenie
     public DataTable GetEquipment(Guid vehicleId)
     {
         try {
@@ -146,6 +159,7 @@ public class VehicleRepository
         }
     }
     
+    //Metoda dodająca wyposażenie
     public void AddEquipment(Guid vehicleId, Guid equipmentId)
     {
         try {
@@ -161,6 +175,7 @@ public class VehicleRepository
         }
     }
     
+    //Metoda usuwająca wyposażenie
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         try {

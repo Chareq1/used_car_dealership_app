@@ -15,6 +15,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Clients;
 
+//KLASA WIDOKU DO AKTUALIZOWANIA DANYCH KLIENTA
 [CustomInfo("Widok do aktualizowania danych klienta", 1.0f)]
 public partial class ClientUpdateViewModel : ViewModelBase
 {
@@ -22,9 +23,11 @@ public partial class ClientUpdateViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientUpdateViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly CustomerRepository _customerRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA KLIENTA
     [ObservableProperty]
@@ -129,7 +132,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
@@ -153,8 +156,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
             if (await ValidateFieldsAsync())
             {
                 _customerRepository.UpdateCustomer(Customer);
-                _mainWindowViewModel.CurrentPage =
-                    new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
+                _mainWindowViewModel.CurrentPage = new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano klienta w bazie danych!");
             }
         }

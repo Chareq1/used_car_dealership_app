@@ -7,20 +7,28 @@ using used_car_dealership_app.Services;
 
 namespace used_car_dealership_app.Repositories;
 
+//KLASA REPOZYTORIUM DLA OBRAZKÓW
 public class ImageRepository
 {
+    //POLE DLA USŁUGI BAZY DANYCH
     private readonly DatabaseService _databaseService;
 
+    
+    //KONSTRUKTOR
     public ImageRepository()
     {
         _databaseService = new DatabaseService();
     }
 
+    
+    //METODY
+    //Metoda zwracająca wszystkie obrazki
     public DataTable GetAllImages()
     {
         return _databaseService.GetAll<Image>("images");
     }
 
+    //Metoda zwracająca obrazki po identyfikatorze pojazdu
     public DataTable GetImagesByVehicleId(Guid vehicleId)
     {
         try
@@ -38,6 +46,7 @@ public class ImageRepository
         }
     }
     
+    //Metoda zwracająca obrazek po identyfikatorze
     public DataRow GetImageById(Guid id)
     {
         try
@@ -50,6 +59,7 @@ public class ImageRepository
         }
     }
 
+    //Metoda usuwająca obrazek
     public void DeleteImage(Guid id)
     {
         try
@@ -62,6 +72,7 @@ public class ImageRepository
         }
     }
     
+    //Metoda usuwająca obrazki po identyfikatorze pojazdu
     public void DeleteImagesByVehicleId(Guid id)
     {
         try
@@ -74,6 +85,7 @@ public class ImageRepository
         }
     }  
 
+    //Metoda dodająca obrazek
     public void AddImage(Image image)
     {
         try
@@ -94,6 +106,7 @@ public class ImageRepository
         }
     }
 
+    //Metoda aktualizująca obrazek
     public void UpdateImage(Image image)
     {
         try
@@ -113,6 +126,7 @@ public class ImageRepository
         }
     }
     
+    //Metoda wykonująca zapytanie
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         try

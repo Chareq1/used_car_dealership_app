@@ -3,8 +3,10 @@ using used_car_dealership_app.Models.Interfaces;
 
 namespace used_car_dealership_app.Models;
 
+//KLASA ABSTRAKCYJNA Z POLAMI DLA POJAZDÓW SPECYFICZNYCH
 public abstract class SpecificVehicleValues: IElectricVehicle, IFuelVehicle
 {
+    //POLA
     public Decimal? BatterySize { get; set; }
     public Decimal? ElectricEnginePower { get; set; }
     public String? FuelType { get; set; }

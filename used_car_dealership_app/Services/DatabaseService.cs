@@ -9,21 +9,25 @@ using used_car_dealership_app.Services.Interfaces;
 
 namespace used_car_dealership_app.Services;
 
+//KLASA DLa USŁUGI BAZY DANYCH
 public class DatabaseService : IDatabaseService
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<Program>();
     
+    
     //POLA DLA POŁĄCZENIA Z BAZĄ
     private static String connectionString = "";
     public NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+    
     
     //POLA DO INNYCH ELEMENTÓW
     private NpgsqlCommand command = null;
 
     
-    //Utworzenie połączenia z bazą danych
+    //METODY
+    //Metoda do utworzenia połączenia z bazą danych
     public void Connect()
     {
         try
@@ -49,7 +53,7 @@ public class DatabaseService : IDatabaseService
         }
     }
 
-    //Zamknięcie połączenia z bazą danych
+    //Metoda do zakończenia połączenia z bazą danych
     public void Disconnect()
     {
         try
@@ -67,7 +71,7 @@ public class DatabaseService : IDatabaseService
         }
     }
     
-    //Pobranie wszystkich danych z bazy danych
+    //Metoda do pobrania wszystkich rekordów z tabeli
     public DataTable GetAll<T>(string tableName)
     {
         Connect();
@@ -87,7 +91,7 @@ public class DatabaseService : IDatabaseService
         return table;
     }
     
-    //Pobranie rekordu z bazy danych o wskazanym UUID
+    //Metoda do pobrania rekordu z tabeli po ID
     public DataRow GetById<T>(string tableName, string idColumnName, Guid id)
     {
         Connect();
@@ -124,7 +128,7 @@ public class DatabaseService : IDatabaseService
         }
     }
     
-    //Dodanie rekordu do bazy danych
+    //Metoda do dodania rekordu do bazy danych
     public void Insert<T>(string tableName, Dictionary<string, object> data)
     {
         Connect();
@@ -183,7 +187,7 @@ public class DatabaseService : IDatabaseService
         }
     }
     
-    //Aktualizacja rekordu w bazie danych
+    //Metoda do aktualizacji rekordu w bazie danych
     public void Update<T>(string tableName, Dictionary<string, object> data, string idColumnName, Guid id)
     {
         Connect();
@@ -238,7 +242,7 @@ public class DatabaseService : IDatabaseService
         }
     }
     
-    //Usunięcie rekordu z bazy danych
+    //Metoda do usunięcia rekordu z bazy danych
     public void Delete<T>(string tableName, string idColumnName, Guid id)
     {
         Connect();
@@ -263,7 +267,7 @@ public class DatabaseService : IDatabaseService
         }
     }
     
-    //Wykonanie zapytania SQL
+    //Metoa do wykonania zapytania do bazy danych
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
         Connect();

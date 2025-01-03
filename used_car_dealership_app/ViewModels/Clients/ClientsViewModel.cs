@@ -19,6 +19,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace used_car_dealership_app.ViewModels.Clients;
 
+//KLASA WIDOKU DO WYŚWIETLANIA LISTY KLIENTÓW
 [CustomInfo("Widok listy klientów", 1.0f)]
 public partial class ClientsViewModel : ViewModelBase
 {
@@ -26,14 +27,17 @@ public partial class ClientsViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientsViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly CustomerRepository _customerRepository;
     private ObservableCollection<Customer> _customers;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
+    
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ KLIENCI
     [ObservableProperty]
     private bool _areThereCustomers = false;
+    
     
     //WŁAŚCIWOŚCI DO WYSZUKIWANA KLIENTÓW
     [ObservableProperty]
@@ -44,6 +48,14 @@ public partial class ClientsViewModel : ViewModelBase
 
     [ObservableProperty] 
     private List<string> _searchFields;
+    
+    
+    //POLE DLA LISTY KLIENTÓW Z BAZY DANYCH
+    public ObservableCollection<Customer> Customers
+    {
+        get => _customers;
+        set => SetProperty(ref _customers, value);
+    }
 
     
     //KONSTRUKTOR DLA WIDOKU
@@ -68,15 +80,7 @@ public partial class ClientsViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
     }
-
     
-    //POLE DLA LISTY KLIENTÓW Z BAZY DANYCH
-    public ObservableCollection<Customer> Customers
-    {
-        get => _customers;
-        set => SetProperty(ref _customers, value);
-    }
-
     
     //METODY
     //Metoda do wczytywania klientów z bazy danych
@@ -188,10 +192,8 @@ public partial class ClientsViewModel : ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta",
-                "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta", "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

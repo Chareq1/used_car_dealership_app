@@ -6,13 +6,17 @@ using Avalonia.Platform;
 
 namespace used_car_dealership_app.Models;
 
+//KLASA REPREZENTUJĄCA OBRAZ
 public class Image
 {
+    //POLA
     public Guid ImageId { get; set; }
     public String FileName { get; set; }
     public String FilePath { get; set; }
     public Guid VehicleId { get; set; }
     
+    
+    //POLE POMOCNICZE DO WYŚWIETLANIA OBRAZKA W FORMULARZU
     public Bitmap Bitmap
     {
         get
@@ -21,6 +25,8 @@ public class Image
         }
     }
     
+    
+    //NADPISANIE METODY ToString
     public override string ToString()
     {
         return $"('{ImageId}', '{FileName}', '{FilePath}', '{VehicleId}')";

@@ -5,8 +5,10 @@ using Npgsql;
 
 namespace used_car_dealership_app.Services.Interfaces;
 
+//INTERFEJS DLA USŁUGI BAZY DANYCH
 public interface IDatabaseService
 {
+    //METODY
     public void Connect();
     public void Disconnect();
     public DataTable GetAll<T>(String tableName);

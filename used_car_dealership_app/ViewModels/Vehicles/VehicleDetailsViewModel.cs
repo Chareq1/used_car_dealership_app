@@ -20,6 +20,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Vehicles;
 
+//KLASA WIDOKU DO WYŚWIETLANIA DANYCH POJAZDU
 [CustomInfo("Widok do wyświetlania danych pojazdu", 1.0f)]
 public partial class VehicleDetailsViewModel : ViewModelBase
 {
@@ -27,28 +28,33 @@ public partial class VehicleDetailsViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehicleDetailsViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MainWindowViewModel _mainWindowViewModel;
     private readonly VehicleRepository _vehicleRepository;
     private readonly ImageRepository _imageRepository;
     private readonly LocationRepository _locationRepository;
 
-    //WŁAŚCIWOŚCI
-    //Właściwość dla pojazdu
+    
+    //WŁAŚCIWOŚCI DLA POJAZDU
     [ObservableProperty]
     private Vehicle _vehicle;
     
-    //Właściwość dla obrazów
+    
+    //WŁAŚCIWOŚCI DLA OBRAZÓW
     [ObservableProperty]
     private ObservableCollection<Image> _images;
 
     [ObservableProperty]
     private bool _areThereImages;
     
-    //Właściwość dla wybranego obrazu
+    
+    //WŁAŚCIWOŚĆ DLA WYBRANEGO OBRAZU
     [ObservableProperty]
     private int _selectedImageIndex;
-
+    
+    
+    //WŁAŚCIWOŚĆ DLA LISTY WYPOSAŻENIA
     [ObservableProperty] 
     private String _equipmentListString;
     
@@ -70,7 +76,6 @@ public partial class VehicleDetailsViewModel : ViewModelBase
         _vehicleRepository = vehicleRepository;
         _imageRepository = imageRepository;
         _locationRepository = new LocationRepository();
-        
         _mainWindowViewModel = mainWindowViewModel;
         
         var attributes = typeof(VehicleDetailsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
@@ -200,8 +205,7 @@ public partial class VehicleDetailsViewModel : ViewModelBase
             VehicleId = vehicle.VehicleId
         }).ToList();
 
-        if (vehicle.Images.Count > 0)
-        { AreThereImages = true; } else { AreThereImages = false;}
+        if(vehicle.Images.Count > 0) { AreThereImages = true; } else { AreThereImages = false;}
         
         return vehicle;
     }
@@ -243,10 +247,8 @@ public partial class VehicleDetailsViewModel : ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie pojazdu",
-                "Czy na pewno chcesz usunąć ten pojazd?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie pojazdu", "Czy na pewno chcesz usunąć ten pojazd?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

@@ -16,6 +16,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Locations;
 
+//KLASA WIDOKU DO AKTUALIZOWANIA DANYCH LOKALIZACJI
 [CustomInfo("Widok do aktualizowania danych lokalizacji", 1.0f)]
 public partial class LocationUpdateViewModel : ViewModelBase
 {
@@ -23,9 +24,11 @@ public partial class LocationUpdateViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationUpdateViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly LocationRepository _locationRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA LOKALIZACJI
     [ObservableProperty]
@@ -130,8 +133,7 @@ public partial class LocationUpdateViewModel : ViewModelBase
             if (await ValidateFieldsAsync())
             {
                 _locationRepository.UpdateLocation(Location);
-                _mainWindowViewModel.CurrentPage =
-                    new LocationDetailsViewModel(Location.LocationId, _locationRepository, _mainWindowViewModel);
+                _mainWindowViewModel.CurrentPage = new LocationDetailsViewModel(Location.LocationId, _locationRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano lokalizację w bazie danych!");
             }
         }

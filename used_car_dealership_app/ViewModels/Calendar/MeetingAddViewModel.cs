@@ -16,6 +16,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Calendar;
 
+//KLASA WIDOKU DO DODAWANIA SPOTKANIA
 [CustomInfo("Widok do dodawania spotkania", 1.0f)]
 public partial class MeetingAddViewModel : ViewModelBase
 {
@@ -23,23 +24,28 @@ public partial class MeetingAddViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<MeetingAddViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MeetingRepository _meetingRepository;
     private readonly CustomerRepository _customerRepository;
     private readonly LocationRepository _locationRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
+    
     //WŁAŚCIWOŚĆ DLA SPOTKANIA
     [ObservableProperty]
     private Meeting _meeting = new Meeting();
+    
     
     //WŁAŚCIWOŚĆ DLA LISTY KLIENTÓW
     [ObservableProperty]
     private ObservableCollection<Customer> _customers = new ObservableCollection<Customer>();
 
+    
     //WŁAŚCIWOŚĆ DLA LISTY LOKALIZACJI
     [ObservableProperty]
     private ObservableCollection<Location> _locations = new ObservableCollection<Location>();
+    
     
     //WŁAŚCIWOŚCI DLA WYBRANEGO KLIENTA I LOKALIZACJI
     [ObservableProperty]
@@ -48,12 +54,14 @@ public partial class MeetingAddViewModel : ViewModelBase
     [ObservableProperty]
     private Location _selectedLocation;
        
+    
     //WŁAŚCIWOŚCI DLA WYBRANEGO CZASU I GODZINU
     [ObservableProperty]
     private DateTimeOffset _selectedDate;
     
     [ObservableProperty]
     private TimeSpan _selectedTime;
+    
     
     //KONSTRUKTOR
     public MeetingAddViewModel(MeetingRepository meetingRepository, CustomerRepository customerRepository, LocationRepository locationRepository, MainWindowViewModel mainWindowViewModel)
@@ -64,6 +72,8 @@ public partial class MeetingAddViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
         
         Meeting.MeetingId = Guid.NewGuid();
+        SelectedDate = DateTime.Today;
+        SelectedTime = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
         var attributes = typeof(MeetingUpdateViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -72,16 +82,13 @@ public partial class MeetingAddViewModel : ViewModelBase
             _logger.LogWarning($"Opis: {customInfo.Description}, Wersja: v{customInfo.Version}");
         }
         
-        SelectedDate = DateTime.Today;
-        SelectedTime = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        
         LoadCustomers();
         LoadLocations();
     }
     
        
-    // METODY
-    // Metoda do wczytywania klientów
+    //METODY
+    //Metoda do wczytywania klientów
     private async void LoadCustomers()
     {
         var dataTable = await Task.Run(() => _customerRepository.GetAllCustomers());
@@ -105,7 +112,7 @@ public partial class MeetingAddViewModel : ViewModelBase
         _logger.LogInformation("Pobrano klientów z bazy danych!");
     }
 
-    // Metoda do wczytywania lokalizacji
+    //Metoda do wczytywania lokalizacji
     private async void LoadLocations()
     {
         var dataTable = await Task.Run(() => _locationRepository.GetAllLocations());
@@ -129,8 +136,8 @@ public partial class MeetingAddViewModel : ViewModelBase
     }
     
     
-    // KOMENDY
-    // Komenda do powrotu do poprzedniego widoku
+    //KOMENDY
+    //Komenda do powrotu do poprzedniego widoku
     [RelayCommand]
     private void GoBack()
     {
@@ -138,14 +145,13 @@ public partial class MeetingAddViewModel : ViewModelBase
         _logger.LogInformation("Przejście do widoku kalendarza!");
     }
 
-    // Komenda do dodania spotkania do bazy danych
+    //Komenda do dodania spotkania do bazy danych
     [RelayCommand]
     private async Task AddMeetingToDatabaseAsync()
     {
         try
         {
-            Meeting.Date = new DateTime(_selectedDate.Year, _selectedDate.Month, _selectedDate.Day, _selectedTime.Hours,
-                _selectedTime.Minutes, _selectedTime.Seconds);
+            Meeting.Date = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, SelectedTime.Hours, SelectedTime.Minutes, SelectedTime.Seconds);
 
             Meeting.Customer = SelectedCustomer;
             Meeting.Location = SelectedLocation;

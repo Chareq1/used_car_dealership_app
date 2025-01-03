@@ -16,12 +16,14 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Calendar;
 
+//KLASA WIDOKU KALENDARZA
 [CustomInfo("Widok kalendarza", 1.0f)]
 public partial class CalendarViewModel : ViewModelBase
 {
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<CalendarViewModel>();
+    
     
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MeetingRepository _meetingRepository;
@@ -30,17 +32,21 @@ public partial class CalendarViewModel : ViewModelBase
     private ObservableCollection<Meeting> _meetings;
     private readonly MainWindowViewModel _mainWindowViewModel;
     
+    
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ SPOTKANIA
     [ObservableProperty]
     private bool _areThereMeetings;
+    
     
     //WŁAŚCIWOŚĆ DLA WYBRANEJ DATY
     [ObservableProperty]
     private DateTime _selectedDate;
     
+    
     //WŁAŚCIWOŚĆ DLA KLIENTA
     [ObservableProperty]
     private Customer _selectedCustomer;
+    
     
     //WŁAŚCIWOŚĆ DLA UŻYTKOWNIKA
     [ObservableProperty]
@@ -120,6 +126,7 @@ public partial class CalendarViewModel : ViewModelBase
     {
         var customerRow = _customerRepository.GetCustomerById(customerId);
         _logger.LogInformation("Wczytano dane klienta!");
+        
         return new Customer
         {
             CustomerId = customerId,
@@ -141,6 +148,7 @@ public partial class CalendarViewModel : ViewModelBase
     {
         var locationRow = _locationRepository.GetLocationById(locationId);
         _logger.LogInformation("Wczytano dane lokalizacji!");
+        
         return new Location
         {
             LocationId = locationId,
@@ -154,6 +162,7 @@ public partial class CalendarViewModel : ViewModelBase
         };
     }
     
+    //Metoda do obsługi zmiany daty
     partial void OnSelectedDateChanged(DateTime value)
     {
         LoadMeetings();
@@ -168,26 +177,24 @@ public partial class CalendarViewModel : ViewModelBase
         _logger.LogInformation("Przejście do widoku aktualizacji spotkania o ID {0}!", meeting.MeetingId);
     }
     
-    //Metoda do przejścia do widoku dodawania klienta
+    //Metoda do przejścia do widoku dodawania spotkania
     [RelayCommand]
     private void GoToAddScreen()
     {
         var addViewModel = new MeetingAddViewModel(_meetingRepository, _customerRepository, _locationRepository, _mainWindowViewModel);
         _mainWindowViewModel.CurrentPage = addViewModel;
-        _logger.LogInformation("Przejście do widoków dodawania klientów! ");
+        _logger.LogInformation("Przejście do widoku dodawania spotkania! ");
         
     }
     
-    //Metoda do usuwania klienta z bazy danych
+    //Metoda do usuwania spotkania z bazy danych
     [RelayCommand]
     private async void DeleteMeeting(Meeting meeting)
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie spotkania",
-                "Czy na pewno chcesz usunąć to spotkanie?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie spotkania", "Czy na pewno chcesz usunąć to spotkanie?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

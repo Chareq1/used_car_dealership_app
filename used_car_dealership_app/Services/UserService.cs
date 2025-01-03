@@ -11,8 +11,11 @@ using used_car_dealership_app.Services.Interfaces;
 
 namespace used_car_dealership_app.Services;
 
+//KLASA DLA USŁUGI UŻYTKOWNIKA
 public class UserService
 {
+    //METODY
+    //Metoda do autoryzacji użytkownika
     public async Task<User> AuthenticateUser(string username, string password)
     {
         password = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));

@@ -15,6 +15,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Clients;
 
+//KLASA WIDOKU DO DODAWANIA KLIENTA
 [CustomInfo("Widok do dodawania klienta", 1.0f)]
 public partial class ClientAddViewModel : ViewModelBase
 {
@@ -22,9 +23,11 @@ public partial class ClientAddViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientAddViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly CustomerRepository _customerRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA KLIENTA
     [ObservableProperty]
@@ -35,6 +38,7 @@ public partial class ClientAddViewModel : ViewModelBase
     public ClientAddViewModel(CustomerRepository repository, MainWindowViewModel mainWindowViewModel)
     {
         _customerRepository = repository;
+        _mainWindowViewModel = mainWindowViewModel;
         
         Customer.CustomerId = Guid.NewGuid();
         
@@ -44,8 +48,6 @@ public partial class ClientAddViewModel : ViewModelBase
             var customInfo = (CustomInfoAttribute)attributes[0];
             _logger.LogWarning($"Opis: {customInfo.Description}, Wersja: v{customInfo.Version}");
         }
-        
-        _mainWindowViewModel = mainWindowViewModel;
     }
     
     
@@ -108,7 +110,7 @@ public partial class ClientAddViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }

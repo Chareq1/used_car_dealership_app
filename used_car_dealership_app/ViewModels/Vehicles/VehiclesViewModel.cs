@@ -21,6 +21,7 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Vehicles;
 
+//KLASA WIDOKU DO LISTY POJAZDÓW
 [CustomInfo("Widok listy pojazdów", 1.0f)]
 public partial class VehiclesViewModel : ViewModelBase
 {
@@ -28,16 +29,19 @@ public partial class VehiclesViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehiclesViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly MainWindowViewModel _mainWindowViewModel;
     private readonly VehicleRepository _vehicleRepository;
     private readonly ImageRepository _imageRepository;
     private ObservableCollection<Vehicle> _vehicles;
     
+    
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ POJAZDY
     [ObservableProperty]
     private bool _areThereVehicles;
 
+    
     //WŁAŚCIWOŚCI DO WYSZUKIWANA POJAZDÓW
     [ObservableProperty]
     private String _searchText;
@@ -47,6 +51,14 @@ public partial class VehiclesViewModel : ViewModelBase
 
     [ObservableProperty]
     private List<String> _searchFields;
+    
+    
+    //POLE DLA LISTY POJAZDÓW Z BAZY DANYCH
+    public ObservableCollection<Vehicle> Vehicles
+    {
+        get => _vehicles;
+        set => SetProperty(ref _vehicles, value);
+    }
     
     
     //KONSTRUKTOR DLA WIDOKU
@@ -66,17 +78,11 @@ public partial class VehiclesViewModel : ViewModelBase
         LoadVehicles();
     }
     
+    
     //KONSTRUKTOR DLA WIDOKU Z MAINWINDOWVIEWMODEL
     public VehiclesViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
-    }
-    
-    //POLE DLA LISTY POJAZDÓW Z BAZY DANYCH
-    public ObservableCollection<Vehicle> Vehicles
-    {
-        get => _vehicles;
-        set => SetProperty(ref _vehicles, value);
     }
     
     
@@ -102,7 +108,6 @@ public partial class VehiclesViewModel : ViewModelBase
                 VIN = row["VIN"].ToString(),
                 Type = Enum.TryParse(row["type"].ToString(), out VehicleType vehicleType) ? vehicleType : VehicleType.Samochód
             }).ToList();
-         
             
             foreach (var vehicle in vehicles)
             {
@@ -118,7 +123,6 @@ public partial class VehiclesViewModel : ViewModelBase
                 vehicle.FirstImage = vehicle.Images.Count > 0 ? vehicle.Images[0] : null;
             }
             
-
             Vehicles = new ObservableCollection<Vehicle>(vehicles);
         }
         
@@ -238,10 +242,8 @@ public partial class VehiclesViewModel : ViewModelBase
     {
         try
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie pojazdu",
-                "Czy na pewno chcesz usunąć ten pojazd?", ButtonEnum.YesNo, Icon.Warning);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
-                .MainWindow;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie pojazdu", "Czy na pewno chcesz usunąć ten pojazd?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
             var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
 
             if (result == ButtonResult.Yes)

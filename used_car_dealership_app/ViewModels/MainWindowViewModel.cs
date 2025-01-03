@@ -21,8 +21,10 @@ using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels;
 
+//KLASA WIDOKU GŁÓWNEGO OKNA APLIKACJI
 public partial class MainWindowViewModel : ViewModelBase
 {
+    //WŁAŚCIWOŚCI DLA STRONY, CZY PANEL JEST OTWARTY, WYBRANEGO ELEMENTU LISTY, ZALOGOWANEGO UŻYTKOWNIKA I JEGO PEŁNEGO IMIENIA
     [ObservableProperty]
     private bool _isPaneOpen = true;
     
@@ -38,6 +40,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] 
     private String _loggedUserFullName;
     
+    
+    //WŁAŚCIWOŚĆ DLA ELEMENTÓW LISTY
+    public ObservableCollection<ListItemTemplate> Items { get; set; } = new();
+    
+    
+    //KONSTRUKTOR
     public MainWindowViewModel(User loggedUser)
     {
         _currentPage = new VehiclesViewModel(this);
@@ -46,6 +54,8 @@ public partial class MainWindowViewModel : ViewModelBase
         InitializePaneItems();
     }
     
+    //METODY
+    //Metoda do zmiany strony
     partial void OnSelectedListItemChanged(ListItemTemplate? value)
     {
         if (value is null) return;
@@ -55,8 +65,7 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPage = (ViewModelBase)instance;
     }
 
-    public ObservableCollection<ListItemTemplate> Items { get; set; } = new();
-
+    //Metoda do inicjalizacji elementów listy
     private void InitializePaneItems()
     {
         Items.Add(new ListItemTemplate(typeof(VehiclesViewModel), "Pojazdy", "VehicleCarRegular"));
@@ -68,18 +77,23 @@ public partial class MainWindowViewModel : ViewModelBase
         if (_loggedUser.Type == UserType.ADMINISTRATOR) { Items.Add(new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular")); }
     }
     
+    
+    //KOMENDY
+    //Komenda do otwierania i zamykania panelu
     [RelayCommand]
     private void TogglePane()
     {
         IsPaneOpen = !IsPaneOpen;
     }
     
+    //Komenda do otwierania profilu
     [RelayCommand]
     private void OpenProfile()
     {
         CurrentPage = new ProfileViewModel(LoggedUser.UserId, new UserRepository(), this);
     }
     
+    //Komenda do wylogowywania
     [RelayCommand]
     private async Task Logout()
     {
@@ -107,6 +121,8 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 }
 
+
+//KLASA SZABLONU ELEMENTU LISTY
 public class ListItemTemplate {
     public ListItemTemplate(Type type, String name, string iconKey)
     {

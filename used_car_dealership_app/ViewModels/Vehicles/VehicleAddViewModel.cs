@@ -24,6 +24,7 @@ using Location = used_car_dealership_app.Models.Location;
 
 namespace used_car_dealership_app.ViewModels.Vehicles;
 
+//KLASA WIDOKU DO DODAWANIA POJAZDU
 [CustomInfo("Widok do dodawania pojazdu", 1.0f)]
 public partial class VehicleAddViewModel : ViewModelBase
 {
@@ -31,12 +32,14 @@ public partial class VehicleAddViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehicleAddViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly VehicleRepository _vehicleRepository;
     private readonly LocationRepository _locationRepository;
     private readonly EquipmentRepository _equipmentRepository;
     private readonly ImageRepository _imageRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA POJAZDU
     [ObservableProperty]
@@ -47,11 +50,12 @@ public partial class VehicleAddViewModel : ViewModelBase
     [ObservableProperty]
     private DateTimeOffset _selectedDate;
     
-        
     
     //WŁAŚCIWOŚCI DLA TYPÓW POJAZDÓW
     private string _selectedEngineType;
 
+    
+    //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LISTY Z TYPAMI SILNIKÓW
     public string SelectedEngineType
     {
         get => _selectedEngineType;
@@ -114,6 +118,11 @@ public partial class VehicleAddViewModel : ViewModelBase
         _equipmentList = new ObservableCollection<Equipment>();
         _selectedEquipment = new ObservableCollection<Equipment>();
         _newImages = new ObservableCollection<Image>();
+        _mainWindowViewModel = mainWindowViewModel;
+        
+        SelectedDate = DateTimeOffset.Now;
+        Vehicle.VehicleId = Guid.NewGuid();
+        VehicleTypes = new ObservableCollection<VehicleType>(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>());
         
         var attributes = typeof(VehicleAddViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -122,16 +131,6 @@ public partial class VehicleAddViewModel : ViewModelBase
             _logger.LogWarning($"Opis: {customInfo.Description}, Wersja: v{customInfo.Version}");
         }
         
-        _mainWindowViewModel = mainWindowViewModel;
-        
-        SelectedDate = DateTimeOffset.Now;
-
-        Vehicle.VehicleId = Guid.NewGuid();
-        
-        VehicleTypes = new ObservableCollection<VehicleType>(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>());
-        
-        _logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<VehicleUpdateViewModel>();
-        
         LoadEquipment();
         LoadLocations();
         LoadComboBoxData();
@@ -139,7 +138,7 @@ public partial class VehicleAddViewModel : ViewModelBase
     
     
     //METODY
-    // Metoda do wczytywania lokalizacji
+    //Metoda do wczytywania lokalizacji
     private async void LoadLocations()
     {
         var dataTable = await Task.Run(() => _locationRepository.GetAllLocations());
@@ -162,7 +161,7 @@ public partial class VehicleAddViewModel : ViewModelBase
         _logger.LogInformation("Pobrano lokalizacje z bazy danych!");
     }
     
-    // Metoda do wczytywania listy wyposażenia
+    //Metoda do wczytywania listy wyposażenia
     private async void LoadEquipment()
     {
         var dataTable = await Task.Run(() => _equipmentRepository.GetAllEquipment());
@@ -182,7 +181,7 @@ public partial class VehicleAddViewModel : ViewModelBase
         _logger.LogInformation("Pobrano wyposażenie z bazy danych!");
     }
     
-        //Metoda do wczytania danych do list rozwijanych
+    //Metoda do wczytania danych do list rozwijanych
     private void LoadComboBoxData()
     {
         BodyTypes = new ObservableCollection<string> {"SUV", "Sedan", "Coupe", "Dual cowl", "Fastback", "Hatchback", "Kabriolet", "Kombi", "Kombivan", "Liftback", "Limuzyna", "Mikrovan", "Minivan", "Pickup", "Roadster", "Targa", "Van", "Trambus", "Piętrobus", "Autobus przegubowy", "Mikrobus", "Autokar", "Furgonowe", "Skrzyniowe", "Inny"};
@@ -280,7 +279,7 @@ public partial class VehicleAddViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
@@ -291,13 +290,13 @@ public partial class VehicleAddViewModel : ViewModelBase
     [RelayCommand]
     private void SelectAndUnselectEquipment(Equipment equipment)
     {
-        if (!_selectedEquipment.Contains(equipment))
+        if (!SelectedEquipment.Contains(equipment))
         {
-            _selectedEquipment.Add(equipment);
+            SelectedEquipment.Add(equipment);
         }
         else
         {
-            _selectedEquipment.Remove(equipment);
+            SelectedEquipment.Remove(equipment);
         }
     }
     

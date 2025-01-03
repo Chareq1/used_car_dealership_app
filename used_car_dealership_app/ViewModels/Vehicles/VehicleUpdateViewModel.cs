@@ -25,6 +25,7 @@ using Location = used_car_dealership_app.Models.Location;
 
 namespace used_car_dealership_app.ViewModels.Vehicles;
 
+//KLASA WIDOKU DO AKTUALIZACJI POJAZDU
 [CustomInfo("Widok do aktualizowania pojazdu", 1.0f)]
 public partial class VehicleUpdateViewModel : ViewModelBase
 {
@@ -32,12 +33,14 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehicleUpdateViewModel>();
     
+    
     //POLA DLA WSZYSTKICH POTRZEBNYCH DANYCH
     private readonly VehicleRepository _vehicleRepository;
     private readonly LocationRepository _locationRepository;
     private readonly EquipmentRepository _equipmentRepository;
     private readonly ImageRepository _imageRepository;
     private readonly MainWindowViewModel _mainWindowViewModel;
+    
     
     //WŁAŚCIWOŚĆ DLA POJAZDU
     [ObservableProperty]
@@ -52,6 +55,8 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     //WŁAŚCIWOŚCI DLA TYPÓW POJAZDÓW
     private string _selectedEngineType;
 
+    
+    //WŁAŚCIWOŚCI DLA KOLEKCJI ELEMENTÓW LIST TYPÓW SILNIKÓW
     public string SelectedEngineType
     {
         get => _selectedEngineType;
@@ -95,12 +100,15 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     //WŁAŚCIWOŚCI DLA WYBRANYCH ELEMENTÓW Z LIST
     [ObservableProperty]
     private ObservableCollection<Equipment> _equipmentList;
+    
     [ObservableProperty]
     private ObservableCollection<Equipment> _selectedEquipment;
+    
     
     //WŁAŚCIWOŚCI DLA NOWYCH ZDJĘĆ
     [ObservableProperty] 
     public ObservableCollection<Image> _newImages;
+    
     
     //WŁAŚCIWOŚCI DLA USUWANYCH ZDJĘĆ
     [ObservableProperty] 
@@ -118,6 +126,9 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         _selectedEquipment = new ObservableCollection<Equipment>();
         _newImages = new ObservableCollection<Image>();
         _imagesToDelete = new ObservableCollection<Image>();
+        _mainWindowViewModel = mainWindowViewModel;
+        
+        VehicleTypes = new ObservableCollection<VehicleType>(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>());
         
         var attributes = typeof(VehicleUpdateViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -125,12 +136,6 @@ public partial class VehicleUpdateViewModel : ViewModelBase
             var customInfo = (CustomInfoAttribute)attributes[0];
             _logger.LogWarning($"Opis: {customInfo.Description}, Wersja: v{customInfo.Version}");
         }
-        
-        _mainWindowViewModel = mainWindowViewModel;
-        
-        VehicleTypes = new ObservableCollection<VehicleType>(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>());
-        
-        _logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<VehicleUpdateViewModel>();
         
         LoadEquipment();
         LoadSelectedVehicle(vehicleId);
@@ -140,7 +145,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     
     
     //METODY
-    // Metoda do wczytywania lokalizacji
+    //Metoda do wczytywania lokalizacji
     private async void LoadLocations()
     {
         var dataTable = await Task.Run(() => _locationRepository.GetAllLocations());
@@ -163,7 +168,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         _logger.LogInformation("Pobrano lokalizacje z bazy danych!");
     }
     
-    // Metoda do wczytywania listy wyposażenia
+    //Metoda do wczytywania listy wyposażenia
     private async void LoadEquipment()
     {
         var dataTable = await Task.Run(() => _equipmentRepository.GetAllEquipment());
@@ -284,7 +289,6 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         vehicle.Equipment = LoadEquipments(vehicle.VehicleId);
 
         SelectedEngineType = vehicle.EngineType;
-
         SelectedDate = vehicle.FirstRegistrationDate;
         
         var images = _imageRepository.GetImagesByVehicleId(vehicle.VehicleId);
@@ -395,7 +399,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     //Metoda do pokazywania okienka z błędem
     private async Task ShowPopupAsync(string message)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd walidacji", message, ButtonEnum.Ok, Icon.Error);
         var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
         await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
@@ -406,13 +410,13 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     [RelayCommand]
     private void SelectAndUnselectEquipment(Equipment equipment)
     {
-        if (!_selectedEquipment.Contains(equipment))
+        if (!SelectedEquipment.Contains(equipment))
         {
-            _selectedEquipment.Add(equipment);
+            SelectedEquipment.Add(equipment);
         }
         else
         {
-            _selectedEquipment.Remove(equipment);
+            SelectedEquipment.Remove(equipment);
         }
     }
     
@@ -475,9 +479,9 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         {
             if (await ValidateFieldsAsync())
             {
-                var newImagesCopy = new List<Image>(_newImages);
-                var equipmentCopy = new List<Equipment>(_selectedEquipment);
-                var imagesToDeleteCopy = new List<Image>(_imagesToDelete);
+                var newImagesCopy = new List<Image>(NewImages);
+                var equipmentCopy = new List<Equipment>(SelectedEquipment);
+                var imagesToDeleteCopy = new List<Image>(ImagesToDelete);
 
                 if(newImagesCopy.Count == 0 && Vehicle.Images.Count == 0)
                 {
@@ -544,8 +548,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
                     _imageRepository.DeleteImage(image.ImageId);
                 }
 
-                _mainWindowViewModel.CurrentPage = new VehicleDetailsViewModel(Vehicle.VehicleId, _vehicleRepository,
-                    _imageRepository, _mainWindowViewModel);
+                _mainWindowViewModel.CurrentPage = new VehicleDetailsViewModel(Vehicle.VehicleId, _vehicleRepository, _imageRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano pojazd w bazie danych!");
 
             }
