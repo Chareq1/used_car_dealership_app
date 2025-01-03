@@ -47,6 +47,7 @@
       <UpToDateCheckInput Remove="Assets\Ubuntu\Ubuntu-Medium.ttf" />
       <UpToDateCheckInput Remove="Assets\Ubuntu\Ubuntu-MediumItalic.ttf" />
       <UpToDateCheckInput Remove="Assets\Ubuntu\Ubuntu-Regular.ttf" />
+      <UpToDateCheckInput Remove="Assets\Images\fiat_panda_ZFA31200003635586\1_1.jpg" />
     </ItemGroup>
 
     <ItemGroup>

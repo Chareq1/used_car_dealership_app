@@ -148,11 +148,20 @@ public partial class ClientUpdateViewModel : ViewModelBase
     [RelayCommand]
     private async Task UpdateClientDataInDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            _customerRepository.UpdateCustomer(Customer);
-            _mainWindowViewModel.CurrentPage = new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
-            _logger.LogInformation("Zaktualizowano klienta w bazie danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _customerRepository.UpdateCustomer(Customer);
+                _mainWindowViewModel.CurrentPage =
+                    new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
+                _logger.LogInformation("Zaktualizowano klienta w bazie danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas aktualizacji klienta w bazie danych!");
         }
     }
 }

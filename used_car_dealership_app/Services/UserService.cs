@@ -46,7 +46,7 @@ public class UserService
                 City = row["city"].ToString(),
                 ZipCode = row["zipCode"].ToString(),
                 HouseNumber = row["houseNumber"].ToString(),
-                Type = Enum.TryParse(row["type"].ToString(), out UserType userType) ? userType : UserType.USER
+                Type = Enum.TryParse(row["type"].ToString(), out UserType userType) ? userType : UserType.WORKER
             }).ToList();
             
             return users[0];

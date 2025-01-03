@@ -36,6 +36,8 @@ public partial class ClientAddViewModel : ViewModelBase
     {
         _customerRepository = repository;
         
+        Customer.CustomerId = Guid.NewGuid();
+        
         var attributes = typeof(ClientAddViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
         {
@@ -125,12 +127,19 @@ public partial class ClientAddViewModel : ViewModelBase
     [RelayCommand]
     private async Task AddClientToDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            Customer.CustomerId = Guid.NewGuid();
-            _customerRepository.AddCustomer(Customer);
-            _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
-            _logger.LogInformation("Dodano klienta do bazy danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _customerRepository.AddCustomer(Customer);
+                _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
+                _logger.LogInformation("Dodano klienta do bazy danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas dodawania klienta do bazy danych!");
         }
     }
 }

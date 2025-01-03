@@ -65,7 +65,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Items.Add(new ListItemTemplate(typeof(DocumentsViewModel), "Dokumenty", "DocumentRegular"));
         Items.Add(new ListItemTemplate(typeof(Calendar.CalendarViewModel), "Kalendarz", "CalendarRegular"));
 
-        if (_loggedUser.Type == UserType.ADMIN) { Items.Add(new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular")); }
+        if (_loggedUser.Type == UserType.ADMINISTRATOR) { Items.Add(new ListItemTemplate(typeof(UsersViewModel), "Użytkownicy", "PeopleSettingsRegular")); }
     }
     
     [RelayCommand]

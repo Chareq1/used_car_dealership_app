@@ -72,7 +72,7 @@ public class DatabaseService : IDatabaseService
     {
         Connect();
         
-        string query = $"SELECT * FROM {tableName};";
+        string query = $"SELECT * FROM \"{tableName}\";";
         command = new NpgsqlCommand(query, connection);
         
         var adapter = new NpgsqlDataAdapter(command);
@@ -94,7 +94,7 @@ public class DatabaseService : IDatabaseService
         
         try
         {
-            string query = $"SELECT * FROM {tableName} WHERE \"{idColumnName}\" = @id;";
+            string query = $"SELECT * FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
             command = new NpgsqlCommand(query, connection);
             
             command.Parameters.AddWithValue("id", id);
@@ -113,9 +113,9 @@ public class DatabaseService : IDatabaseService
             _logger.LogInformation("Pobrano rekord z tabeli {0} o ID {1}!", tableName, id);
             return table.Rows[0];
         }
-        catch (Exception ex)
+        catch (NpgsqlException ex)
         {
-            _logger.LogError(ex, "Błąd podczas pobierania rekordu z tabeli {0} o ID {1}!", tableName, id);
+            _logger.LogError(ex, "Błąd podczas pobierania rekordu z tabeli {0}!", tableName);
             throw;
         }
         finally
@@ -146,7 +146,14 @@ public class DatabaseService : IDatabaseService
 
                 if (kvp.Key == "type")
                 {
-                    values.Append($"@{kvp.Key}::usertype");
+                    if (tableName == "users")
+                    {
+                        values.Append($"@{kvp.Key}::usertype");
+                    }
+                    else
+                    {
+                        values.Append($"@{kvp.Key}::vehicletype");
+                    }
                 }
                 else
                 {
@@ -157,15 +164,15 @@ public class DatabaseService : IDatabaseService
             }
 
 
-            var commandText = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
+            var commandText = $"INSERT INTO \"{tableName}\" ({columns}) VALUES ({values})";
             using var command = new NpgsqlCommand(commandText, connection);
             command.Parameters.AddRange(parameters.ToArray());
 
             command.ExecuteNonQuery();
-            
+
             _logger.LogInformation("Dodano rekord do tabeli {0}!", tableName);
         }
-        catch (Exception ex)
+        catch (NpgsqlException ex)
         {
             _logger.LogError(ex, "Błąd podczas dodawania rekordu do tabeli {0}!", tableName);
             throw;
@@ -194,7 +201,14 @@ public class DatabaseService : IDatabaseService
 
                 if (kvp.Key == "type")
                 {
-                    setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}::usertype");
+                    if(tableName == "users")
+                    {
+                        setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}::usertype");
+                    }
+                    else
+                    {
+                        setClause.Append($"\"{kvp.Key}\" = @{kvp.Key}::vehicletype");
+                    }
                 }
                 else
                 {
@@ -204,7 +218,7 @@ public class DatabaseService : IDatabaseService
                 parameters.Add(new NpgsqlParameter($"@{kvp.Key}", kvp.Value ?? DBNull.Value));
             }
 
-            var commandText = $"UPDATE {tableName} SET {setClause} WHERE \"{idColumnName}\" = @id";
+            var commandText = $"UPDATE \"{tableName}\" SET {setClause} WHERE \"{idColumnName}\" = @id";
             using var command = new NpgsqlCommand(commandText, connection);
             command.Parameters.AddRange(parameters.ToArray());
             command.Parameters.AddWithValue("@id", id);
@@ -213,9 +227,9 @@ public class DatabaseService : IDatabaseService
 
             _logger.LogInformation("Zaktualizowano rekord w tabeli {0} o ID {1}!", tableName, id.ToString());
         }
-        catch (Exception ex)
+        catch (NpgsqlException ex)
         {
-            _logger.LogError(ex, "Błąd podczas aktualizacji rekordu w tabeli {0} o ID {1}!", tableName, id.ToString());
+            _logger.LogError(ex, "Błąd podczas aktualizacji rekordu w tabeli {0}!", tableName);
             throw;
         }
         finally
@@ -230,7 +244,7 @@ public class DatabaseService : IDatabaseService
         Connect();
         try
         {
-            string query = $"DELETE FROM {tableName} WHERE \"{idColumnName}\" = @id;";
+            string query = $"DELETE FROM \"{tableName}\" WHERE \"{idColumnName}\" = @id;";
             command = new NpgsqlCommand(query, connection);
             
             command.Parameters.AddWithValue("id", id);
@@ -238,9 +252,9 @@ public class DatabaseService : IDatabaseService
             
             _logger.LogInformation("Usunięto rekord z tabeli {0} o ID {1}!", tableName, id);
         }
-        catch (Exception ex)
+        catch (NpgsqlException ex)
         {
-            _logger.LogError(ex, "Błąd podczas usuwania rekordu z tabeli {0} o ID {1}!", tableName, id);
+            _logger.LogError(ex, "Błąd podczas usuwania rekordu z tabeli {0}!", tableName);
             throw;
         }
         finally
@@ -265,7 +279,7 @@ public class DatabaseService : IDatabaseService
             _logger.LogInformation("Wykonano zapytanie: {0}!", query);
             return table;
         }
-        catch (Exception ex)
+        catch (NpgsqlException ex)
         {
             _logger.LogError(ex, "Błąd podczas wykonywania zapytania: {0}!", query);
             throw;

@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DotNetEnv;
 using Microsoft.Extensions.Logging;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
@@ -70,7 +71,7 @@ public partial class UserDetailsViewModel : ViewModelBase
             City = userRow["city"].ToString(),
             ZipCode = userRow["zipCode"].ToString(),
             HouseNumber = userRow["houseNumber"].ToString(),
-            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.USER
+            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.WORKER
         };
         
         Address = $"ul. {User.Street} {User.HouseNumber}, {User.ZipCode} {User.City}";
@@ -101,15 +102,28 @@ public partial class UserDetailsViewModel : ViewModelBase
     [RelayCommand]
     private async void DeleteUser(User user)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie użytkownika", "Czy na pewno chcesz usunąć tego użytkownika?", ButtonEnum.YesNo, Icon.Warning);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-
-        if (result == ButtonResult.Yes)
+        try
         {
-            _userRepository.DeleteUser(user.UserId);
-            _mainWindowViewModel.CurrentPage = new UsersViewModel(_mainWindowViewModel);
-            _logger.LogInformation("Usunięto użytkownika!");
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie użytkownika",
+                "Czy na pewno chcesz usunąć tego użytkownika?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
+                .MainWindow;
+            var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+
+            if (result == ButtonResult.Yes)
+            {
+                _userRepository.DeleteUser(user.UserId);
+                _mainWindowViewModel.CurrentPage = new UsersViewModel(_mainWindowViewModel);
+                _logger.LogInformation("Usunięto użytkownika!");
+            }
+        }
+        catch (Exception ex)
+        {
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            
+            _logger.LogError(ex, "Błąd podczas usuwania użytkownika z bazy danych!");
         }
     }
 }

@@ -125,11 +125,20 @@ public partial class LocationUpdateViewModel : ViewModelBase
     [RelayCommand]
     private async Task UpdateLocationDataInDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            _locationRepository.UpdateLocation(Location);
-            _mainWindowViewModel.CurrentPage = new LocationDetailsViewModel(Location.LocationId, _locationRepository, _mainWindowViewModel);
-            _logger.LogInformation("Zaktualizowano lokalizację w bazie danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _locationRepository.UpdateLocation(Location);
+                _mainWindowViewModel.CurrentPage =
+                    new LocationDetailsViewModel(Location.LocationId, _locationRepository, _mainWindowViewModel);
+                _logger.LogInformation("Zaktualizowano lokalizację w bazie danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas aktualizacji lokalizacji w bazie danych!");
         }
     }
 }

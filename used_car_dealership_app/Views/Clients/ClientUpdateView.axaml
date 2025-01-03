@@ -20,7 +20,7 @@
 
         <TextBlock FontSize="24" Text="Edytuj klienta" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0,0,0,25"/>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,25">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

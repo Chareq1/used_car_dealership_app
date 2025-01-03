@@ -41,6 +41,10 @@
         <entry key="used_car_dealership_app/Views/Users/UserUpdateView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
         <entry key="used_car_dealership_app/Views/Users/UsersView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
         <entry key="used_car_dealership_app/Views/UsersView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/Vehicles/VehicleAddView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/Vehicles/VehicleDetailsView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/Vehicles/VehicleUpdateView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
+        <entry key="used_car_dealership_app/Views/Vehicles/VehiclesView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
         <entry key="used_car_dealership_app/Views/VehiclesView.axaml" value="used_car_dealership_app/used_car_dealership_app.csproj" />
       </map>
     </option>

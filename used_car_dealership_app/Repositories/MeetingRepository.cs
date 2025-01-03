@@ -23,60 +23,103 @@ public class MeetingRepository
 
     public DataRow GetMeetingById(Guid id)
     {
-        return _databaseService.GetById<Meeting>("meetings", "meetingId", id);
+        try
+        {
+            return _databaseService.GetById<Meeting>("meetings", "meetingId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     public void DeleteMeeting(Guid id)
     {
-        _databaseService.Delete<Meeting>("meetings", "meetingId", id);
+        try
+        {
+            _databaseService.Delete<Meeting>("meetings", "meetingId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     public void AddMeeting(Meeting meeting)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "meetingId", meeting.MeetingId },
-            { "description", meeting.Description },
-            { "date", meeting.Date },
-            { "userId", meeting.UserId },
-            { "customerId", meeting.Customer.CustomerId },
-            { "locationId", meeting.Location.LocationId }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "meetingId", meeting.MeetingId },
+                { "description", meeting.Description },
+                { "date", meeting.Date },
+                { "userId", meeting.UserId },
+                { "customerId", meeting.Customer.CustomerId },
+                { "locationId", meeting.Location.LocationId }
+            };
 
-        _databaseService.Insert<Meeting>("meetings", data);
+            _databaseService.Insert<Meeting>("meetings", data);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     public void UpdateMeeting(Meeting meeting)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "description", meeting.Description },
-            { "date", meeting.Date },
-            { "userId", meeting.UserId },
-            { "customerId", meeting.Customer.CustomerId },
-            { "locationId", meeting.Location.LocationId }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "description", meeting.Description },
+                { "date", meeting.Date },
+                { "userId", meeting.UserId },
+                { "customerId", meeting.Customer.CustomerId },
+                { "locationId", meeting.Location.LocationId }
+            };
 
-        _databaseService.Update<Meeting>("meetings", data, "meetingId", meeting.MeetingId);
+            _databaseService.Update<Meeting>("meetings", data, "meetingId", meeting.MeetingId);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return _databaseService.ExecuteQuery(query, parameters);
+        try
+        {
+            return _databaseService.ExecuteQuery(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public DataTable GetMeetingsByDateAndUser(DateTime date, Guid userId)
     {
-        var query = "SELECT * FROM meetings WHERE \"date\"::date = @date AND \"userId\" = @userId ORDER BY \"date\" ASC";
-        
-        var parameters = new List<NpgsqlParameter>
+        try
         {
-            new NpgsqlParameter("@date", date.Date),
-            new NpgsqlParameter("@userId", userId)
-        };
-        
+            var query =
+                "SELECT * FROM meetings WHERE \"date\"::date = @date AND \"userId\" = @userId ORDER BY \"date\" ASC";
 
-        return _databaseService.ExecuteQuery(query, parameters);
+            var parameters = new List<NpgsqlParameter>
+            {
+                new NpgsqlParameter("@date", date.Date),
+                new NpgsqlParameter("@userId", userId)
+            };
+
+
+            return _databaseService.ExecuteQuery(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
 }

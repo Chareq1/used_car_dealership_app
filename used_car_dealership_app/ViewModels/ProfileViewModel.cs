@@ -83,7 +83,7 @@ public partial class ProfileViewModel : ViewModelBase
             City = userRow["city"].ToString(),
             ZipCode = userRow["zipCode"].ToString(),
             HouseNumber = userRow["houseNumber"].ToString(),
-            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.USER
+            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.WORKER
         };
         
         Address = $"ul. {User.Street} {User.HouseNumber}, {User.ZipCode} {User.City}";
@@ -120,15 +120,19 @@ public partial class ProfileViewModel : ViewModelBase
                 throw new ValidationException("Hasła nie są takie same!");
             }
             
-            if (User.Password.Length < 8)
+            if(User.Password.Length < 8 || 
+               !Regex.IsMatch(User.Password, @"[A-Z]") || 
+               !Regex.IsMatch(User.Password, @"[a-z]") || 
+               !Regex.IsMatch(User.Password, @"[0-9]") || 
+               !Regex.IsMatch(User.Password, @"[\W_]"))
             {
-                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków!");
-                _logger.LogError("Hasło musi mieć co najmniej 8 znaków!");
-                    
+                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+                _logger.LogError("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+
                 NewPassword = null;
                 NewRepeatedPassword = null;
-                    
-                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków!");
+                
+                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
             }
 
             return true;

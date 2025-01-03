@@ -75,7 +75,7 @@ public partial class UserUpdateViewModel : ViewModelBase
             City = userRow["city"].ToString(),
             ZipCode = userRow["zipCode"].ToString(),
             HouseNumber = userRow["houseNumber"].ToString(),
-            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.USER
+            Type = Enum.TryParse(userRow["type"].ToString(), out UserType userType) ? userType : UserType.WORKER
         };
         
         _logger.LogInformation("Wczytano dane użytkownika!");
@@ -122,14 +122,18 @@ public partial class UserUpdateViewModel : ViewModelBase
             await ValidateInputAsync(User.City, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż-]+$", "Niepoprawny format miasta!");
             await ValidateInputAsync(User.Street, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż\-\/]+$", "Niepoprawny format ulicy!");
             
-            if(User.Password.Length < 8)
+            if(User.Password.Length < 8 || 
+               !Regex.IsMatch(User.Password, @"[A-Z]") || 
+               !Regex.IsMatch(User.Password, @"[a-z]") || 
+               !Regex.IsMatch(User.Password, @"[0-9]") || 
+               !Regex.IsMatch(User.Password, @"[\W_]"))
             {
-                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków!");
-                _logger.LogError("Hasło musi mieć co najmniej 8 znaków!");
+                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+                _logger.LogError("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
 
                 User.Password = null;
                 
-                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków!");
+                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
             }
             
             if (!IsValidPESEL(User.PESEL))
@@ -165,16 +169,23 @@ public partial class UserUpdateViewModel : ViewModelBase
         _logger.LogInformation("Przejście do widoku wybranego użytkownika!");
     }
     
-        
     //Komenda do aktualizacji danych użytkownika w bazie danych
     [RelayCommand]
     private async Task UpdateUserDataInDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            _userRepository.UpdateUser(User);
-            _mainWindowViewModel.CurrentPage = new UserDetailsViewModel(User.UserId, _userRepository, _mainWindowViewModel);
-            _logger.LogInformation("Zaktualizowano użytkownika w bazie danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _userRepository.UpdateUser(User);
+                _mainWindowViewModel.CurrentPage = new UserDetailsViewModel(User.UserId, _userRepository, _mainWindowViewModel);
+                _logger.LogInformation("Zaktualizowano użytkownika w bazie danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas aktualizacji użytkownika w bazie danych!");
         }
     }
 }

@@ -1,11 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace used_car_dealership_app.Models;
 
 public enum UserType
 {
-    ADMIN,
-    USER
+    ADMINISTRATOR,
+    WORKER,
 }
 
 public class User

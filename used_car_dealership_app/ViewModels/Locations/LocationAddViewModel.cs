@@ -37,6 +37,8 @@ public partial class LocationAddViewModel : ViewModelBase
     {
         _locationRepository = repository;
         
+        Location.LocationId = Guid.NewGuid();
+        
         var attributes = typeof(LocationAddViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
         {
@@ -101,12 +103,19 @@ public partial class LocationAddViewModel : ViewModelBase
     [RelayCommand]
     private async Task AddLocationToDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            Location.LocationId = Guid.NewGuid();
-            _locationRepository.AddLocation(Location);
-            _mainWindowViewModel.CurrentPage = new LocationsViewModel(_mainWindowViewModel);
-            _logger.LogInformation("Dodano lokalizację do bazy danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _locationRepository.AddLocation(Location);
+                _mainWindowViewModel.CurrentPage = new LocationsViewModel(_mainWindowViewModel);
+                _logger.LogInformation("Dodano lokalizację do bazy danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas dodawania lokalizacji do bazy danych!");
         }
     }
 }

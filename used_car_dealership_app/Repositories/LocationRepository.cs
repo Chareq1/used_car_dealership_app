@@ -25,49 +25,83 @@ public class LocationRepository
     
     public DataRow GetLocationById(Guid id)
     {
-        return _databaseService.GetById<Location>("locations", "locationId", id);
+        try
+        {
+            return _databaseService.GetById<Location>("locations", "locationId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void DeleteLocation(Guid id)
     {
-        _databaseService.Delete<Location>("locations", "locationId", id);
+        try
+        {
+            _databaseService.Delete<Location>("locations", "locationId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void AddLocation(Location location)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "locationId", location.LocationId },
-            { "name", location.Name },
-            { "phone", location.Phone },
-            { "email", location.Email },
-            { "street", location.Street },
-            { "city", location.City },
-            { "zipCode", location.ZipCode },
-            { "houseNumber", location.HouseNumber }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "locationId", location.LocationId },
+                { "name", location.Name },
+                { "phone", location.Phone },
+                { "email", location.Email },
+                { "street", location.Street },
+                { "city", location.City },
+                { "zipCode", location.ZipCode },
+                { "houseNumber", location.HouseNumber }
+            };
 
-        _databaseService.Insert<Location>("locations", data);
+            _databaseService.Insert<Location>("locations", data);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void UpdateLocation(Location location)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "name", location.Name },
-            { "phone", location.Phone },
-            { "email", location.Email },
-            { "street", location.Street },
-            { "city", location.City },
-            { "zipCode", location.ZipCode },
-            { "houseNumber", location.HouseNumber }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "name", location.Name },
+                { "phone", location.Phone },
+                { "email", location.Email },
+                { "street", location.Street },
+                { "city", location.City },
+                { "zipCode", location.ZipCode },
+                { "houseNumber", location.HouseNumber }
+            };
 
-        _databaseService.Update<Location>("locations", data, "locationId", location.LocationId);
+            _databaseService.Update<Location>("locations", data, "locationId", location.LocationId);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return _databaseService.ExecuteQuery(query, parameters);
+        try {
+            return _databaseService.ExecuteQuery(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 }

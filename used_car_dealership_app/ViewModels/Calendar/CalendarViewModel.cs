@@ -32,7 +32,7 @@ public partial class CalendarViewModel : ViewModelBase
     
     //WŁAŚCIWOŚĆ DO SPRAWDZANIA CZY SĄ SPOTKANIA
     [ObservableProperty]
-    private bool _areThereMeetings = false;
+    private bool _areThereMeetings;
     
     //WŁAŚCIWOŚĆ DLA WYBRANEJ DATY
     [ObservableProperty]
@@ -182,14 +182,27 @@ public partial class CalendarViewModel : ViewModelBase
     [RelayCommand]
     private async void DeleteMeeting(Meeting meeting)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie spotkania", "Czy na pewno chcesz usunąć to spotkanie?", ButtonEnum.YesNo, Icon.Warning);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-
-        if (result == ButtonResult.Yes)
+        try
         {
-            _meetingRepository.DeleteMeeting(meeting.MeetingId);
-            LoadMeetings();
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie spotkania",
+                "Czy na pewno chcesz usunąć to spotkanie?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
+                .MainWindow;
+            var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+
+            if (result == ButtonResult.Yes)
+            {
+                _meetingRepository.DeleteMeeting(meeting.MeetingId);
+                LoadMeetings();
+            }
+        }
+        catch (Exception ex)
+        {
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            
+            _logger.LogError(ex, "Błąd podczas usuwania spotkania z bazy danych!");
         }
     }
 }

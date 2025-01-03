@@ -24,59 +24,95 @@ public class UserRepository
     
     public DataRow GetUserById(Guid id)
     {
-        return _databaseService.GetById<User>("users", "userId", id);
+        try
+        {
+            return _databaseService.GetById<User>("users", "userId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void DeleteUser(Guid id)
     {
-        _databaseService.Delete<User>("users", "userId", id);
+        try
+        {
+            _databaseService.Delete<User>("users", "userId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void AddUser(User user)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "userId", user.UserId },
-            { "username", user.Username},
-            { "password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(user.Password)) },
-            { "type", user.Type.ToString() },
-            { "name", user.Name },
-            { "surname", user.Surname },
-            { "pesel", user.PESEL },
-            { "phone", user.Phone },
-            { "email", user.Email },
-            { "street", user.Street },
-            { "city", user.City },
-            { "zipCode", user.ZipCode },
-            { "houseNumber", user.HouseNumber }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "userId", user.UserId },
+                { "username", user.Username },
+                { "password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(user.Password)) },
+                { "type", user.Type.ToString() },
+                { "name", user.Name },
+                { "surname", user.Surname },
+                { "pesel", user.PESEL },
+                { "phone", user.Phone },
+                { "email", user.Email },
+                { "street", user.Street },
+                { "city", user.City },
+                { "zipCode", user.ZipCode },
+                { "houseNumber", user.HouseNumber }
+            };
 
-        _databaseService.Insert<User>("users", data);
+            _databaseService.Insert<User>("users", data);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void UpdateUser(User user)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "username", user.Username },
-            { "password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(user.Password)) },
-            { "type", user.Type.ToString()},
-            { "name", user.Name },
-            { "surname", user.Surname },
-            { "pesel", user.PESEL },
-            { "phone", user.Phone },
-            { "email", user.Email },
-            { "street", user.Street },
-            { "city", user.City },
-            { "zipCode", user.ZipCode },
-            { "houseNumber", user.HouseNumber }
-        };
-        
-        _databaseService.Update<User>("users", data, "userId", user.UserId);
+            var data = new Dictionary<string, object>
+            {
+                {"userId", user.UserId},
+                { "username", user.Username },
+                { "password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(user.Password)) },
+                { "type", user.Type.ToString() },
+                { "name", user.Name },
+                { "surname", user.Surname },
+                { "pesel", user.PESEL },
+                { "phone", user.Phone },
+                { "email", user.Email },
+                { "street", user.Street },
+                { "city", user.City },
+                { "zipCode", user.ZipCode },
+                { "houseNumber", user.HouseNumber }
+            };
+
+            _databaseService.Update<User>("users", data, "userId", user.UserId);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return _databaseService.ExecuteQuery(query, parameters);
+        try
+        {
+            return _databaseService.ExecuteQuery(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 }

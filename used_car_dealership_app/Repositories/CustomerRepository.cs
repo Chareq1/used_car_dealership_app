@@ -25,55 +25,90 @@ public class CustomerRepository
     
     public DataRow GetCustomerById(Guid id)
     {
-        return _databaseService.GetById<Customer>("customers", "customerId", id);
+        try
+        {
+            return _databaseService.GetById<Customer>("customers", "customerId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void DeleteCustomer(Guid id)
     {
-        _databaseService.Delete<Customer>("customers", "customerId", id);
+        try
+        {
+            _databaseService.Delete<Customer>("customers", "customerId", id);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void AddCustomer(Customer customer)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "customerId", customer.CustomerId },
-            { "name", customer.Name },
-            { "surname", customer.Surname },
-            { "pesel", customer.PESEL },
-            { "idCardNumber", customer.IdCardNumber },
-            { "phone", customer.Phone },
-            { "email", customer.Email },
-            { "street", customer.Street },
-            { "city", customer.City },
-            { "zipCode", customer.ZipCode },
-            { "houseNumber", customer.HouseNumber }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "customerId", customer.CustomerId },
+                { "name", customer.Name },
+                { "surname", customer.Surname },
+                { "pesel", customer.PESEL },
+                { "idCardNumber", customer.IdCardNumber },
+                { "phone", customer.Phone },
+                { "email", customer.Email },
+                { "street", customer.Street },
+                { "city", customer.City },
+                { "zipCode", customer.ZipCode },
+                { "houseNumber", customer.HouseNumber }
+            };
 
-        _databaseService.Insert<Customer>("customers", data);
+            _databaseService.Insert<Customer>("customers", data);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public void UpdateCustomer(Customer customer)
     {
-        var data = new Dictionary<string, object>
+        try
         {
-            { "name", customer.Name },
-            { "surname", customer.Surname },
-            { "pesel", customer.PESEL },
-            { "idCardNumber", customer.IdCardNumber },
-            { "phone", customer.Phone },
-            { "email", customer.Email },
-            { "street", customer.Street },
-            { "city", customer.City },
-            { "zipCode", customer.ZipCode },
-            { "houseNumber", customer.HouseNumber }
-        };
+            var data = new Dictionary<string, object>
+            {
+                { "name", customer.Name },
+                { "surname", customer.Surname },
+                { "pesel", customer.PESEL },
+                { "idCardNumber", customer.IdCardNumber },
+                { "phone", customer.Phone },
+                { "email", customer.Email },
+                { "street", customer.Street },
+                { "city", customer.City },
+                { "zipCode", customer.ZipCode },
+                { "houseNumber", customer.HouseNumber }
+            };
 
-        _databaseService.Update<Customer>("customers", data, "customerId", customer.CustomerId);
+            _databaseService.Update<Customer>("customers", data, "customerId", customer.CustomerId);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
     
     public DataTable ExecuteQuery(string query, List<NpgsqlParameter> parameters)
     {
-        return _databaseService.ExecuteQuery(query, parameters);
+        try
+        {
+            return _databaseService.ExecuteQuery(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 }

@@ -185,14 +185,27 @@ public partial class LocationsViewModel : ViewModelBase
     [RelayCommand]
     private async void DeleteLocation(Location location)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie lokalizacji", "Czy na pewno chcesz usunąć tą lokalizację?", ButtonEnum.YesNo, Icon.Warning);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-
-        if (result == ButtonResult.Yes)
+        try
         {
-            _locationRepository.DeleteLocation(location.LocationId);
-            LoadLocations();
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie lokalizacji",
+                "Czy na pewno chcesz usunąć tą lokalizację?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
+                .MainWindow;
+            var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+
+            if (result == ButtonResult.Yes)
+            {
+                _locationRepository.DeleteLocation(location.LocationId);
+                LoadLocations();
+            }
+        }
+        catch (Exception ex)
+        {
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            
+            _logger.LogError(ex, "Błąd podczas usuwania lokalizacji z bazy danych!");
         }
     }
 }

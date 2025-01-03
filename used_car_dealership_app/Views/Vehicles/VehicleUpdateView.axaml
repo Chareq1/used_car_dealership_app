@@ -1,0 +1,322 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:used_car_dealership_app.ViewModels.Vehicles"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="used_car_dealership_app.Views.Vehicles.VehicleUpdateView"
+             x:DataType="viewModels:VehicleUpdateViewModel"
+             FontFamily="{StaticResource Ubuntu}">
+
+    <Design.DataContext>
+        <viewModels:VehicleUpdateViewModel />
+    </Design.DataContext>
+    
+    <Grid Margin="20,25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="24" Text="Edytuj pojazd" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0,0,0,25"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,25">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Marka:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Brand, Mode=TwoWay}" IsReadOnly="True" MaxLength="255" Grid.Row="0" Grid.Column="1" Margin="0,10,0,0" Width="200" KeyDown="OnlyBrandAndModelKeyDown"/>
+                
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding Vehicle.VehicleId}" Margin="0,10,0,0" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                <TextBlock Text="Model:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Model, Mode=TwoWay}" MaxLength="255" IsReadOnly="True" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyBrandAndModelKeyDown"/>
+
+                <TextBlock Text="Typ pojazdu:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding VehicleTypes}" SelectedItem="{Binding Vehicle.Type, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Typ nadwozia:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding BodyTypes}" SelectedItem="{Binding Vehicle.BodyType, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Rok produkcji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.ProductionYear, Mode=TwoWay}" MaxLength="4" Grid.Row="4" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyDigitsKeyDown"/>
+
+                <TextBlock Text="Kraj produkcji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding ProductionCountries}" SelectedItem="{Binding Vehicle.ProductionCountry, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Data pierwszej rejestracji:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
+                <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Kraj pochodzenia:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding OriginCountries}" SelectedItem="{Binding Vehicle.OriginCountry, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Przebieg:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Mileage, Mode=TwoWay}" MaxLength="7" Grid.Row="8" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyDigitsKeyDown"/>
+
+                <TextBlock Text="Liczba drzwi:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Doors, Mode=TwoWay}" MaxLength="2" Grid.Row="9" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyDigitsKeyDown"/>
+
+                <TextBlock Text="Kolor:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Color, Mode=TwoWay}" MaxLength="255" Grid.Row="10" Grid.Column="1" Margin="0,10,0,0" Width="200" KeyDown="OnlyLettersAndMinusAndSpaceKeyDown"/>
+
+                <TextBlock Text="Skrzynia biegów:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding Transmissions}" SelectedItem="{Binding Vehicle.Transmission, Mode=TwoWay}" Grid.Row="11" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="VIN:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.VIN, Mode=TwoWay}" MaxLength="17" Grid.Row="12" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyVINKeyDown"/>
+
+                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="13" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Description, Mode=TwoWay}" MaxLength="100000" Grid.Row="13" Grid.Column="1" Margin="0,10,0,0" TextWrapping="Wrap"  Width="200"/>
+
+                <TextBlock Text="Napęd:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="14" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding Drives}" SelectedItem="{Binding Vehicle.Drive, Mode=TwoWay}" Grid.Row="14" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+
+                <TextBlock Text="Cena:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Vehicle.Price, Mode=TwoWay}" MaxLength="12" Grid.Row="15" Grid.Column="1" Margin="0,10,0,0"  Width="200" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Lokalizacja:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding Vehicle.Location, Mode=TwoWay}" DisplayMemberBinding="{Binding Name}" PlaceholderText="{Binding Vehicle.Location.Name}" Width="200" Grid.Row="16" Grid.Column="1" Margin="0,10,0,0" />
+
+                <TextBlock Text="Typ silnika:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding EngineTypes}" SelectedItem="{Binding SelectedEngineType, Mode=TwoWay}"  Grid.Row="17" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
+                
+                
+                <!-- Elektryczny -->
+                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBox Text="{Binding Vehicle.BatterySize, Mode=TwoWay}" MaxLength="12" Grid.Row="18" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsElectricVehicle}" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Moc silnika:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBox Text="{Binding Vehicle.ElectricEnginePower, Mode=TwoWay}" MaxLength="12" Grid.Row="19" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsElectricVehicle}"  KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Zużycie [kWh/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBox Text="{Binding Vehicle.Consumption, Mode=TwoWay}" MaxLength="12" Grid.Row="20" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsElectricVehicle}" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                
+                <!-- Spalinowy -->
+                <TextBlock Text="Rodzaj paliwa:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <ComboBox ItemsSource="{Binding FuelTypes}" SelectedItem="{Binding Vehicle.FuelType, Mode=TwoWay}" Grid.Row="18" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsFuelVehicle}"/>
+                
+                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBox Text="{Binding Vehicle.EngineSize, Mode=TwoWay}" Grid.Row="19" MaxLength="5" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsFuelVehicle}" KeyDown="OnlyDigitsKeyDown"/>
+                
+                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBox Text="{Binding Vehicle.Power, Mode=TwoWay}" Grid.Row="20" MaxLength="7" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsFuelVehicle}" KeyDown="OnlyDigitsKeyDown"/>
+                
+                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <ComboBox ItemsSource="{Binding EmissionStandards}" SelectedItem="{Binding Vehicle.Co2Emission, Mode=TwoWay}" Grid.Row="21" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsFuelVehicle}" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBox Text="{Binding Vehicle.Consumption, Mode=TwoWay}" Grid.Row="22" MaxLength="12" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsFuelVehicle}" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                
+                <!-- Hybrydowy -->
+                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBox Text="{Binding Vehicle.BatterySize, Mode=TwoWay}" MaxLength="12" Grid.Row="19" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}" KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Moc silnika elektrycznego:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBox Text="{Binding Vehicle.ElectricEnginePower, Mode=TwoWay}" MaxLength="12" Grid.Row="20" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}"  KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBox Text="{Binding Vehicle.EngineSize, Mode=TwoWay}" MaxLength="7" Grid.Row="21" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}" KeyDown="OnlyDigitsKeyDown"/>
+                
+                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBox Text="{Binding Vehicle.Power, Mode=TwoWay}" MaxLength="7" Grid.Row="22" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}" KeyDown="OnlyDigitsKeyDown"/>
+                
+                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="23" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <ComboBox ItemsSource="{Binding EmissionStandards}" SelectedItem="{Binding Vehicle.Co2Emission, Mode=TwoWay}" Grid.Row="23" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}"  KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="24" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBox Text="{Binding Vehicle.Consumption, Mode=TwoWay}" MaxLength="12" Grid.Row="24" Grid.Column="1" Margin="0,10,0,0"  Width="200" IsVisible="{Binding IsHybridVehicle}"  KeyDown="OnlyDecimalDigitsKeyDown"/>
+                
+                <TextBlock Text="Zdjęcia:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="25" Grid.Column="0" />
+                <ScrollViewer Grid.Row="25" Grid.Column="1" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="200">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ItemsControl Grid.Row="0" ItemsSource="{Binding Vehicle.Images}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="5" Padding="5" Margin="0,0,5,10" Background="#274D60" Width="200">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <PathIcon Grid.Column="0" Data="{StaticResource ImageRegular}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock MaxWidth="115" Grid.Column="1" FontSize="12" Text="{Binding FileName}" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="2" Margin="15,0,0,0" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding ((viewModels:VehicleUpdateViewModel)DataContext).DeleteImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+                                            <PathIcon Data="{StaticResource DeleteRegular}" Width="20" Height="20"/>
+                                            <Button.Styles>
+                                                <Style Selector="Button">
+                                                    <Setter Property="Background" Value="#FF3B3B" />
+                                                </Style>
+                                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                    <Setter Property="Background" Value="#E3242B" />
+                                                </Style>
+                                                <Style Selector="Button:pressed /template/ ContentPresenter">
+                                                    <Setter Property="Background" Value="#A91B0D" />
+                                                </Style>
+                                            </Button.Styles>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding NewImages}" Margin="0,10,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="5" Padding="5" Margin="0,0,5,10" Background="#32A852" VerticalAlignment="Center" Width="200">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <PathIcon Grid.Column="0" Data="{StaticResource ImageAddRegular}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock MaxWidth="115" Grid.Column="1" FontSize="12" Text="{Binding FileName}" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="2" Margin="15,0,0,0" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding ((viewModels:VehicleUpdateViewModel)DataContext).DeleteImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}">
+                                            <PathIcon Data="{StaticResource DeleteRegular}" Width="20" Height="20"/>
+                                            <Button.Styles>
+                                                <Style Selector="Button">
+                                                    <Setter Property="Background" Value="#FF3B3B" />
+                                                </Style>
+                                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                    <Setter Property="Background" Value="#E3242B" />
+                                                </Style>
+                                                <Style Selector="Button:pressed /template/ ContentPresenter">
+                                                    <Setter Property="Background" Value="#A91B0D" />
+                                                </Style>
+                                            </Button.Styles>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    <ItemsControl Grid.Row="2" ItemsSource="{Binding ImagesToDelete}" Margin="0,10,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="5" Padding="5" Margin="0,0,5,10" Background="#FF3B3B" VerticalAlignment="Center" Width="200">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <PathIcon Grid.Column="0" Data="{StaticResource ImageOffRegular}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock MaxWidth="150" Grid.Column="1" FontSize="12" Text="{Binding FileName}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+                </ScrollViewer>
+                
+                <Button Grid.Row="26" Grid.Column="1" Command="{Binding UploadImageCommand}" Padding="5" Width="200" Margin="0,5,0,0">
+                    <PathIcon Data="{StaticResource ImageEditRegular}"/>
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="#6BA3BE" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#0C969C" />
+                        </Style>
+                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#0A7075" />
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                
+                <TextBlock Text="Wyposażenie:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="27" Grid.Column="0" />
+                <ScrollViewer Grid.Row="27" Grid.Column="1" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="200">
+                <ItemsControl ItemsSource="{Binding EquipmentList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Command="{Binding ((viewModels:VehicleUpdateViewModel)DataContext).SelectAndUnselectEquipmentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
+            <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50" Command="{Binding GoBackCommand}">
+                <PathIcon Data="{StaticResource ArrowReplyRegular}"/>
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding UpdateVehicleDataInDatabaseCommand}" VerticalAlignment="Bottom" CornerRadius="10" Width="50" Height="50">
+                <PathIcon Data="{StaticResource EditSettingsRegular}"/>
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

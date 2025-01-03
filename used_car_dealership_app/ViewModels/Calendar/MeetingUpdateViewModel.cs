@@ -3,12 +3,16 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using used_car_dealership_app.Models;
 using used_car_dealership_app.Repositories;
 using used_car_dealership_app.Services;
+using used_car_dealership_app.Views;
 
 namespace used_car_dealership_app.ViewModels.Calendar;
 
@@ -195,13 +199,25 @@ public partial class MeetingUpdateViewModel : ViewModelBase
     [RelayCommand]
     private async Task UpdateMeetingInDatabaseAsync()
     {
-        Meeting.Date = new DateTime(_selectedDate.Year, _selectedDate.Month, _selectedDate.Day, _selectedTime.Hours, _selectedTime.Minutes, _selectedTime.Seconds);
-        
-        Meeting.Customer = SelectedCustomer;
-        Meeting.Location = SelectedLocation;
-        
-        _meetingRepository.UpdateMeeting(Meeting);
-        _mainWindowViewModel.CurrentPage = new CalendarViewModel(_mainWindowViewModel);
-        _logger.LogInformation("Zaktualizowano spotkanie w bazie danych!");
+        try
+        {
+            Meeting.Date = new DateTime(_selectedDate.Year, _selectedDate.Month, _selectedDate.Day, _selectedTime.Hours,
+                _selectedTime.Minutes, _selectedTime.Seconds);
+
+            Meeting.Customer = SelectedCustomer;
+            Meeting.Location = SelectedLocation;
+
+            _meetingRepository.UpdateMeeting(Meeting);
+            _mainWindowViewModel.CurrentPage = new CalendarViewModel(_mainWindowViewModel);
+            _logger.LogInformation("Zaktualizowano spotkanie w bazie danych!");
+        }
+        catch (Exception ex)
+        {
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            
+            _logger.LogError(ex, "Błąd podczas usuwania spotkania z bazy danych!");
+        }
     }
 }

@@ -40,6 +40,8 @@ public partial class UserAddViewModel : ViewModelBase
     {
         _userRepository = repository;
         
+        User.UserId = Guid.NewGuid();
+        
         var attributes = typeof(UserAddViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
         {
@@ -93,14 +95,18 @@ public partial class UserAddViewModel : ViewModelBase
             await ValidateInputAsync(User.City, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż-]+$", "Niepoprawny format miasta!");
             await ValidateInputAsync(User.Street, @"^[\sA-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż\-\/]+$", "Niepoprawny format ulicy!");
             
-            if(User.Password.Length < 8)
+            if(User.Password.Length < 8 || 
+               !Regex.IsMatch(User.Password, @"[A-Z]") || 
+               !Regex.IsMatch(User.Password, @"[a-z]") || 
+               !Regex.IsMatch(User.Password, @"[0-9]") || 
+               !Regex.IsMatch(User.Password, @"[\W_]"))
             {
-                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków!");
-                _logger.LogError("Hasło musi mieć co najmniej 8 znaków!");
+                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+                _logger.LogError("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
 
                 User.Password = null;
                 
-                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków!");
+                throw new ValidationException("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
             }
             
             if (!IsValidPESEL(User.PESEL))
@@ -140,12 +146,19 @@ public partial class UserAddViewModel : ViewModelBase
     [RelayCommand]
     private async Task AddUserToDatabaseAsync()
     {
-        if (await ValidateFieldsAsync())
+        try
         {
-            User.UserId = Guid.NewGuid();
-            _userRepository.AddUser(User);
-            _mainWindowViewModel.CurrentPage = new UsersViewModel(_mainWindowViewModel);
-            _logger.LogInformation("Dodano użytkownika do bazy danych!");
+            if (await ValidateFieldsAsync())
+            {
+                _userRepository.AddUser(User);
+                _mainWindowViewModel.CurrentPage = new UsersViewModel(_mainWindowViewModel);
+                _logger.LogInformation("Dodano użytkownika do bazy danych!");
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _logger.LogError(ex, "Błąd podczas dodawania użytkownika do bazy danych!");
         }
     }
 }

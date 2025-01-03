@@ -60,7 +60,6 @@ public partial class ClientsViewModel : ViewModelBase
         }
         
         LoadCustomers();
-        
     }
     
     
@@ -187,14 +186,27 @@ public partial class ClientsViewModel : ViewModelBase
     [RelayCommand]
     private async void DeleteCustomer(Customer customer)
     {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta", "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-
-        if (result == ButtonResult.Yes)
+        try
         {
-            _customerRepository.DeleteCustomer(customer.CustomerId);
-            LoadCustomers();
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Usunięcie klienta",
+                "Czy na pewno chcesz usunąć tego klienta?", ButtonEnum.YesNo, Icon.Warning);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime)
+                .MainWindow;
+            var result = await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+
+            if (result == ButtonResult.Yes)
+            {
+                _customerRepository.DeleteCustomer(customer.CustomerId);
+                LoadCustomers();
+            }
+        }
+        catch (Exception ex)
+        {
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
+            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            
+            _logger.LogError(ex, "Błąd podczas usuwania klienta z bazy danych!");
         }
     }
 }

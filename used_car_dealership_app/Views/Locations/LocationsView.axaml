@@ -61,7 +61,7 @@
             </Button.Styles>
         </Button>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding AreThereLocations}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,25" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding AreThereLocations}">
             <ItemsControl ItemsSource="{Binding Locations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
