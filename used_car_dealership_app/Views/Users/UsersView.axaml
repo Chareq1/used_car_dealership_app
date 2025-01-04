@@ -151,7 +151,7 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <TextBlock Text="Brak użytkowników!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereUsers}" Grid.Row="2" />
+        <TextBlock Text="Brak użytkowników!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereUsers}" Grid.Row="2" Grid.ColumnSpan="3"/>
         
         <Button Grid.Row="3"
                 Grid.Column="2"

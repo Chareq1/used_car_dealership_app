@@ -17,7 +17,7 @@ using used_car_dealership_app.Views;
 namespace used_car_dealership_app.ViewModels.Calendar;
 
 //KLASA WIDOKU DO AKTUALIZACJI SPOTKANIA
-[CustomInfo("Widok dodawania spotkania", 1.0f)]
+[CustomInfo("Widok do dodawania spotkania", 1.0f)]
 public partial class MeetingUpdateViewModel : ViewModelBase
 {
     //POLA DLA LOGGERA

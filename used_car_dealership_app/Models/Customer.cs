@@ -22,6 +22,7 @@ public class Customer
     
     //POLE POMOCNICZE DO WYŚWIETLANIA PEŁNEGO IMIENIA KLIENTA
     public String CustomerFullName => $"{Name} {Surname}";
+    public String FullNamePESEL => $"{Name} {Surname} ({PESEL})";
     
     
     //NADPISANIE METODY ToString

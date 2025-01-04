@@ -2,7 +2,177 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:documents="clr-namespace:used_car_dealership_app.ViewModels.Documents"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="used_car_dealership_app.Views.Documents.DocumentsView">
-    Welcome to Avalonia!
+             x:Class="used_car_dealership_app.Views.Documents.DocumentsView"
+             x:DataType="documents:DocumentsViewModel"
+             FontFamily="{StaticResource Ubuntu}">
+    
+    <Design.DataContext>
+        <documents:DocumentsViewModel />
+    </Design.DataContext>
+    
+    <Grid Margin="20,25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock FontSize="24" Text="Dokumenty" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontWeight="Bold"/>
+        
+        <TextBox Margin="0,25,0,0" Grid.Row="1" Grid.Column="0" Text="{Binding SearchText}" Watermark="Szukaj dokumenty..." />
+        
+        <ComboBox Margin="10,25,0,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding SearchFields}" SelectedItem="{Binding SelectedSearchField}" PlaceholderText="---">
+            <ComboBox.Styles>
+                <Style Selector="ComboBox /template/ ListBoxItem:selected">
+                    <Setter Property="Background" Value="#6BA3BE" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+            </ComboBox.Styles>
+        </ComboBox>
+        
+        <Button 
+            Margin="10,25,0,0" 
+            Grid.Row="1" 
+            Grid.Column="2" 
+            Command="{Binding SearchDocumentsCommand}" 
+            Width="32" 
+            Height="32"
+            CornerRadius="5">
+            <PathIcon Data="{StaticResource PeopleSearchRegular}" />
+            <Button.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="#6BA3BE" />
+                </Style>
+                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="#0C969C" />
+                </Style>
+                <Style Selector="Button:pressed /template/ ContentPresenter">
+                    <Setter Property="Background" Value="#0A7075" />
+                </Style>
+            </Button.Styles>
+        </Button>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,0,25" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding AreThereDocuments}">
+            <ItemsControl ItemsSource="{Binding Documents}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="5" Padding="10" Margin="0,5,5,5" Background="#274D60">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Opis:" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Description}" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Width="500" />
+
+                                <TextBlock Text="Klient:" Grid.Row="1" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding CustomerFullName}" Grid.Row="1" Grid.Column="1" />
+
+                                <TextBlock Text="Użytkownik:" Grid.Row="2" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding UserFullName}" Grid.Row="2" Grid.Column="1" />
+
+                                <TextBlock Text="Pojazd:" Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding VehicleFullName}" Grid.Row="3" Grid.Column="1" />
+                                
+                                <TextBlock Text="Data utworzenia:  " Grid.Row="4" Grid.Column="0" FontWeight="Bold" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding CreationDate, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Row="4" Grid.Column="1" />
+
+                                <Button Grid.Row="5" Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding ((documents:DocumentsViewModel)DataContext).ShowDocumentDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        CornerRadius="5"
+                                        Width="35" Height="35">
+                                    <PathIcon Data="{StaticResource SearchRegular}"/>
+
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#6BA3BE" />
+                                        </Style>
+                                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#0C969C" />
+                                        </Style>
+                                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#0A7075" />
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+
+                                <Button
+                                    Grid.Row="5"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding ((documents:DocumentsViewModel)DataContext).DeleteDocumentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    CornerRadius="5"
+                                    Width="35" Height="35"
+                                    Margin="10,0,0,0">
+                                    <PathIcon Data="{StaticResource DeleteRegular}"/>
+
+                                    <Button.Styles>
+                                        <Style Selector="Button">
+                                            <Setter Property="Background" Value="#FF3B3B" />
+                                        </Style>
+                                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#E3242B" />
+                                        </Style>
+                                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#A91B0D" />
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <TextBlock Text="Brak dokumenty!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereDocuments}" Grid.Row="2" Grid.ColumnSpan="3"/>
+        
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                CornerRadius="10"
+                Width="50" Height="50"
+                Command="{Binding GoToAddScreenCommand}">
+            <PathIcon Data="{StaticResource AddRegular}"/>
+
+            <Button.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="#6BA3BE" />
+                </Style>
+                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="#0C969C" />
+                </Style>
+                <Style Selector="Button:pressed /template/ ContentPresenter">
+                    <Setter Property="Background" Value="#0A7075" />
+                </Style>
+            </Button.Styles>
+        </Button>
+    </Grid>
 </UserControl>

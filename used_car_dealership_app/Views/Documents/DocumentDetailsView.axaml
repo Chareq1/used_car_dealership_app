@@ -1,0 +1,159 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:documents="clr-namespace:used_car_dealership_app.ViewModels.Documents"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="used_car_dealership_app.Views.Documents.DocumentDetailsView"
+             x:DataType="documents:DocumentDetailsViewModel"
+             FontFamily="{StaticResource Ubuntu}">
+    
+    <Design.DataContext>
+        <documents:DocumentDetailsViewModel />
+    </Design.DataContext>
+    
+    <Grid Margin="20,25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="24" Text="Informacje o dokumencie" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0,0,0,25"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,25">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" />
+                <TextBlock Text="{Binding Document.Description}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="300" TextWrapping="Wrap" />
+
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding Document.DocumentId}" Margin="0,10,0,0"  VerticalAlignment="Top" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right"/>
+
+                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Document.CustomerFullName}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Użytkownik:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Document.UserFullName}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Pojazd:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Document.VehicleFullName}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
+
+                <TextBlock Text="Data utworzenia:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Document.CreationDate, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" />
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+            <Button
+                Command="{Binding GoBackCommand}"
+                Grid.Column="0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                CornerRadius="10"
+                Width="50" Height="50">
+                <PathIcon Data="{StaticResource ArrowReplyRegular}"></PathIcon>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+            
+            <Button
+                Command="{Binding SaveFileCommand}"
+                Grid.Column="2"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="10"
+                Width="50" Height="50"
+                Margin="0,0,10,0">
+                <PathIcon Data="{StaticResource SaveRegular}"></PathIcon>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button
+                Command="{Binding DeleteDocumentCommand}"
+                CommandParameter="{Binding Document}"
+                Grid.Column="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                CornerRadius="10"
+                Width="50" Height="50">
+                <PathIcon Data="{StaticResource DeleteRegular}"/>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#FF3B3B" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#E3242B" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#A91B0D" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+
+            <Button
+                Command="{Binding UpdateSelectedDocumentCommand}"
+                CommandParameter="{Binding Document}"
+                Grid.Column="4"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="10"
+                Width="50" Height="50"
+                Margin="10,0,0,0">
+                <PathIcon Data="{StaticResource EditSettingsRegular}"></PathIcon>
+
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="#6BA3BE" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0C969C" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#0A7075" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -151,7 +151,7 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <TextBlock Text="Brak pojazdów!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereVehicles}" Grid.Row="2" />
+        <TextBlock Text="Brak pojazdów!" FontSize="16" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !AreThereVehicles}" Grid.Row="2" Grid.ColumnSpan="3"/>
 
         <Button Grid.Row="3"
                 Grid.Column="2"

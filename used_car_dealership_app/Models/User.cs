@@ -30,6 +30,10 @@ public class User
     public String HouseNumber { get; set; }
 
     
+    //POLE POMOCNICZE DO WYŚWIETLANIA PEŁNEGO IMIENIA UŻYTKOWNIKA
+    public String FullNamePESEL => $"{Name} {Surname} ({PESEL})";
+    
+    
     //NADPISANIE METODY ToString
     public override String ToString()
     {

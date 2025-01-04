@@ -51,6 +51,7 @@ public class Vehicle : SpecificVehicleValues
     
     //POLA WSPOMAGAJĄCE WYŚWIETLANIE INFORMACJI
     public String VehicleFullName => $"{Brand} {Model}";
+    public String FullNameVin => $"{Brand} {Model} ({VIN})";
     public String LocationNameAddress => $"{Location.Name}, ul. {Location.Street} {Location.HouseNumber}, {Location.ZipCode} {Location.City}";
     
     
