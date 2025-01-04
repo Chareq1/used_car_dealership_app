@@ -19,6 +19,10 @@ namespace used_car_dealership_app.ViewModels.Clients;
 [CustomInfo("Widok do dodawania klienta", 1.0f)]
 public partial class ClientAddViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+
+
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientAddViewModel>();
@@ -39,6 +43,7 @@ public partial class ClientAddViewModel : ViewModelBase
     {
         _customerRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         Customer.CustomerId = Guid.NewGuid();
         
@@ -72,7 +77,7 @@ public partial class ClientAddViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowWarning("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -94,7 +99,7 @@ public partial class ClientAddViewModel : ViewModelBase
             
             if (!IsValidPESEL(Customer.PESEL))
             {
-                await ShowPopupAsync("Niepoprawny numer PESEL!");
+                _notifications.ShowError("Problem z numerem PESEL", "Niepoprawny numer PESEL!");
                 _logger.LogError("Niepoprawny numer PESEL!");
                 throw new ValidationException("Niepoprawny numer PESEL!");
             }
@@ -105,14 +110,6 @@ public partial class ClientAddViewModel : ViewModelBase
         {
             return false;
         }
-    }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
     
     
@@ -135,12 +132,13 @@ public partial class ClientAddViewModel : ViewModelBase
             {
                 _customerRepository.AddCustomer(Customer);
                 _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
+                _notifications.ShowSuccess("Dodawanie klienta", "Operacja zakończona pomyślnie!");
                 _logger.LogInformation("Dodano klienta do bazy danych!");
             }
         }
         catch (Exception ex)
         {
-            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _notifications.ShowError("Problem z dodaniem klienta", ex.Message);
             _logger.LogError(ex, "Błąd podczas dodawania klienta do bazy danych!");
         }
     }

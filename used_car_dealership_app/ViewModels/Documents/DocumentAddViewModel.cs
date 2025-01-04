@@ -26,6 +26,10 @@ namespace used_car_dealership_app.ViewModels.Documents;
 [CustomInfo("Widok do dodawania dokumentu", 1.0f)]
 public partial class DocumentAddViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<DocumentUpdateViewModel>();
@@ -83,6 +87,7 @@ public partial class DocumentAddViewModel : ViewModelBase
         _userRepository = new UserRepository();
         _vehicleRepository = new VehicleRepository();
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         SelectedDate = DateTimeOffset.Now;
         Document.DocumentId = Guid.NewGuid();
@@ -179,14 +184,6 @@ public partial class DocumentAddViewModel : ViewModelBase
         _logger.LogInformation("Pobrano pojazdy z bazy danych!");
     }
     
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd walidacji", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-    }
-    
     
     //KOMENDY
     //Komenda do usuwania zdjęcia
@@ -231,7 +228,7 @@ public partial class DocumentAddViewModel : ViewModelBase
             {
                 if (NewFile != null)
                 {
-                    await ShowPopupAsync("Można dodać tylko jeden plik!");
+                    _notifications.ShowWarning("Błąd dodawania pliku", "Można dodać tylko jeden plik!");
                     _logger.LogError("Można dodać tylko jeden plik!");
                     throw new ValidationException("Można dodać tylko jeden plik!");
                 }
@@ -244,9 +241,7 @@ public partial class DocumentAddViewModel : ViewModelBase
             }
             catch (Exception ex)
             {
-                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z dodawaniem pliku", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-                await messageBoxStandardWindow.ShowAsPopupAsync(mainWin);
-                
+                _notifications.ShowError("Problem z dodawaniem pliku", ex.Message);
                 _logger.LogError(ex, "Błąd podczas dodawania pliku!");
             }
         }
@@ -260,7 +255,7 @@ public partial class DocumentAddViewModel : ViewModelBase
         {
             if(NewFile == null)
             {
-                await ShowPopupAsync("Dodaj plik do dokumentu!");
+                _notifications.ShowError("Dodawanie dokumentu", "Dodaj plik do dokumentu!");
                 _logger.LogError("Dodaj plik do dokumentu!");
                 throw new ValidationException("Dodaj plik do dokumentu!");
             }
@@ -276,16 +271,13 @@ public partial class DocumentAddViewModel : ViewModelBase
             
             Document.CreationDate = SelectedDate.DateTime;
             _documentRepository.AddDocument(Document);
-            
+            _notifications.ShowSuccess("Dodawanie dokumentu", "Operacja zakończona pomyślnie!");
             _mainWindowViewModel.CurrentPage = new DocumentsViewModel(_mainWindowViewModel);
             _logger.LogInformation("Dodano dokument do bazy danych!");
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z dodawaniem dokumentu", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z dodaniem dokumentu", ex.Message);
             _logger.LogError(ex, "Błąd podczas dodawania dokumentu w bazie danych!");
         }
     }

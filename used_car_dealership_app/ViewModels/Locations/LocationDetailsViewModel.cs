@@ -17,6 +17,10 @@ namespace used_car_dealership_app.ViewModels.Locations;
 [CustomInfo("Widok do wyświetlania danych lokalizacji", 1.0f)]
 public partial class LocationDetailsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationDetailsViewModel>();
@@ -42,6 +46,7 @@ public partial class LocationDetailsViewModel : ViewModelBase
     {
         _locationRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(LocationDetailsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -108,16 +113,14 @@ public partial class LocationDetailsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _locationRepository.DeleteLocation(location.LocationId);
+                _notifications.ShowSuccess("Usuwanie lokalizacji", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new LocationsViewModel(_mainWindowViewModel);
                 _logger.LogInformation("Usunięto lokalizację!");
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem lokalizacji", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania lokalizacji z bazy danych!");
         }
     }

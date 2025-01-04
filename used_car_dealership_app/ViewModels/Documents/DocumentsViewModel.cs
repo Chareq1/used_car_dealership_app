@@ -22,6 +22,10 @@ namespace used_car_dealership_app.ViewModels.Documents;
 [CustomInfo("Widok listy dokumentów", 1.0f)]
 public partial class DocumentsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<DocumentsViewModel>();
@@ -85,6 +89,7 @@ public partial class DocumentsViewModel : ViewModelBase
     public DocumentsViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
     }
     
     
@@ -99,10 +104,13 @@ public partial class DocumentsViewModel : ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereDocuments = false;
+            _notifications.ShowInfo("Dokumenty", "Brak dokumentów!");
         }
         else
         {
             AreThereDocuments = true;
+            
+            _notifications.ShowInfo("Dokumenty", "Ilość dokumentów: " + dataTable.Rows.Count);
 
             var documents = dataTable.AsEnumerable().Select(row => new Document
             {
@@ -214,10 +222,13 @@ public partial class DocumentsViewModel : ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereDocuments = false;
+            _notifications.ShowInfo("Dokumenty", "Brak dokumentów o podanych informacjach!");
         }
         else
         {
             AreThereDocuments = true;
+            
+            _notifications.ShowInfo("Dokumenty", "Ilość znalezionych dokumentów: " + dataTable.Rows.Count);
 
             var documents = dataTable.AsEnumerable().Select(row => new Document
             {
@@ -267,15 +278,13 @@ public partial class DocumentsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _documentRepository.DeleteDocument(document.DocumentId);
+                _notifications.ShowSuccess("Usuwanie dokumentu", "Operacja zakończona pomyślnie!");
                 LoadDocuments();
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem dokumentu", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania użytkownika z bazy danych!");
         }
     }

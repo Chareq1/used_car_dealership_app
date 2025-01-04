@@ -23,6 +23,10 @@ namespace used_car_dealership_app.ViewModels.Locations;
 [CustomInfo("Widok listy lokalizacji", 1.0f)]
 public partial class LocationsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationsViewModel>();
@@ -79,6 +83,7 @@ public partial class LocationsViewModel : ViewModelBase
     public LocationsViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
     }
     
     
@@ -88,10 +93,16 @@ public partial class LocationsViewModel : ViewModelBase
     {
         var dataTable = await Task.Run(() => _locationRepository.GetAllLocations());
 
-        if (dataTable.Rows.Count == 0) { AreThereLocations = false; }
+        if (dataTable.Rows.Count == 0)
+        {
+            AreThereLocations = false;
+            _notifications.ShowInfo("Lokalizacje", "Brak lokalizacji!");
+        }
         else
         {
             AreThereLocations = true;
+            
+            _notifications.ShowInfo("Lokalizacje", "Ilość lokalizacji: " + dataTable.Rows.Count);
             
             var locations = dataTable.AsEnumerable().Select(row => new Location
             {
@@ -147,10 +158,13 @@ public partial class LocationsViewModel : ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereLocations = false;
+            _notifications.ShowInfo("Lokalizacje", "Brak lokalizacji o podanych informacjach!");
         }
         else
         {
             AreThereLocations = true;
+            
+            _notifications.ShowInfo("Lokalizacje", "Ilość znalezionych lokalizacji: " + dataTable.Rows.Count);
 
             var locations = dataTable.AsEnumerable().Select(row => new Location
             {
@@ -198,15 +212,13 @@ public partial class LocationsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _locationRepository.DeleteLocation(location.LocationId);
+                _notifications.ShowSuccess("Usuwanie lokalizacji", "Operacja zakończona pomyślnie!");
                 LoadLocations();
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem lokalizacji", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania lokalizacji z bazy danych!");
         }
     }

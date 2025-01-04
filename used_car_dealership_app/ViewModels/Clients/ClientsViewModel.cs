@@ -23,6 +23,10 @@ namespace used_car_dealership_app.ViewModels.Clients;
 [CustomInfo("Widok listy klientów", 1.0f)]
 public partial class ClientsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+
+
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientsViewModel>();
@@ -79,6 +83,7 @@ public partial class ClientsViewModel : ViewModelBase
     public ClientsViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
     }
     
     
@@ -88,10 +93,16 @@ public partial class ClientsViewModel : ViewModelBase
     {
         var dataTable = await Task.Run(() => _customerRepository.GetAllCustomers());
 
-        if (dataTable.Rows.Count == 0) { AreThereCustomers = false; }
+        if (dataTable.Rows.Count == 0)
+        {
+            AreThereCustomers = false;
+            _notifications.ShowInfo("Klienci", "Brak klientów!");
+        }
         else
         {
             AreThereCustomers = true;
+            
+            _notifications.ShowInfo("Klienci", "Ilość klientów: " + dataTable.Rows.Count);
             
             var customers = dataTable.AsEnumerable().Select(row => new Customer
             {
@@ -148,10 +159,13 @@ public partial class ClientsViewModel : ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereCustomers = false;
+            _notifications.ShowInfo("Klienci", "Brak klientów o podanych informacjach!");
         }
         else
         {
             AreThereCustomers = true;
+            
+            _notifications.ShowInfo("Klienci", "Ilość znalezionych klientów: " + dataTable.Rows.Count);
 
             var customers = dataTable.AsEnumerable().Select(row => new Customer
             {
@@ -183,7 +197,7 @@ public partial class ClientsViewModel : ViewModelBase
     {
         var addViewModel = new ClientAddViewModel(_customerRepository, _mainWindowViewModel);
         _mainWindowViewModel.CurrentPage = addViewModel;
-        _logger.LogInformation("Przejście do widoków dodawania klientów! ");
+        _logger.LogInformation("Przejście do widoków dodawania klientów!");
     }
     
     //Metoda do usuwania klienta z bazy danych
@@ -199,15 +213,13 @@ public partial class ClientsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _customerRepository.DeleteCustomer(customer.CustomerId);
+                _notifications.ShowSuccess("Usuwanie klienta", "Operacja zakończona pomyślnie!");
                 LoadCustomers();
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem klienta", "Operacja zakończona niepowodzeniem!");
             _logger.LogError(ex, "Błąd podczas usuwania klienta z bazy danych!");
         }
     }

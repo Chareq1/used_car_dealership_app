@@ -20,6 +20,10 @@ namespace used_car_dealership_app.ViewModels.Calendar;
 [CustomInfo("Widok do dodawania spotkania", 1.0f)]
 public partial class MeetingAddViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+
+
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<MeetingAddViewModel>();
@@ -70,6 +74,7 @@ public partial class MeetingAddViewModel : ViewModelBase
         _customerRepository = customerRepository;
         _locationRepository = locationRepository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         Meeting.MeetingId = Guid.NewGuid();
         SelectedDate = DateTime.Today;
@@ -159,15 +164,13 @@ public partial class MeetingAddViewModel : ViewModelBase
             Meeting.UserId = _mainWindowViewModel.LoggedUser.UserId;
 
             _meetingRepository.AddMeeting(Meeting);
+            _notifications.ShowSuccess("Dodawanie spotkania", "Operacja zakończona pomyślnie!");
             _mainWindowViewModel.CurrentPage = new CalendarViewModel(_mainWindowViewModel);
             _logger.LogInformation("Dodano spotkanie w bazie danych!");
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z dodaniem spotkania", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania spotkania z bazy danych!");
         }
     }

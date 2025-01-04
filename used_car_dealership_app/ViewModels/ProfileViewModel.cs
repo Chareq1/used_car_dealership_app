@@ -22,6 +22,10 @@ namespace used_car_dealership_app.ViewModels;
 [CustomInfo("Widok profilu użytkownika", 1.0f)]
 public partial class ProfileViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ProfileViewModel>();
@@ -54,6 +58,7 @@ public partial class ProfileViewModel : ViewModelBase
     {
         _userRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(ProfileViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -91,6 +96,7 @@ public partial class ProfileViewModel : ViewModelBase
         
         Address = $"ul. {User.Street} {User.HouseNumber}, {User.ZipCode} {User.City}";
         FullName = $"{User.Name} {User.Surname}";
+        
         _logger.LogInformation("Wczytano dane użytkownika!");
     }
     
@@ -99,7 +105,7 @@ public partial class ProfileViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowWarning("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -114,7 +120,7 @@ public partial class ProfileViewModel : ViewModelBase
             
             if (NewPassword != NewRepeatedPassword)
             {
-                await ShowPopupAsync("Podane hasła nie są takie same!");
+                _notifications.ShowError("Problem z hasłem", "Podane hasła nie są takie same!");
                 _logger.LogError("Podane hasła nie są takie same!");
                 
                 NewPassword = null;
@@ -123,13 +129,13 @@ public partial class ProfileViewModel : ViewModelBase
                 throw new ValidationException("Hasła nie są takie same!");
             }
             
-            if(User.Password.Length < 8 || 
-               !Regex.IsMatch(User.Password, @"[A-Z]") || 
-               !Regex.IsMatch(User.Password, @"[a-z]") || 
-               !Regex.IsMatch(User.Password, @"[0-9]") || 
-               !Regex.IsMatch(User.Password, @"[\W_]"))
+            if(NewPassword.Length < 8 || 
+               !Regex.IsMatch(NewPassword, @"[A-Z]") || 
+               !Regex.IsMatch(NewPassword, @"[a-z]") || 
+               !Regex.IsMatch(NewPassword, @"[0-9]") || 
+               !Regex.IsMatch(NewPassword, @"[\W_]"))
             {
-                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+                _notifications.ShowWarning("Błąd z hasłem", "Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
                 _logger.LogError("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
 
                 NewPassword = null;
@@ -147,14 +153,6 @@ public partial class ProfileViewModel : ViewModelBase
         }
     }
     
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-    }
-    
     
     //KOMENDY
     //Komenda do aktualizacji hasła użytkownika w bazie danych
@@ -166,9 +164,7 @@ public partial class ProfileViewModel : ViewModelBase
             User.Password = NewPassword;
             _userRepository.UpdateUser(User);
             
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Potwierdzenie zmiany", "Hasło użytkownika zostało zmienione!", ButtonEnum.Ok, Icon.Info);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
+            _notifications.ShowSuccess("Aktualizacja hasła", "Hasło zostało zaktualizowane!");
             
             NewPassword = null;
             NewRepeatedPassword = null;

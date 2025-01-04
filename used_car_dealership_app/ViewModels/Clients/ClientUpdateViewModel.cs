@@ -19,6 +19,10 @@ namespace used_car_dealership_app.ViewModels.Clients;
 [CustomInfo("Widok do aktualizowania danych klienta", 1.0f)]
 public partial class ClientUpdateViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientUpdateViewModel>();
@@ -39,6 +43,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
     {
         _customerRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(ClientUpdateViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -94,7 +99,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowWarning("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -116,7 +121,7 @@ public partial class ClientUpdateViewModel : ViewModelBase
             
             if (!IsValidPESEL(Customer.PESEL))
             {
-                await ShowPopupAsync("Niepoprawny numer PESEL!");
+                _notifications.ShowError("Problem z numerem PESEL", "Niepoprawny numer PESEL!");
                 _logger.LogError("Niepoprawny numer PESEL!");
                 throw new ValidationException("Niepoprawny numer PESEL!");
             }
@@ -127,14 +132,6 @@ public partial class ClientUpdateViewModel : ViewModelBase
         {
             return false;
         }
-    }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
     
     
@@ -156,13 +153,14 @@ public partial class ClientUpdateViewModel : ViewModelBase
             if (await ValidateFieldsAsync())
             {
                 _customerRepository.UpdateCustomer(Customer);
+                _notifications.ShowSuccess("Aktualizacja klienta", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new ClientDetailsViewModel(Customer.CustomerId, _customerRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano klienta w bazie danych!");
             }
         }
         catch (Exception ex)
         {
-            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _notifications.ShowError("Problem z aktualizacją klienta", ex.Message);
             _logger.LogError(ex, "Błąd podczas aktualizacji klienta w bazie danych!");
         }
     }

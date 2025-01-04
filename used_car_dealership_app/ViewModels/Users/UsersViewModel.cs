@@ -22,6 +22,10 @@ namespace used_car_dealership_app.ViewModels.Users;
 [CustomInfo("Widok listy użytkowników", 1.0f)]
 public partial class UsersViewModel: ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<UsersViewModel>();
@@ -78,6 +82,7 @@ public partial class UsersViewModel: ViewModelBase
     public UsersViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
     }
     
     
@@ -87,10 +92,16 @@ public partial class UsersViewModel: ViewModelBase
     {
         var dataTable = await Task.Run(() => _userRepository.GetAllUsers());
 
-        if (dataTable.Rows.Count == 0) { AreThereUsers = false; }
+        if (dataTable.Rows.Count == 0)
+        {
+            AreThereUsers = false;
+            _notifications.ShowInfo("Użytkownicy", "Brak użytkowników!");
+        }
         else
         {
             AreThereUsers = true;
+            
+            _notifications.ShowInfo("Użytkownicy", "Ilość użytkowników: " + dataTable.Rows.Count);
             
             var users = dataTable.AsEnumerable().Select(row => new User
             {
@@ -167,10 +178,13 @@ public partial class UsersViewModel: ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereUsers = false;
+            _notifications.ShowInfo("Użytkownicy", "Brak użytkowników o podanych informacjach!");
         }
         else
         {
             AreThereUsers = true;
+            
+            _notifications.ShowInfo("Użytkownicy", "Ilość znalezionych użytkowników: " + dataTable.Rows.Count);
 
             var users = dataTable.AsEnumerable().Select(row => new User
             {
@@ -219,15 +233,13 @@ public partial class UsersViewModel: ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _userRepository.DeleteUser(user.UserId);
+                _notifications.ShowSuccess("Usuwanie użytkownika", "Operacja zakończona pomyślnie!");
                 LoadUsers();
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem użytkownika", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania użytkownika z bazy danych!");
         }
     }

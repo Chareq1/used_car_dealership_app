@@ -21,6 +21,10 @@ namespace used_car_dealership_app.ViewModels.Documents;
 [CustomInfo("Widok szczegółów dokumentu", 1.0f)]
 public partial class DocumentDetailsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<DocumentDetailsViewModel>();
@@ -47,6 +51,7 @@ public partial class DocumentDetailsViewModel : ViewModelBase
         _userRepository = new UserRepository();
         _vehicleRepository = new VehicleRepository();
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(DocumentsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -147,7 +152,6 @@ public partial class DocumentDetailsViewModel : ViewModelBase
     [RelayCommand]
     private void UpdateSelectedDocument(Document document)
     {
-
         var updateViewModel = new DocumentUpdateViewModel(document.DocumentId, _documentRepository, _mainWindowViewModel);
         _mainWindowViewModel.CurrentPage = updateViewModel;
         _logger.LogInformation("Przejście do widoku aktualizacji dokumentu ID {0}!", document.DocumentId);
@@ -161,7 +165,7 @@ public partial class DocumentDetailsViewModel : ViewModelBase
         var saveFileDialog = new SaveFileDialog
         {
             InitialFileName = Path.GetFileName(Document.File),
-            DefaultExtension = "pdf",
+            DefaultExtension = Path.GetExtension(Document.File),
             Filters = new List<FileDialogFilter>
             {
                 new FileDialogFilter { Name = "Dokument PDF", Extensions = new List<string> { "pdf" } },
@@ -185,6 +189,7 @@ public partial class DocumentDetailsViewModel : ViewModelBase
             
             File.Copy(filePath, destinationPath, true);
             
+            _notifications.ShowSuccess("Zapis dokumentu", "Plik lokalnie zapisany w " + destinationPath);
             _logger.LogInformation("Plik lokalnie zapisany w {0}", destinationPath);
         }
     }
@@ -202,15 +207,13 @@ public partial class DocumentDetailsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _documentRepository.DeleteDocument(document.DocumentId);
+                _notifications.ShowSuccess("Usuwanie dokumentu", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new DocumentsViewModel(_mainWindowViewModel);
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem dokumentu", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania dokuemntu z bazy danych!");
         }
     }

@@ -20,6 +20,10 @@ namespace used_car_dealership_app.ViewModels.Calendar;
 [CustomInfo("Widok kalendarza", 1.0f)]
 public partial class CalendarViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<CalendarViewModel>();
@@ -77,6 +81,7 @@ public partial class CalendarViewModel : ViewModelBase
     public CalendarViewModel(MainWindowViewModel mainWindowViewModel) : this()
     {
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
     }
     
     
@@ -99,10 +104,13 @@ public partial class CalendarViewModel : ViewModelBase
         if (dataTable.Rows.Count == 0)
         {
             AreThereMeetings = false;
+            _notifications.ShowInfo("Kalendarz", "Brak spotkań na wybrany dzień!");
         }
         else
         {
             AreThereMeetings = true;
+            
+            _notifications.ShowInfo("Kalendarz", "Ilość spotkań na wybrany dzień: " + dataTable.Rows.Count);
 
             var meetings = dataTable.AsEnumerable().Select(row => new Meeting
             {
@@ -200,15 +208,13 @@ public partial class CalendarViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _meetingRepository.DeleteMeeting(meeting.MeetingId);
+                _notifications.ShowSuccess("Usuwanie spotkania", "Operacja zakończona pomyślnie!");
                 LoadMeetings();
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem spotkania", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania spotkania z bazy danych!");
         }
     }

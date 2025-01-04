@@ -20,6 +20,10 @@ namespace used_car_dealership_app.ViewModels.Locations;
 [CustomInfo("Widok do aktualizowania danych lokalizacji", 1.0f)]
 public partial class LocationUpdateViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationUpdateViewModel>();
@@ -40,6 +44,7 @@ public partial class LocationUpdateViewModel : ViewModelBase
     {
         _locationRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(LocationUpdateViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -78,7 +83,7 @@ public partial class LocationUpdateViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowError("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -105,15 +110,7 @@ public partial class LocationUpdateViewModel : ViewModelBase
             return false;
         }
     }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-    }
-    
+ 
     
     //KOMENDY
     //Komenda do powrotu do poprzedniego widoku
@@ -133,13 +130,14 @@ public partial class LocationUpdateViewModel : ViewModelBase
             if (await ValidateFieldsAsync())
             {
                 _locationRepository.UpdateLocation(Location);
+                _notifications.ShowSuccess("Aktualizacja lokalizacji", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new LocationDetailsViewModel(Location.LocationId, _locationRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano lokalizację w bazie danych!");
             }
         }
         catch (Exception ex)
         {
-            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _notifications.ShowError("Problem z aktualizacją lokalizacji", ex.Message);
             _logger.LogError(ex, "Błąd podczas aktualizacji lokalizacji w bazie danych!");
         }
     }

@@ -227,7 +227,7 @@
                 </Button>
                 
                 <TextBlock Text="Wyposażenie:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="27" Grid.Column="0" />
-                <ScrollViewer Grid.Row="27" Grid.Column="1" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="200">
+                <ScrollViewer Width="200" MaxWidth="200" Grid.Row="27" Grid.Column="1" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="200">
                 <ItemsControl ItemsSource="{Binding EquipmentList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

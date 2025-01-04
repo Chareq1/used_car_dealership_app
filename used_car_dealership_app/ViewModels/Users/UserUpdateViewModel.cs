@@ -24,6 +24,10 @@ namespace used_car_dealership_app.ViewModels.Users;
 [CustomInfo("Widok do aktualizowania danych użytkownika", 1.0f)]
 public partial class UserUpdateViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<UserUpdateViewModel>();
@@ -48,6 +52,7 @@ public partial class UserUpdateViewModel : ViewModelBase
     {
         _userRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(UserUpdateViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -106,7 +111,7 @@ public partial class UserUpdateViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowWarning("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -133,7 +138,7 @@ public partial class UserUpdateViewModel : ViewModelBase
                !Regex.IsMatch(User.Password, @"[0-9]") || 
                !Regex.IsMatch(User.Password, @"[\W_]"))
             {
-                await ShowPopupAsync("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
+                _notifications.ShowWarning("Błąd z hasłem", "Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
                 _logger.LogError("Hasło musi mieć co najmniej 8 znaków, zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę i 1 znak specjalny!");
 
                 User.Password = null;
@@ -143,7 +148,7 @@ public partial class UserUpdateViewModel : ViewModelBase
             
             if (!IsValidPESEL(User.PESEL))
             {
-                await ShowPopupAsync("Niepoprawny numer PESEL!");
+                _notifications.ShowWarning("Błąd z PESEL", "Niepoprawny numer PESEL!");
                 _logger.LogError("Niepoprawny numer PESEL!");
                 throw new ValidationException("Niepoprawny numer PESEL!");
             }
@@ -154,14 +159,6 @@ public partial class UserUpdateViewModel : ViewModelBase
         {
             return false;
         }
-    }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
     
     
@@ -183,13 +180,14 @@ public partial class UserUpdateViewModel : ViewModelBase
             if (await ValidateFieldsAsync())
             {
                 _userRepository.UpdateUser(User);
+                _notifications.ShowSuccess("Aktualizacja użytkownika", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new UserDetailsViewModel(User.UserId, _userRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano użytkownika w bazie danych!");
             }
         }
         catch (Exception ex)
         {
-            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _notifications.ShowError("Problem z aktualizacją użytkownika", ex.Message);
             _logger.LogError(ex, "Błąd podczas aktualizacji użytkownika w bazie danych!");
         }
     }

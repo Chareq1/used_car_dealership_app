@@ -24,6 +24,10 @@ namespace used_car_dealership_app.ViewModels.Vehicles;
 [CustomInfo("Widok do wyświetlania danych pojazdu", 1.0f)]
 public partial class VehicleDetailsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehicleDetailsViewModel>();
@@ -77,6 +81,7 @@ public partial class VehicleDetailsViewModel : ViewModelBase
         _imageRepository = imageRepository;
         _locationRepository = new LocationRepository();
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(VehicleDetailsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -267,6 +272,7 @@ public partial class VehicleDetailsViewModel : ViewModelBase
                     Directory.Delete(fullFolderPath, true);
 
                     _vehicleRepository.DeleteVehicle(Vehicle.VehicleId);
+                    _notifications.ShowSuccess("Usuwanie pojazdu", "Operacja zakończona pomyślnie!");
                     _mainWindowViewModel.CurrentPage = new VehiclesViewModel(_mainWindowViewModel);
                     _logger.LogInformation("Usunięto pojazd!");
                 }
@@ -274,10 +280,7 @@ public partial class VehicleDetailsViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem pojazdu", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania lokalizacji z bazy danych!");
         }
     }

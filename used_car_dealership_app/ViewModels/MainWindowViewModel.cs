@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Notifications;
+using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Notification;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -26,6 +27,9 @@ namespace used_car_dealership_app.ViewModels;
 //KLASA WIDOKU GŁÓWNEGO OKNA APLIKACJI
 public partial class MainWindowViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
     //WŁAŚCIWOŚCI DLA STRONY, CZY PANEL JEST OTWARTY, WYBRANEGO ELEMENTU LISTY, ZALOGOWANEGO UŻYTKOWNIKA I JEGO PEŁNEGO IMIENIA
     [ObservableProperty]
     private bool _isPaneOpen = true;
@@ -52,9 +56,12 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _currentPage = new VehiclesViewModel(this);
         _loggedUser = loggedUser;
+        _notifications = new NotificationService(this);
         _loggedUserFullName = $"{loggedUser.Name} {loggedUser.Surname}";
         
         InitializePaneItems();
+        
+        _notifications.ShowInfo("Witaj!", $"Witaj {_loggedUserFullName} w aplikacji salonu samochodowego!");
     }
     
     //METODY

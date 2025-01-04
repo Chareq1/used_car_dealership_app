@@ -29,6 +29,10 @@ namespace used_car_dealership_app.ViewModels.Vehicles;
 [CustomInfo("Widok do aktualizowania pojazdu", 1.0f)]
 public partial class VehicleUpdateViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<VehicleUpdateViewModel>();
@@ -127,6 +131,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         _newImages = new ObservableCollection<Image>();
         _imagesToDelete = new ObservableCollection<Image>();
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         VehicleTypes = new ObservableCollection<VehicleType>(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>());
         
@@ -369,7 +374,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowWarning("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -394,14 +399,6 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         {
             return false;
         }
-    }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd walidacji", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
     }
     
     
@@ -485,7 +482,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
 
                 if(newImagesCopy.Count == 0 && Vehicle.Images.Count == 0)
                 {
-                    await ShowPopupAsync("Dodaj przynajmniej 1 zdjęcie pojazdu!");
+                    _notifications.ShowWarning("Dodawanie pojazdu", "Dodaj przynajmniej 1 zdjęcie pojazdu!");
                     _logger.LogError("Dodaj przynajmniej 1 zdjęcie pojazdu!");
                     throw new ValidationException("Dodaj przynajmniej 1 zdjęcie pojazdu!");
                 }
@@ -548,6 +545,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
                     _imageRepository.DeleteImage(image.ImageId);
                 }
 
+                _notifications.ShowSuccess("Aktualizacja pojazdu", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new VehicleDetailsViewModel(Vehicle.VehicleId, _vehicleRepository, _imageRepository, _mainWindowViewModel);
                 _logger.LogInformation("Zaktualizowano pojazd w bazie danych!");
 
@@ -555,10 +553,7 @@ public partial class VehicleUpdateViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z aktualizacją pojazdu", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z aktualizacją pojazdu", ex.Message);
             _logger.LogError(ex, "Błąd podczas aktualizacji pojazdu w bazie danych!");
         }
     }

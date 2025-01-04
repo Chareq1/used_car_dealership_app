@@ -4,6 +4,7 @@
              xmlns:li="using:LoadingIndicators.Avalonia"
              x:Class="used_car_dealership_app.App"
              xmlns:local="using:used_car_dealership_app"
+             xmlns:controls="clr-namespace:Avalonia.Notification.Controls;assembly=Notification.Avalonia"
              RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -16,6 +17,10 @@
         <StyleInclude Source="avares://Notification.Avalonia/Themes/Generic.xaml" />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://used_car_dealership_app/Assets/Icons.axaml"></StyleInclude>
+        <Style Selector="controls|NotificationMessage">
+            <Setter Property="Effect" Value="{x:Null}" />
+        </Style>
+
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderBrush" Value="#6BA3BE"/>
         </Style>
@@ -172,6 +177,35 @@
         <Style Selector="TimePicker /template/ Button:selected">
             <Setter Property="CornerRadius" Value="5" />
             <Setter Property="Background" Value="#0A7075" />
+        </Style>
+        
+        <Style Selector="controls|NotificationMessageContainer">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type controls:NotificationMessageContainer}">
+                        <Grid>
+                            <!-- Removed the BoxShadow property -->
+                            <Border
+                                x:Name="ItemsBorder"
+                                Margin="12,0,12,12"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                UseLayoutRounding="True">
+                                <ItemsPresenter />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
     </Application.Styles>
              

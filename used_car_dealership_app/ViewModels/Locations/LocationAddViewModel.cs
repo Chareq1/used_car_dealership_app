@@ -20,6 +20,10 @@ namespace used_car_dealership_app.ViewModels.Locations;
 [CustomInfo("Widok do dodawania lokalizacji", 1.0f)]
 public partial class LocationAddViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<LocationAddViewModel>();
@@ -40,6 +44,7 @@ public partial class LocationAddViewModel : ViewModelBase
     {
         _locationRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         Location.LocationId = Guid.NewGuid();
         
@@ -58,7 +63,7 @@ public partial class LocationAddViewModel : ViewModelBase
     {
         if (!Regex.IsMatch(input, pattern))
         {
-            await ShowPopupAsync(errorMessage);
+            _notifications.ShowError("Błąd walidacji", errorMessage);
             _logger.LogError(errorMessage, "Błąd walidacji pola!");
             throw new ValidationException(errorMessage);
         }
@@ -83,14 +88,6 @@ public partial class LocationAddViewModel : ViewModelBase
             return false;
         }
     }
-    
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z walidacją", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-    }
        
     
     //KOMENDY
@@ -112,12 +109,13 @@ public partial class LocationAddViewModel : ViewModelBase
             {
                 _locationRepository.AddLocation(Location);
                 _mainWindowViewModel.CurrentPage = new LocationsViewModel(_mainWindowViewModel);
+                _notifications.ShowSuccess("Dodawanie lokalizacji", "Operacja zakończona pomyślnie!");
                 _logger.LogInformation("Dodano lokalizację do bazy danych!");
             }
         }
         catch (Exception ex)
         {
-            await ShowPopupAsync($"Wystąpił błąd: {ex.Message}");
+            _notifications.ShowError("Problem z dodaniem lokalizacji", ex.Message);
             _logger.LogError(ex, "Błąd podczas dodawania lokalizacji do bazy danych!");
         }
     }

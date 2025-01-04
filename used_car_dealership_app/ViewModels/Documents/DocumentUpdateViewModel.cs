@@ -26,6 +26,10 @@ namespace used_car_dealership_app.ViewModels.Documents;
 [CustomInfo("Widok do aktualizowania dokumentu", 1.0f)]
 public partial class DocumentUpdateViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+    
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<DocumentUpdateViewModel>();
@@ -97,6 +101,7 @@ public partial class DocumentUpdateViewModel : ViewModelBase
         _userRepository = new UserRepository();
         _vehicleRepository = new VehicleRepository();
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(DocumentsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -267,14 +272,6 @@ public partial class DocumentUpdateViewModel : ViewModelBase
         _logger.LogInformation("Pobrano pojazdy z bazy danych!");
     }
     
-    //Metoda do pokazywania okienka z błędem
-    private async Task ShowPopupAsync(String message)
-    {
-        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd walidacji", message, ButtonEnum.Ok, Icon.Error);
-        var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-        await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-    }
-    
     
     //KOMENDY
     //Komenda do usuwania zdjęcia
@@ -331,7 +328,7 @@ public partial class DocumentUpdateViewModel : ViewModelBase
             {
                 if (NewFile != null || Document.File != null)
                 {
-                    await ShowPopupAsync("Można dodać tylko jeden plik!");
+                    _notifications.ShowWarning("Błąd dodawania pliku", "Można dodać tylko jeden plik!");
                     _logger.LogError("Można dodać tylko jeden plik!");
                     throw new ValidationException("Można dodać tylko jeden plik!");
                 }
@@ -344,9 +341,7 @@ public partial class DocumentUpdateViewModel : ViewModelBase
             }
             catch (Exception ex)
             {
-                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z dodawaniem pliku", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-                await messageBoxStandardWindow.ShowAsPopupAsync(mainWin);
-                
+                _notifications.ShowError("Problem z dodawaniem pliku", ex.Message);
                 _logger.LogError(ex, "Błąd podczas dodawania pliku!");
             }
         }
@@ -360,7 +355,7 @@ public partial class DocumentUpdateViewModel : ViewModelBase
         {
             if(NewFile == null && Document.File == null)
             {
-                await ShowPopupAsync("Dodaj plik do dokumentu!");
+                _notifications.ShowError("Aktualizacja dokumentu", "Dodaj plik do dokumentu!");
                 _logger.LogError("Dodaj plik do dokumentu!");
                 throw new ValidationException("Dodaj plik do dokumentu!");
             }
@@ -381,16 +376,13 @@ public partial class DocumentUpdateViewModel : ViewModelBase
             
             Document.CreationDate = SelectedDate.DateTime;
             _documentRepository.UpdateDocument(Document);
-            
+            _notifications.ShowSuccess("Aktualizacja dokumentu", "Operacja zakończona pomyślnie!");
             _mainWindowViewModel.CurrentPage = new DocumentDetailsViewModel(Document.DocumentId, _documentRepository, _mainWindowViewModel);
             _logger.LogInformation("Zaktualizowano dokument w bazie danych!");
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Błąd z aktualizacją dokumentu", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z aktualizacją dokumentu", ex.Message);
             _logger.LogError(ex, "Błąd podczas aktualizacji dokumentu w bazie danych!");
         }
     }

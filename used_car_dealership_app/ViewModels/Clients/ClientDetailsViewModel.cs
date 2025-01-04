@@ -16,6 +16,10 @@ namespace used_car_dealership_app.ViewModels.Clients;
 [CustomInfo("Widok do wyświetlania danych klienta", 1.0f)]
 public partial class ClientDetailsViewModel : ViewModelBase
 {
+    //POLE DLA USŁUGI NOTYFIKACJI
+    private readonly NotificationService _notifications;
+
+    
     //POLA DLA LOGGERA
     private static ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
     private ILogger _logger = _loggerFactory.CreateLogger<ClientDetailsViewModel>();
@@ -41,6 +45,7 @@ public partial class ClientDetailsViewModel : ViewModelBase
     {
         _customerRepository = repository;
         _mainWindowViewModel = mainWindowViewModel;
+        _notifications = new NotificationService(_mainWindowViewModel);
         
         var attributes = typeof(ClientDetailsViewModel).GetCustomAttributes(typeof(CustomInfoAttribute), false);
         if (attributes.Length > 0)
@@ -110,16 +115,14 @@ public partial class ClientDetailsViewModel : ViewModelBase
             if (result == ButtonResult.Yes)
             {
                 _customerRepository.DeleteCustomer(customer.CustomerId);
+                _notifications.ShowSuccess("Usuwanie klienta", "Operacja zakończona pomyślnie!");
                 _mainWindowViewModel.CurrentPage = new ClientsViewModel(_mainWindowViewModel);
                 _logger.LogInformation("Usunięto klienta!");
             }
         }
         catch (Exception ex)
         {
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard("Validation Error", $"Wystąpił błąd: {ex.Message}", ButtonEnum.Ok, Icon.Error);
-            var mainWindow = (MainWindow)((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
-            await messageBoxStandardWindow.ShowAsPopupAsync(mainWindow);
-            
+            _notifications.ShowError("Problem z usunięciem klienta", ex.Message);
             _logger.LogError(ex, "Błąd podczas usuwania klienta z bazy danych!");
         }
     }
