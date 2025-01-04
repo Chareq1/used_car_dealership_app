@@ -61,112 +61,112 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Text="Marka:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Marka:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Brand}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" />
                 
-                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <TextBlock Text="{Binding Vehicle.VehicleId}" Grid.Row="0" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
 
-                <TextBlock Text="Model:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Model:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Model}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Typ pojazdu:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Typ pojazdu:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Type}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" />
                 
-                <TextBlock Text="VIN:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="VIN:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.VIN}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
                 
-                <TextBlock Text="Typ nadwozia:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Typ nadwozia:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.BodyType}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Rok produkcji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Rok produkcji:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.ProductionYear}" Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Kraj produkcji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Kraj produkcji:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.ProductionCountry}" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Data pierwszej rejestracji:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Data pierwszej rejestracji:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.FirstRegistrationDate, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Row="7" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Kraj pochodzenia:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Kraj pochodzenia:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.OriginCountry}" Grid.Row="8" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Przebieg:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Przebieg:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Mileage}" Grid.Row="9" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Liczba drzwi:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Liczba drzwi:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Doors}" Grid.Row="10" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Kolor:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Kolor:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Color}" Grid.Row="11" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Skrzynia biegów:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Skrzynia biegów:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Transmission}" Grid.Row="12" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="13" Grid.Column="0" />
-                <TextBlock Text="{Binding Vehicle.Description}" Margin="0,10,0,0" Grid.Row="13" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextWrapping="Wrap" Width="600"/>
+                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="13" Grid.Column="0" />
+                <TextBlock Text="{Binding Vehicle.Description}" Margin="0,10,5,0" Grid.Row="13" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextWrapping="Wrap" Width="600"/>
 
-                <TextBlock Text="Napęd:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="14" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Napęd:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="14" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Drive}" Grid.Row="14" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Cena:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Cena:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.Price}" Grid.Row="15" Grid.Column="1" VerticalAlignment="Bottom" />
                 
-                <TextBlock Text="Lokalizacja:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Lokalizacja:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.LocationNameAddress}" Grid.Row="16" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Typ silnika:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Typ silnika:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Vehicle.EngineType}" Grid.Row="17" Grid.Column="1" VerticalAlignment="Bottom" />
                 
-                <TextBlock Text="Wyposażenie:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Wyposażenie:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding EquipmentListString}" Grid.Row="18" Grid.Column="1" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
                 
                 
                 <!-- Elektryczny -->
-                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.BatterySize}" Grid.Row="19" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsElectricVehicle}"/>
                 
-                <TextBlock Text="Moc silnika:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBlock Text="Moc silnika:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.ElectricEnginePower}" Grid.Row="20" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsElectricVehicle}"/>
                 
-                <TextBlock Text="Zużycie [kWh/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
+                <TextBlock Text="Zużycie [kWh/100km]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsElectricVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Consumption}" Grid.Row="21" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsElectricVehicle}"/>
 
                 
                 <!-- Benzynowy -->
-                <TextBlock Text="Rodzaj paliwa:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBlock Text="Rodzaj paliwa:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.FuelType}" Grid.Row="19" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsFuelVehicle}"/>
                 
-                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.EngineSize}" Grid.Row="20" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsFuelVehicle}"/>
                 
-                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Power}" Grid.Row="21" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsFuelVehicle}"/>
                 
-                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Co2Emission}" Grid.Row="22" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsFuelVehicle}"/>
                 
-                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="23" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
+                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="23" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsFuelVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Consumption}" Grid.Row="23" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsFuelVehicle}"/>
                 
                 
                 <!-- Hybrydowy -->
-                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Pojemność baterii [kWh]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.BatterySize}" Grid.Row="19" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
-                <TextBlock Text="Moc silnika elektrycznego:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Moc silnika elektrycznego:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.ElectricEnginePower}" Grid.Row="20" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
-                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Pojemność silnika [cm3]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.EngineSize}" Grid.Row="21" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
-                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Moc silnika [KM]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Power}" Grid.Row="22" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
-                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="23" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Standard emisji:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="23" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Co2Emission}" Grid.Row="23" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
-                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="24" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
+                <TextBlock Text="Spalanie [l/100km]:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="24" Grid.Column="0" VerticalAlignment="Center" IsVisible="{Binding IsHybridVehicle}"/>
                 <TextBlock Text="{Binding Vehicle.Consumption}" Grid.Row="24" Grid.Column="1" VerticalAlignment="Bottom"  IsVisible="{Binding IsHybridVehicle}"/>
                 
                  <Grid Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,20,0,0" IsVisible="{Binding AreThereImages}">

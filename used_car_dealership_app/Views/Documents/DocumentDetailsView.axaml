@@ -42,22 +42,22 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" />
+                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="0" />
                 <TextBlock Text="{Binding Document.Description}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="300" TextWrapping="Wrap" />
 
-                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                 <TextBlock Text="{Binding Document.DocumentId}" Margin="0,10,0,0"  VerticalAlignment="Top" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right"/>
 
-                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Document.CustomerFullName}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Użytkownik:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Użytkownik:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Document.UserFullName}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Pojazd:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Pojazd:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Document.VehicleFullName}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
 
-                <TextBlock Text="Data utworzenia:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Data utworzenia:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Document.CreationDate, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" />
             </Grid>
         </ScrollViewer>

@@ -92,7 +92,9 @@ public partial class DocumentsViewModel : ViewModelBase
     //Metoda do wczytywania dokumentów z bazy danych
     private async Task LoadDocuments()
     {
-        var dataTable = await Task.Run<DataTable>(() => _documentRepository.GetAllDocuments());
+        var query = "SELECT * FROM documents ORDER BY \"creationDate\" DESC";
+        var parameters = new List<NpgsqlParameter>();
+        var dataTable = await Task.Run<DataTable>(() => _documentRepository.ExecuteQuery(query, parameters));
 
         if (dataTable.Rows.Count == 0)
         {
@@ -189,16 +191,16 @@ public partial class DocumentsViewModel : ViewModelBase
         switch (SelectedSearchField)
         {
             case "Opis":
-                query = $"SELECT * FROM documents WHERE \"description\" LIKE @searchText";
+                query = $"SELECT * FROM documents WHERE \"description\" LIKE @searchText ORDER BY \"creationDate\" DESC";
                 break;
             case "Nazwisko klienta":
-                query = $"SELECT * FROM \"documents\" WHERE \"customerId\" IN (SELECT \"customerId\" FROM \"customers\" WHERE \"surname\" LIKE @searchText)";
+                query = $"SELECT * FROM \"documents\" WHERE \"customerId\" IN (SELECT \"customerId\" FROM \"customers\" WHERE \"surname\" LIKE @searchText) ORDER BY \"creationDate\" DESC";
                 break;
             case "VIN pojazdu":
-                query = $"SELECT * FROM \"documents\" WHERE \"vehicleId\" IN (SELECT \"vehicleId\" FROM \"vehicles\" WHERE \"VIN\" LIKE @searchText)";
+                query = $"SELECT * FROM \"documents\" WHERE \"vehicleId\" IN (SELECT \"vehicleId\" FROM \"vehicles\" WHERE \"VIN\" LIKE @searchText) ORDER BY \"creationDate\" DESC";
                 break;
             case "Nazwisko użytkownika":
-                query = $"SELECT * FROM \"documents\" WHERE \"userId\" IN (SELECT \"userId\" FROM \"users\" WHERE \"surname\" LIKE @searchText)";
+                query = $"SELECT * FROM \"documents\" WHERE \"userId\" IN (SELECT \"userId\" FROM \"users\" WHERE \"surname\" LIKE @searchText) ORDER BY \"creationDate\" DESC";
                 break;
         }
         

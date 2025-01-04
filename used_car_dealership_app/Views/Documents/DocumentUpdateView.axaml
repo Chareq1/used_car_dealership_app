@@ -43,25 +43,25 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top"/>
+                <TextBlock Text="Opis:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding Document.Description, Mode=TwoWay}" MaxLength="255" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Margin="0,10,0,0" Width="200"/>
                 
-                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Right"/>
+                <TextBlock Text="ID:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Right"/>
                 <TextBlock Text="{Binding Document.DocumentId}" Margin="0,10,0,0" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right"/>
                 
-                <TextBlock Text="Data utworzenia:  " FontWeight="Bold" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Data utworzenia:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
                 <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"  Width="200"/>
 
-                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
                 <ComboBox ItemsSource="{Binding Customers}"  SelectedItem="{Binding Document.Customer, Mode=TwoWay}" DisplayMemberBinding="{Binding FullNamePESEL}" Grid.Row="2" Grid.Column="1" PlaceholderText="{Binding Document.Customer.FullNamePESEL}" Margin="0,10,0,0" Width="200"/>
 
-                <TextBlock Text="Pojazd:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Pojazd:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
                 <ComboBox ItemsSource="{Binding Vehicles}"  SelectedItem="{Binding Document.Vehicle, Mode=TwoWay}" DisplayMemberBinding="{Binding FullNameVin}" Grid.Row="3" Grid.Column="1" PlaceholderText="{Binding Document.Vehicle.FullNameVin}" Margin="0,10,0,0" Width="200" />
 
-                <TextBlock Text="Użytkownik:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Użytkownik:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
                 <ComboBox ItemsSource="{Binding Users}"  SelectedItem="{Binding Document.User, Mode=TwoWay}" DisplayMemberBinding="{Binding FullNamePESEL}" Grid.Row="4" Grid.Column="1" PlaceholderText="{Binding Document.User.FullNamePESEL}" Margin="0,10,0,0" Width="200"/>
                 
-                <TextBlock Text="Plik:" FontWeight="Bold" Margin="0,10,0,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBlock Text="Plik:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
                 <ScrollViewer Grid.Row="5" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,10,0,0">
                     <StackPanel>
                         <Border CornerRadius="5" Padding="5" Margin="0,0,5,10" Background="#274D60" Width="200" VerticalAlignment="Center" IsVisible="{Binding IsFileSelected}">

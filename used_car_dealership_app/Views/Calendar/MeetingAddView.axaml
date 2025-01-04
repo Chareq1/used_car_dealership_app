@@ -39,20 +39,20 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Opis: " FontWeight="Bold" Margin="0,10,0,10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding Meeting.Description, Mode=TwoWay}" MaxLength="255" Grid.Row="0" Grid.Column="1" Width="200" Height="50" TextWrapping="Wrap" Margin="0,10,0,10" />
+                <TextBlock Text="Opis: " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Meeting.Description, Mode=TwoWay}" MaxLength="255" Grid.Row="0" Grid.Column="1" Width="200" Height="50" TextWrapping="Wrap" Margin="0,10,0,0" />
                 
-                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberBinding="{Binding CustomerFullName}" PlaceholderText="---" Margin="0,10,0,10" Width="200"/>
+                <TextBlock Text="Klient:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberBinding="{Binding CustomerFullName}" PlaceholderText="---" Margin="0,10,0,0" Width="200"/>
 
-                <TextBlock Text="Lokalizacja:  " FontWeight="Bold" Margin="0,10,0,10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" DisplayMemberBinding="{Binding Name}" PlaceholderText="---" Margin="0,10,0,10" Width="200"/>
+                <TextBlock Text="Lokalizacja:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" DisplayMemberBinding="{Binding Name}" PlaceholderText="---" Margin="0,10,0,0" Width="200"/>
 
-                <TextBlock Text="Data:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-                <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedDate}" Margin="0,10,0,10" Width="200"/>
+                <TextBlock Text="Data:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedDate}" Margin="0,10,0,0" Width="200"/>
                 
-                <TextBlock Text="Czas:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
-                <TimePicker  Grid.Row="4" Grid.Column="1" SelectedTime="{Binding SelectedTime}" Margin="0,10,0,10" Width="200"/>
+                <TextBlock Text="Czas:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TimePicker  Grid.Row="4" Grid.Column="1" SelectedTime="{Binding SelectedTime}" Margin="0,10,0,0" Width="200"/>
             </Grid>
         </ScrollViewer>
 

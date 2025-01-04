@@ -46,44 +46,44 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Nazwa użytkownika:  " FontWeight="Bold" Margin="0,10,0,10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Username, Mode=TwoWay}" IsReadOnly="True" MaxLength="255" Grid.Row="0" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyEmailKeyDown"/>
+                <TextBlock Text="Nazwa użytkownika:  " FontWeight="Bold" Margin="0,10,5,0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Username, Mode=TwoWay}" IsReadOnly="True" MaxLength="255" Grid.Row="0" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyEmailKeyDown"/>
 
                 <TextBlock Text="ID:  " FontWeight="Bold" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <TextBlock Text="{Binding User.UserId}" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-                <TextBlock Text="Hasło:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Password, Mode=TwoWay}" PasswordChar="*" RevealPassword="False" MaxLength="255" Grid.Row="1" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyEmailKeyDown"/>
+                <TextBlock Text="Hasło:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Password, Mode=TwoWay}" PasswordChar="*" RevealPassword="False" MaxLength="255" Grid.Row="1" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyEmailKeyDown"/>
 
-                <TextBlock Text="Typ użytkownika:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox ItemsSource="{Binding UserTypes}" SelectedItem="{Binding User.Type}" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,10,0,10"/>
+                <TextBlock Text="Typ użytkownika:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding UserTypes}" SelectedItem="{Binding User.Type}" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,10,0,0"/>
 
-                <TextBlock Text="Imię:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Name, Mode=TwoWay}" MaxLength="255" Grid.Row="3" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyLettersKeyDown"/>
+                <TextBlock Text="Imię:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Name, Mode=TwoWay}" MaxLength="255" Grid.Row="3" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyLettersKeyDown"/>
 
-                <TextBlock Text="Nazwisko:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Surname, Mode=TwoWay}" MaxLength="255" Grid.Row="4" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyLettersAndMinusKeyDown"/>
+                <TextBlock Text="Nazwisko:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Surname, Mode=TwoWay}" MaxLength="255" Grid.Row="4" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyLettersAndMinusKeyDown"/>
 
-                <TextBlock Text="PESEL:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.PESEL, Mode=TwoWay}" MaxLength="255" Grid.Row="5" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyDigitsKeyDown"/>
+                <TextBlock Text="PESEL:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.PESEL, Mode=TwoWay}" MaxLength="255" Grid.Row="5" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyDigitsKeyDown"/>
 
-                <TextBlock Text="Email:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Email, Mode=TwoWay}" MaxLength="255" Grid.Row="6" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyEmailKeyDown"/>
+                <TextBlock Text="Email:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Email, Mode=TwoWay}" MaxLength="255" Grid.Row="6" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyEmailKeyDown"/>
 
-                <TextBlock Text="Nr telefonu:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Phone, Mode=TwoWay}" MaxLength="9" Grid.Row="7" Grid.Column="1" Width="200" Margin="0,10,0,10" KeyDown="OnlyDigitsKeyDown"/>
+                <TextBlock Text="Nr telefonu:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Phone, Mode=TwoWay}" MaxLength="9" Grid.Row="7" Grid.Column="1" Width="200" Margin="0,10,0,0" KeyDown="OnlyDigitsKeyDown"/>
 
-                <TextBlock Text="Kod pocztowy:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.ZipCode, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" MaxLength="6" Margin="0,10,0,10" KeyDown="OnlyDigitsAndMinusKeyDown"/>
+                <TextBlock Text="Kod pocztowy:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.ZipCode, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" MaxLength="6" Margin="0,10,0,0" KeyDown="OnlyDigitsAndMinusKeyDown"/>
 
-                <TextBlock Text="Miejscowość:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.City, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" MaxLength="255" Margin="0,10,0,10" KeyDown="OnlyLettersAndMinusAndSpaceKeyDown"/>
+                <TextBlock Text="Miejscowość:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.City, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" MaxLength="255" Margin="0,10,0,0" KeyDown="OnlyLettersAndMinusAndSpaceKeyDown"/>
 
-                <TextBlock Text="Ulica:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.Street, Mode=TwoWay}" Grid.Row="10" Grid.Column="1" MaxLength="255" Margin="0,10,0,10" KeyDown="OnlyLettersAndMinusAndSpaceKeyDown"/>
+                <TextBlock Text="Ulica:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.Street, Mode=TwoWay}" Grid.Row="10" Grid.Column="1" MaxLength="255" Margin="0,10,0,0" KeyDown="OnlyLettersAndMinusAndSpaceKeyDown"/>
 
-                <TextBlock Text="Nr domu:" FontWeight="Bold" Margin="0,10,0,10" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox Text="{Binding User.HouseNumber, Mode=TwoWay}" Grid.Row="11" Grid.Column="1" MaxLength="10" Margin="0,10,0,10" KeyDown="OnlyHouseNumberKeyDown"/>
+                <TextBlock Text="Nr domu:" FontWeight="Bold" Margin="0,10,5,0" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
+                <TextBox Text="{Binding User.HouseNumber, Mode=TwoWay}" Grid.Row="11" Grid.Column="1" MaxLength="10" Margin="0,10,0,0" KeyDown="OnlyHouseNumberKeyDown"/>
             </Grid>
         </ScrollViewer>
 
